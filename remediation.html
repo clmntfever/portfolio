@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remediation Objectives · Clément Blindron</title>
+  <meta name="description" content="Case study: Designing a workflow that turns thousands of security control gaps into a clear, prioritised remediation plan." />
+  <meta name="author" content="Clément Blindron" />
+  <!-- OG -->
+  <meta property="og:title" content="Remediation Objectives · Clément Blindron" />
+  <meta property="og:description" content="Case study: Designing a workflow that turns thousands of security control gaps into a clear, prioritised remediation plan." />
+  <meta property="og:type" content="article" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE-SPECIFIC: REMEDIATION ──────────────────────── */
+
+    /* Dark hero */
+    .rem-hero {
+      background: #1c1f2e;
+      width: 100%;
+      padding: 48px var(--pad-h) 0;
+      display: flex;
+      justify-content: center;
+    }
+    .rem-hero__inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-w);
+      min-height: 212px;
+      padding-bottom: 0;
+    }
+    .rem-hero__text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 24px;
+      max-width: 580px;
+    }
+    .rem-hero__eyebrow {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.56px;
+      text-transform: uppercase;
+    }
+    .rem-hero__title {
+      font-size: 44px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    .rem-hero__subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+    .rem-hero__thumb {
+      flex-shrink: 0;
+      width: 380px;
+      height: 232px;
+      overflow: hidden;
+      border-radius: 8px 8px 0 0;
+      align-self: flex-end;
+    }
+    .rem-hero__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Overview section ─────────────────────────────────── */
+    .overview-layout {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .overview-text {
+      flex: 1;
+      max-width: 570px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .overview-text p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: #444;
+    }
+    .overview-text h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.48px;
+      line-height: 1.2;
+      color: #1a1a1a;
+    }
+
+    /* Dotted network illustration placeholder */
+    .network-visual {
+      flex-shrink: 0;
+      width: 260px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Quote callout ────────────────────────────────────── */
+    .quote-callout {
+      background: var(--bg-warm);
+      border-left: 3px solid var(--color-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.7;
+      color: #333;
+      margin: 8px 0;
+    }
+
+    /* ── Stats Row (problem numbers) ─────────────────────── */
+    .problem-stats {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg);
+      width: 100%;
+    }
+    .problem-stat {
+      flex: 1;
+      padding: 28px 24px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .problem-stat:last-child { border-right: none; }
+    .problem-stat__value {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+    .problem-stat__label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Research grid ─────────────────────────────────────── */
+    .research-intro {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: #444;
+      max-width: 800px;
+      margin-bottom: 32px;
+    }
+
+    /* ── Personas ─────────────────────────────────────────── */
+    .personas-intro {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: #444;
+      max-width: 800px;
+      margin-bottom: 32px;
+    }
+
+    /* ── Process heading ──────────────────────────────────── */
+    .process-heading h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: -0.48px;
+      line-height: 1.2;
+    }
+
+    /* ── Solution section ─────────────────────────────────── */
+    .solution-text {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.75);
+      max-width: 800px;
+    }
+    .solution-screens {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      margin-top: 32px;
+    }
+    .solution-screen-caption {
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-top: 8px;
+    }
+    /* Placeholder screen (for Panaseer UI screenshots) */
+    .ui-screen-placeholder {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      background: #13151d;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.25);
+      font-size: 13px;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ── Impact stats ──────────────────────────────────────── */
+    .impact-stats-row {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg);
+      width: 100%;
+    }
+    .impact-stat-block {
+      flex: 1;
+      padding: 28px 24px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .impact-stat-block:last-child { border-right: none; }
+    .impact-stat-block__value {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .impact-stat-block__label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-top: 4px;
+    }
+    .impact-stat-block__sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Tablet ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .rem-hero { padding: 40px 48px 0; }
+      .rem-hero__inner { flex-direction: column; min-height: unset; align-items: flex-start; gap: 32px; }
+      .rem-hero__thumb { width: 100%; height: 220px; border-radius: 8px; align-self: auto; }
+      .rem-hero__title { font-size: 34px; }
+      .overview-layout { flex-direction: column; }
+      .network-visual { display: none; }
+      .problem-stats { flex-wrap: wrap; }
+      .problem-stat { min-width: 45%; }
+      .impact-stats-row { flex-wrap: wrap; }
+      .impact-stat-block { min-width: 45%; }
+    }
+
+    @media (max-width: 600px) {
+      .rem-hero { padding: 32px 20px 0; }
+      .rem-hero__title { font-size: 28px; }
+      .rem-hero__thumb { height: 180px; }
+      .problem-stat { min-width: 100%; }
+      .impact-stat-block { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ═══════════════════════════════════════════════════ HEADER -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          clem
+          <span class="logo-dot" aria-hidden="true"></span>
+        </a>
+        <a href="mailto:clement.blindron@gmail.com" class="btn-cta">
+          Let's talk
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════ DARK HERO -->
+    <div class="rem-hero" aria-label="Case study hero">
+      <div class="rem-hero__inner">
+        <div class="rem-hero__text">
+          <p class="rem-hero__eyebrow">UI / Product Design · Cybersecurity SaaS · Panaseer · Back-office</p>
+          <h1 class="rem-hero__title">Remediation<br>Objectives</h1>
+          <p class="rem-hero__subtitle">Designing a workflow that turns thousands of security control gaps into a clear, prioritised remediation plan.</p>
+        </div>
+        <div class="rem-hero__thumb">
+          <img src="./assets/thumbnail-remediation.png"
+               alt="Remediation Objectives — Panaseer interface screenshot" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ META BAR -->
+    <div class="meta-bar" role="complementary" aria-label="Project details">
+      <div class="meta-bar__inner">
+        <div class="meta-item">
+          <span class="meta-item__label">My Role</span>
+          <span class="meta-item__value">Product Designer</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__label">Timeline</span>
+          <span class="meta-item__value">2 months</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__label">Platform</span>
+          <span class="meta-item__value">B2B SaaS · Web App</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__label">Team</span>
+          <span class="meta-item__value">Product Manager · Engineers · Data Analysts</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__label">Methods</span>
+          <span class="meta-item__value">Discovery · Prototyping · Testing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ THE PROBLEM -->
+    <section class="case-section" aria-labelledby="problem-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>The Problem</span>
+          </div>
+          <h2 id="problem-heading">Security teams were drowning in data,<br>but starving for direction.</h2>
+        </div>
+        <div class="overview-layout">
+          <div class="overview-text">
+            <p>Panaseer is a continuous controls monitoring platform used by enterprises. It gave CISO-level teams amazing data. But Security teams logged data from hundreds of tools and Panaseer to have to surface this in a human way.</p>
+            <p>But surfacing wasn't enough. Security teams could identify risks, but lacked a structured way to track, assign, and resolve them at scale. Every morning meant updating spreadsheets and manually coordinating remediation efforts.</p>
+          </div>
+          <!-- Network dots visual -->
+          <div class="network-visual" aria-hidden="true">
+            <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="110" cy="90" r="8" fill="#4f7eff" opacity="0.9"/>
+              <circle cx="60"  cy="48" r="5" fill="#4f7eff" opacity="0.5"/>
+              <circle cx="160" cy="48" r="5" fill="#4f7eff" opacity="0.5"/>
+              <circle cx="40"  cy="120" r="5" fill="#4f7eff" opacity="0.4"/>
+              <circle cx="180" cy="120" r="5" fill="#4f7eff" opacity="0.4"/>
+              <circle cx="110" cy="148" r="5" fill="#4f7eff" opacity="0.4"/>
+              <circle cx="20"  cy="80" r="4" fill="#e4ddd0" opacity="0.8"/>
+              <circle cx="200" cy="80" r="4" fill="#e4ddd0" opacity="0.8"/>
+              <circle cx="90"  cy="20" r="4" fill="#e4ddd0" opacity="0.8"/>
+              <circle cx="140" cy="20" r="4" fill="#e4ddd0" opacity="0.8"/>
+              <line x1="110" y1="90" x2="60" y2="48" stroke="#4f7eff" stroke-width="1" opacity="0.3"/>
+              <line x1="110" y1="90" x2="160" y2="48" stroke="#4f7eff" stroke-width="1" opacity="0.3"/>
+              <line x1="110" y1="90" x2="40" y2="120" stroke="#4f7eff" stroke-width="1" opacity="0.3"/>
+              <line x1="110" y1="90" x2="180" y2="120" stroke="#4f7eff" stroke-width="1" opacity="0.3"/>
+              <line x1="110" y1="90" x2="110" y2="148" stroke="#4f7eff" stroke-width="1" opacity="0.3"/>
+              <line x1="60" y1="48" x2="20" y2="80" stroke="#e4ddd0" stroke-width="1" opacity="0.4"/>
+              <line x1="160" y1="48" x2="200" y2="80" stroke="#e4ddd0" stroke-width="1" opacity="0.4"/>
+              <line x1="60" y1="48" x2="90" y2="20" stroke="#e4ddd0" stroke-width="1" opacity="0.4"/>
+              <line x1="160" y1="48" x2="140" y2="20" stroke="#e4ddd0" stroke-width="1" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Quote callout -->
+        <div class="quote-callout" role="blockquote">
+          "We have 4,000 control failures. My team can action maybe 40 of them. All I'm asking: where do we start?"
+        </div>
+
+        <!-- Stats row -->
+        <div class="problem-stats" role="list" aria-label="Key statistics">
+          <div class="problem-stat" role="listitem">
+            <span class="problem-stat__value">4,000+</span>
+            <span class="problem-stat__label">Control failures monitored at any given time</span>
+          </div>
+          <div class="problem-stat" role="listitem">
+            <span class="problem-stat__value">100%</span>
+            <span class="problem-stat__label">Single remediation tracking found</span>
+          </div>
+          <div class="problem-stat" role="listitem">
+            <span class="problem-stat__value">3 to 5</span>
+            <span class="problem-stat__label">Users per organisation who regularly coordinate remediation work</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ RESEARCH -->
+    <section class="case-section case-section--warm" aria-labelledby="research-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>Discovery</span>
+          </div>
+          <h2 id="research-heading">Understanding the work<br>before designing for it.</h2>
+        </div>
+        <p class="research-intro">I facilitated a half-day user co-workshop with 10 stakeholders: product, engineering, customer success, and end users to align on the problem definition before any design work started. The generated insights allowed us to narrow our design space significantly.</p>
+
+        <!-- Research activity cards -->
+        <div class="research-grid" role="list">
+          <div class="research-card" role="listitem">
+            <div class="research-card__icon">📋</div>
+            <p class="research-card__title">Team Progress</p>
+            <p class="research-card__text">Existing objectives tracking, team habits, and the hand-off gaps that caused things to fall through the cracks.</p>
+          </div>
+          <div class="research-card" role="listitem">
+            <div class="research-card__icon">🎯</div>
+            <p class="research-card__title">Manage Goals</p>
+            <p class="research-card__text">Created tasks, notes, and milestones without leaving the tool — without ever losing the original objective.</p>
+          </div>
+          <div class="research-card" role="listitem">
+            <div class="research-card__icon">📊</div>
+            <p class="research-card__title">Visual Insights</p>
+            <p class="research-card__text">Charts that connect progress to control improvements, so leadership could track design impact in real time.</p>
+          </div>
+          <div class="research-card" role="listitem">
+            <div class="research-card__icon">🔗</div>
+            <p class="research-card__title">Access to Data</p>
+            <p class="research-card__text">Direct link to the underlying data for each objective data so the data teams can go even deeper into the root cause.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ PERSONAS -->
+    <section class="case-section" aria-labelledby="personas-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>Users</span>
+          </div>
+          <h2 id="personas-heading">Different personas,<br>different levels of engagement.</h2>
+        </div>
+        <p class="personas-intro">Angela and Gideon mainly interacted with remediation through reporting and oversight, while Sidwan and Pablo managed control gaps day to day. We conducted reporting needs that supported their consolidated reporting needs.</p>
+
+        <div class="personas-grid" role="list">
+          <!-- Persona 1 -->
+          <div class="persona-card persona-card--green" role="listitem">
+            <p class="persona-card__role">Security Analyst · Daily use</p>
+            <p class="persona-card__name">Alice</p>
+            <p class="persona-card__quote">"I spend half my day tracking what's actually been fixed. Right now that means three different spreadsheets and constant Slack follow-ups."</p>
+          </div>
+          <!-- Persona 2 -->
+          <div class="persona-card persona-card--purple" role="listitem">
+            <p class="persona-card__role">Security Engineer · Daily use</p>
+            <p class="persona-card__name">Anthony</p>
+            <p class="persona-card__quote">"Tell me what to fix, why it matters, and when it needs to be done. I don't need another after effect of a security tool."</p>
+          </div>
+          <!-- Persona 3 -->
+          <div class="persona-card persona-card--green" role="listitem">
+            <p class="persona-card__role">Security Operations Lead · Weekly use</p>
+            <p class="persona-card__name">Angus</p>
+            <p class="persona-card__quote">"I want to know at a glance: which objectives are on track, which ones I need to get involved with, and whether we'll hit our target this quarter."</p>
+          </div>
+          <!-- Persona 4 -->
+          <div class="persona-card persona-card--purple" role="listitem">
+            <p class="persona-card__role">CISO · Monthly reporting use</p>
+            <p class="persona-card__name">Collins</p>
+            <p class="persona-card__quote">"Show me the direction of travel. Are we getting better? Can I defend our posture to the board?"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ PROCESS / CAROUSEL -->
+    <section class="case-section case-section--warm" aria-labelledby="process-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>The Process</span>
+          </div>
+          <h2 id="process-heading">From Crazy 8s to shipped<br>product in 6 months.</h2>
+          <p>Three phases, each validated before moving forward. Click any card to expand.</p>
+        </div>
+
+        <!-- ─── CAROUSEL ─── -->
+        <div class="carousel" role="list" aria-label="Design process phases" id="process-carousel">
+
+          <!-- Card 01: FigJam Discovery -->
+          <div class="carousel-card" role="listitem" aria-expanded="false" data-card="0" tabindex="0">
+            <div class="carousel-card__header">
+              <p class="carousel-card__num">01</p>
+              <p class="carousel-card__title">FigJam Discovery</p>
+              <p class="carousel-card__desc">Mapped the full remediation workflow with the team. Identified with the data and engineering team the properties and data input/output of a remediation objective. The journey mapped two fundamental modes: creation (rare, deliberate) and monitoring (frequent, quick-scan). This split shaped the entire IA.</p>
+            </div>
+            <div class="carousel-card__toggle" aria-hidden="true">
+              <span class="carousel-card__plus"></span>
+            </div>
+            <!-- Expandable content -->
+            <div class="carousel-card__expand" aria-hidden="true">
+              <div class="carousel-card__expand-inner">
+                <img src="./assets/user-journey-1.png"
+                     alt="User journey map — FigJam session" loading="lazy" />
+                <img src="./assets/user-journey-2.png"
+                     alt="User journey — creation vs monitoring modes" loading="lazy" />
+                <img src="./assets/data-model.png"
+                     alt="Data model — remediation objective properties" loading="lazy" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 02: Crazy 8s -->
+          <div class="carousel-card" role="listitem" aria-expanded="false" data-card="1" tabindex="0">
+            <div class="carousel-card__header">
+              <p class="carousel-card__num">02</p>
+              <p class="carousel-card__title">Crazy 8s</p>
+              <p class="carousel-card__desc">8 concepts / 8 minutes / 3 perspectives: engineering, customer success, and end users.</p>
+            </div>
+            <div class="carousel-card__toggle" aria-hidden="true">
+              <span class="carousel-card__plus"></span>
+            </div>
+            <!-- Expandable content -->
+            <div class="carousel-card__expand" aria-hidden="true">
+              <div class="carousel-card__expand-inner">
+                <!-- 4-up Crazy 8s sketches -->
+                <div class="crazy8-grid">
+                  <div class="crazy8-img-wrap">
+                    <img src="./assets/crazy8s-spritesheet.png"
+                         alt="Crazy 8s sketch — concept 1" loading="lazy"
+                         style="object-position: 0 0;" />
+                  </div>
+                  <div class="crazy8-img-wrap">
+                    <img src="./assets/crazy8s-spritesheet.png"
+                         alt="Crazy 8s sketch — concept 2" loading="lazy"
+                         style="object-position: 33.33% 0;" />
+                  </div>
+                  <div class="crazy8-img-wrap">
+                    <img src="./assets/crazy8s-spritesheet.png"
+                         alt="Crazy 8s sketch — concept 3" loading="lazy"
+                         style="object-position: 66.66% 0;" />
+                  </div>
+                  <div class="crazy8-img-wrap">
+                    <img src="./assets/crazy8s-spritesheet.png"
+                         alt="Crazy 8s sketch — concept 4" loading="lazy"
+                         style="object-position: 100% 0;" />
+                  </div>
+                </div>
+
+                <!-- 3 perspectives -->
+                <p class="perspectives-label">3 perspectives:</p>
+                <div class="perspective-card">
+                  <div class="perspective-card__header">
+                    <span class="perspective-card__icon">💻</span>
+                    <p class="perspective-card__title">Engineers — Focused on data structure</p>
+                  </div>
+                  <p class="perspective-card__text">Remediation objects needed to connect to control gaps, assets, and users at the same time. That's a complex relationship that shaped the entire information architecture. Most designers skip this conversation.</p>
+                </div>
+                <div class="perspective-card">
+                  <div class="perspective-card__header">
+                    <span class="perspective-card__icon">🤝</span>
+                    <p class="perspective-card__title">Customer Success — Focused on client feedback</p>
+                  </div>
+                  <p class="perspective-card__text">Clients weren't asking for a better dashboard. They were asking: "Can I assign this to my engineer and know they've seen it?" That's an ownership problem, not a visualisation problem.</p>
+                </div>
+                <div class="perspective-card" style="margin-bottom:0">
+                  <div class="perspective-card__header">
+                    <span class="perspective-card__icon">🔍</span>
+                    <p class="perspective-card__title">End Users — Focused on analyst expectations</p>
+                  </div>
+                  <p class="perspective-card__text">Analysts think in deadlines and ownership, not risk scores. They wanted something closer to a ticket system — familiar, actionable, not another security tool.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 03: Wireframes -->
+          <div class="carousel-card" role="listitem" aria-expanded="false" data-card="2" tabindex="0">
+            <div class="carousel-card__header">
+              <p class="carousel-card__num">03</p>
+              <p class="carousel-card__title">Wireframes</p>
+              <p class="carousel-card__desc">Low-fidelity flows for Create, List, and Detail screens. Validated with engineers early. I built low-fi wireframes to test the core flows with real users. These were deliberately rough — the goal was to validate structure, not visual design.</p>
+            </div>
+            <div class="carousel-card__toggle" aria-hidden="true">
+              <span class="carousel-card__plus"></span>
+            </div>
+            <!-- Expandable content -->
+            <div class="carousel-card__expand" aria-hidden="true">
+              <div class="carousel-card__expand-inner">
+                <img src="./assets/wireframes-1.png"
+                     alt="Wireframes — Create Remediation Objective flow" loading="lazy"
+                     style="border:1px solid #000; border-radius:16px;" />
+                <img src="./assets/wireframes-2.png"
+                     alt="Wireframes — Remediation Objectives list view" loading="lazy"
+                     style="border:1px solid #000; border-radius:16px;" />
+                <img src="./assets/wireframes-3.png"
+                     alt="Wireframes — Remediation detail & progress" loading="lazy"
+                     style="border-radius:16px;" />
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /carousel -->
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ THE SOLUTION (dark) -->
+    <section class="case-section case-section--dark" aria-labelledby="solution-heading" style="background:#1c1f2e;">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span style="color:var(--text-muted);">The Solution</span>
+          </div>
+          <h2 id="solution-heading" style="color:#fff;">Create, track, and close remediation objectives in one streamlined workflow.</h2>
+        </div>
+        <p class="solution-text" style="margin-bottom:32px;">The Remediation Objectives feature gives Security teams a structured, end-to-end workspace for managing their remediation work. Two views exist: an overview page surfacing the most important information at a glance, and an objective-level detail view, with a timeline and checklist to track overall remediation progress, to track control gaps within the expected timeframe.</p>
+
+        <!-- Solution screens - browser frames -->
+        <div class="solution-screens">
+          <!-- Screen 1: Create modal -->
+          <div>
+            <div class="browser-frame">
+              <div class="browser-frame__bar">
+                <div class="browser-frame__dots">
+                  <span class="browser-frame__dot browser-frame__dot--red"></span>
+                  <span class="browser-frame__dot browser-frame__dot--amber"></span>
+                  <span class="browser-frame__dot browser-frame__dot--green"></span>
+                </div>
+                <div class="browser-frame__urlbar">
+                  <span class="browser-frame__url">app.panaseer.com/remediation-objectives</span>
+                </div>
+              </div>
+              <div class="browser-frame__content browser-frame__content--placeholder" style="background:#13151d; min-height:420px; display:flex; align-items:center; justify-content:center; border-top:1px solid rgba(255,255,255,0.08);">
+                <div style="text-align:center; padding:40px;">
+                  <div style="width:64px;height:64px;background:rgba(79,126,255,0.15);border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="4" stroke="#4f7eff" stroke-width="1.5"/><path d="M10 14h8M14 10v8" stroke="#4f7eff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                  <p style="color:rgba(255,255,255,0.4);font-size:14px;line-height:1.6;max-width:320px;margin:0 auto;">Create Remediation Objective<br><span style="font-size:12px;opacity:0.6;margin-top:4px;display:block;">Structured form connecting control gaps to owners, deadlines, and measurable milestones.</span></p>
+                </div>
+              </div>
+            </div>
+            <p class="solution-screen-caption">Create Remediation Objective — streamlined form connecting control gaps to structured work items</p>
+          </div>
+
+          <!-- Screen 2: List view -->
+          <div>
+            <div class="browser-frame">
+              <div class="browser-frame__bar">
+                <div class="browser-frame__dots">
+                  <span class="browser-frame__dot browser-frame__dot--red"></span>
+                  <span class="browser-frame__dot browser-frame__dot--amber"></span>
+                  <span class="browser-frame__dot browser-frame__dot--green"></span>
+                </div>
+                <div class="browser-frame__urlbar">
+                  <span class="browser-frame__url">app.panaseer.com/remediation-objectives</span>
+                </div>
+              </div>
+              <div class="browser-frame__content browser-frame__content--placeholder" style="background:#13151d; min-height:380px; display:flex; align-items:center; justify-content:center; border-top:1px solid rgba(255,255,255,0.08);">
+                <div style="text-align:center; padding:40px;">
+                  <div style="width:64px;height:64px;background:rgba(79,126,255,0.15);border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="6" width="20" height="3" rx="1.5" fill="#4f7eff"/><rect x="4" y="12.5" width="20" height="3" rx="1.5" fill="#4f7eff" opacity="0.6"/><rect x="4" y="19" width="14" height="3" rx="1.5" fill="#4f7eff" opacity="0.4"/></svg>
+                  </div>
+                  <p style="color:rgba(255,255,255,0.4);font-size:14px;line-height:1.6;max-width:320px;margin:0 auto;">Remediation Objectives<br><span style="font-size:12px;opacity:0.6;margin-top:4px;display:block;">Priority-ordered list with status, owner, deadline and progress indicators — all at a glance.</span></p>
+                </div>
+              </div>
+            </div>
+            <p class="solution-screen-caption">Remediation Objectives — consolidated list view with progress tracking and prioritisation</p>
+          </div>
+
+          <!-- Screen 3: ServiceNow integration -->
+          <div>
+            <div class="browser-frame">
+              <div class="browser-frame__bar">
+                <div class="browser-frame__dots">
+                  <span class="browser-frame__dot browser-frame__dot--red"></span>
+                  <span class="browser-frame__dot browser-frame__dot--amber"></span>
+                  <span class="browser-frame__dot browser-frame__dot--green"></span>
+                </div>
+                <div class="browser-frame__urlbar">
+                  <span class="browser-frame__url">app.panaseer.com/remediation-objectives/detail</span>
+                </div>
+              </div>
+              <div class="browser-frame__content browser-frame__content--placeholder" style="background:#13151d; min-height:380px; display:flex; align-items:center; justify-content:center; border-top:1px solid rgba(255,255,255,0.08);">
+                <div style="text-align:center; padding:40px;">
+                  <div style="width:64px;height:64px;background:rgba(79,126,255,0.15);border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="#4f7eff" stroke-width="1.5"/><path d="M5 24c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke="#4f7eff" stroke-width="1.5" stroke-linecap="round"/><path d="M18 16l2 2 4-4" stroke="#3ecf8e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <p style="color:rgba(255,255,255,0.4);font-size:14px;line-height:1.6;max-width:320px;margin:0 auto;">Device Missing from ServiceNow<br><span style="font-size:12px;opacity:0.6;margin-top:4px;display:block;">Objective detail view showing real-time control gap progress, milestone tracking, and ServiceNow ticket sync.</span></p>
+                </div>
+              </div>
+            </div>
+            <p class="solution-screen-caption">Objective detail view — milestones, control gap list, and ServiceNow integration</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ IMPACT -->
+    <section class="case-section" aria-labelledby="impact-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>Outcomes</span>
+          </div>
+          <h2 id="impact-heading">Measurable impact after launch.</h2>
+          <p>Outcomes measured across the first 90 days post-release.</p>
+        </div>
+
+        <div class="impact-stats-row" role="list">
+          <div class="impact-stat-block" role="listitem">
+            <span class="impact-stat-block__value">50%<span style="font-size:24px;">+</span></span>
+            <span class="impact-stat-block__label">Objective creation</span>
+            <span class="impact-stat-block__sub">−50% time · 90 days post launch</span>
+          </div>
+          <div class="impact-stat-block" role="listitem">
+            <span class="impact-stat-block__value">70%<span style="font-size:24px;">+</span></span>
+            <span class="impact-stat-block__label">Monitored objectives</span>
+            <span class="impact-stat-block__sub">90 days post launch</span>
+          </div>
+          <div class="impact-stat-block" role="listitem">
+            <span class="impact-stat-block__value">80%<span style="font-size:24px;">+</span></span>
+            <span class="impact-stat-block__label">Sustained adoption</span>
+            <span class="impact-stat-block__sub">100 days post launch</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ LEARNINGS -->
+    <section class="case-section case-section--warm" aria-labelledby="learnings-heading">
+      <div class="case-section__inner">
+        <div class="section-heading">
+          <div class="section-label">
+            <span class="rule" aria-hidden="true"></span>
+            <span>Reflection</span>
+          </div>
+          <h2 id="learnings-heading">Things this case study taught me about product design.</h2>
+        </div>
+
+        <div class="learnings-grid" role="list">
+          <div class="learning-card" role="listitem">
+            <span class="learning-card__num">01</span>
+            <p class="learning-card__title">The problem acts as the first design tool</p>
+            <p class="learning-card__text">I wasn't designing a feature. I was redesigning a process that existed in spreadsheets, email threads, and tribal knowledge. Getting that framing right early — through discovery — kept the design focused on real behaviour, not ideal workflows.</p>
+          </div>
+          <div class="learning-card" role="listitem">
+            <span class="learning-card__num">02</span>
+            <p class="learning-card__title">Customer Success knows what User Research often misses</p>
+            <p class="learning-card__text">Pulling Customer Success into the Crazy 8s session shifted our entire direction. They brought patterns from real client conversations that no interview script would have surfaced. Cross-functional design is faster and truer.</p>
+          </div>
+          <div class="learning-card" role="listitem">
+            <span class="learning-card__num">03</span>
+            <p class="learning-card__title">Earned simplicity ships better than imposed simplicity</p>
+            <p class="learning-card__text">Every time I wanted to simplify the UI, the underlying data model pushed back. The final design is simple because we mapped the complexity early, not because we ignored it. Simple interfaces are usually complex under the hood.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a href="index.html" class="logo">
+          clem
+          <span class="logo-dot" aria-hidden="true"></span>
+        </a>
+        <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
+        <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div><!-- /page-wrapper -->
+
+  <!-- ════════════════════════════════ CAROUSEL JAVASCRIPT -->
+  <script>
+    (function () {
+      const ANIM_DURATION = 2000; // 2 seconds (matches CSS --dur-card)
+      const carousel = document.getElementById('process-carousel');
+      const cards = Array.from(carousel.querySelectorAll('.carousel-card'));
+      let animating = false;
+
+      function openCard(card) {
+        card.classList.add('is-open');
+        card.setAttribute('aria-expanded', 'true');
+        const expand = card.querySelector('.carousel-card__expand');
+        if (expand) expand.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeCard(card) {
+        card.classList.remove('is-open');
+        card.setAttribute('aria-expanded', 'false');
+        const expand = card.querySelector('.carousel-card__expand');
+        if (expand) expand.setAttribute('aria-hidden', 'true');
+      }
+
+      function handleToggle(targetCard) {
+        if (animating) return;
+        const isAlreadyOpen = targetCard.classList.contains('is-open');
+        const openCards = cards.filter(c => c.classList.contains('is-open'));
+
+        if (isAlreadyOpen) {
+          // Simply close it
+          animating = true;
+          closeCard(targetCard);
+          setTimeout(() => { animating = false; }, ANIM_DURATION);
+          return;
+        }
+
+        if (openCards.length === 0) {
+          // No card open — just open this one
+          animating = true;
+          openCard(targetCard);
+          setTimeout(() => { animating = false; }, ANIM_DURATION);
+        } else {
+          // Close the open card first, then open the new one
+          animating = true;
+          openCards.forEach(c => closeCard(c));
+          setTimeout(() => {
+            openCard(targetCard);
+            setTimeout(() => { animating = false; }, ANIM_DURATION);
+          }, ANIM_DURATION);
+        }
+      }
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => handleToggle(card));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle(card);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

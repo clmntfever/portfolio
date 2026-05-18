@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clément Blindron · Product Designer</title>
+  <meta name="description" content="Digital Product Designer with 5 years of experience in B2B/B2C products. Based in Barcelona, available for work." />
+  <meta name="author" content="Clément Blindron" />
+  <!-- OG -->
+  <meta property="og:title" content="Clément Blindron · Product Designer" />
+  <meta property="og:description" content="Digital Product Designer with roots in Cognitive Sciences, Marketing and Business Innovation." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE-SPECIFIC: HOMEPAGE ──────────────────────────── */
+
+    /* ── HERO 1 ─────────────────────────────────────────── */
+    .hero-1 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 96px var(--pad-h) 56px;
+    }
+    .hero-1-content {
+      display: flex;
+      align-items: center;
+      gap: 142px;
+      width: 100%;
+      max-width: var(--max-w);
+    }
+    .hero-1-text {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      max-width: 498px;
+      min-width: 498px;
+      flex-shrink: 0;
+    }
+    .hero-name-block {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+    }
+    .hero-hi {
+      font-size: 84px;
+      font-weight: 800;
+      letter-spacing: -3.4px;
+      line-height: 0.92;
+      color: var(--text-primary);
+    }
+    .hero-name-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .hero-name {
+      font-size: 110px;
+      font-weight: 800;
+      letter-spacing: -5px;
+      line-height: 0.86;
+      color: var(--text-primary);
+    }
+    .hero-name-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: radial-gradient(circle at 35% 35%, #f5eb71, #e8825a 60%, #c4604a);
+    }
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.78;
+      color: var(--text-secondary);
+    }
+
+    /* ── HERO 2: CASE STUDIES ──────────────────────────────── */
+    .hero-2 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--pad-v) var(--pad-h);
+      min-height: 694px;
+    }
+    .hero-2-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: var(--max-w);
+    }
+    .section-title-large {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1.56px;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+    .case-studies-cards {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    /* ── HERO 3: EXPERTISE ─────────────────────────────────── */
+    .hero-3 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding: var(--pad-v) var(--pad-h);
+      min-height: 457px;
+    }
+    .hero-3-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: var(--max-w);
+    }
+    .expertise-left {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 600px;
+      min-width: 360px;
+      flex: 1 0 0;
+    }
+    .expertise-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .expertise-heading {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1.56px;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+    .chips-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px 16px;
+    }
+
+    /* ── HERO 4: CTA ───────────────────────────────────────── */
+    .hero-4 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--pad-v) var(--pad-h);
+      min-height: 291px;
+      background: var(--bg);
+    }
+    .hero-4-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 1081px;
+      width: 100%;
+      opacity: 0.8;
+    }
+    .hero-cta-heading {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.95px;
+      color: var(--text-primary);
+    }
+    .hero-cta-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .hero-cta-email {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -1.76px;
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: opacity 0.2s;
+    }
+    .hero-cta-email:hover { opacity: 0.65; }
+
+    /* ── Tablet overrides ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-1 { padding: 64px var(--pad-h) 48px; }
+      .hero-1-content { flex-direction: column; gap: 40px; }
+      .hero-1-text { max-width: 100%; min-width: unset; flex-shrink: 1; }
+      .hero-hi  { font-size: 64px; }
+      .hero-name { font-size: 80px; }
+      .glance-card { width: 100%; max-width: 100%; min-width: unset; }
+      .hero-2, .hero-3, .hero-4 { min-height: unset; }
+      .hero-3-content { flex-direction: column; align-items: flex-start; }
+      .expertise-left { max-width: 100%; }
+      .skills-card { width: 100%; max-width: 100%; }
+      .expertise-heading { font-size: 38px; }
+      .section-title-large { font-size: 38px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-1 { padding: 48px 20px 40px; }
+      .hero-hi  { font-size: 48px; letter-spacing: -2px; }
+      .hero-name { font-size: 64px; letter-spacing: -3px; }
+      .hero-cta-email { font-size: 24px; letter-spacing: -0.5px; }
+      .hero-cta-heading { font-size: 28px; }
+      .section-title-large { font-size: 32px; }
+      .expertise-heading { font-size: 32px; }
+      .hero-name-circle { width: 22px; height: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ═══════════════════════════════════════════════════ HEADER -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          clem
+          <span class="logo-dot" aria-hidden="true"></span>
+        </a>
+        <a href="mailto:clement.blindron@gmail.com" class="btn-cta">
+          Let's talk
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════ HERO 1 -->
+    <section class="hero-1" aria-label="Introduction">
+      <div class="hero-1-content">
+
+        <!-- Left: Name + bio -->
+        <div class="hero-1-text">
+          <div class="hero-name-block">
+            <div class="available-dot">
+              <span class="available-dot__circle" aria-hidden="true"></span>
+              <span class="available-dot__text">Available for work</span>
+            </div>
+            <p class="hero-hi">Hi, I'm</p>
+            <div class="hero-name-row">
+              <h1 class="hero-name">Clément</h1>
+              <span class="hero-name-circle" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="hero-body">
+            <p>Confirmed Digital Product Designer with roots in Cognitive Sciences, Marketing and Business Innovation.</p>
+            <p>Currently calling Barcelona home, I thrive on creating digital experiences that feel human and purposeful. With five years of experience across B2B and B2C products.</p>
+          </div>
+        </div>
+
+        <!-- Right: At a glance card -->
+        <div class="glance-card" role="complementary" aria-label="At a glance">
+          <div>
+            <p class="glance-card__label">At a glance</p>
+          </div>
+          <div class="glance-card__stats">
+            <div>
+              <div class="glance-stat">
+                <span class="glance-stat__value">5</span>
+                <span class="glance-stat__label">Years of experience</span>
+              </div>
+              <div class="glance-stat glance-stat--wide" style="margin-top:16px;">
+                <span class="glance-stat__value">UE · UK</span>
+                <span class="glance-stat__label">Right to work</span>
+              </div>
+            </div>
+            <div>
+              <div class="glance-stat">
+                <span class="glance-stat__value">B2B / B2C</span>
+                <span class="glance-stat__label">Products designed</span>
+              </div>
+              <div class="glance-stat" style="margin-top:16px;">
+                <span class="glance-stat__value">Product SaaS</span>
+                <span class="glance-stat__label">Complex data products</span>
+              </div>
+            </div>
+          </div>
+          <div class="glance-card__divider" aria-hidden="true"></div>
+          <div class="glance-card__locations">
+            <span class="chip chip--neutral">Barcelona</span>
+            <span class="chip chip--neutral">Remote</span>
+            <span class="chip chip--neutral">Madrid</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ HERO 2: CASE STUDIES -->
+    <section class="hero-2" aria-label="Case studies">
+      <div class="hero-2-content">
+        <div class="section-label">
+          <span class="rule" aria-hidden="true"></span>
+          <span>Selected Work</span>
+        </div>
+        <h2 class="section-title-large">Case Studies</h2>
+        <div class="case-studies-cards">
+
+          <!-- Card 1: Remediation Objectives -->
+          <a href="remediation.html" class="project-card" aria-label="View Remediation Objectives case study">
+            <div class="project-card__thumb">
+              <img src="./assets/thumbnail-remediation.png"
+                   alt="Remediation Objectives — Panaseer dashboard UI" loading="lazy" />
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Cybersecurity · SaaS · 2024</p>
+              <p class="project-card__company">Panaseer</p>
+              <h3 class="project-card__title">Remediation Objectives</h3>
+              <p class="project-card__desc">Designing a workflow that turns thousands of security control gaps into a clear, prioritised remediation plan.</p>
+              <div class="project-card__cta">
+                <span class="btn-see-case">See case</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 2: BMI Marketing Website -->
+          <a href="bmi.html" class="project-card" aria-label="View Benchmark Mineral Intelligence case study">
+            <div class="project-card__thumb">
+              <img src="./assets/thumbnail-bmi.png"
+                   alt="Benchmark Mineral Intelligence — marketing website" loading="lazy" />
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Price Reporting · SaaS · 2025</p>
+              <p class="project-card__company">Benchmark Minerals Intelligence</p>
+              <h3 class="project-card__title">Marketing Website</h3>
+              <p class="project-card__desc">A responsive marketing experience for the leading B2B data and pricing platform in the lithium-ion battery supply chain.</p>
+              <div class="project-card__cta">
+                <span class="btn-see-case">See case</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 3: Panaseer Design System -->
+          <a href="#" class="project-card" aria-label="Panaseer Design System — coming soon">
+            <div class="project-card__thumb">
+              <img src="./assets/thumbnail-ds.png"
+                   alt="Panaseer Design System" loading="lazy" />
+            </div>
+            <div class="project-card__body">
+              <p class="project-card__tag">Cybersecurity · SaaS · 2023-25</p>
+              <p class="project-card__company">Panaseer</p>
+              <h3 class="project-card__title">Panaseer Design System</h3>
+              <p class="project-card__desc">Rebuilt and documented the end-to-end design system with WCAG 2.1 AA baked in as the single source of truth.</p>
+              <div class="project-card__cta">
+                <span class="btn-see-case">See case</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ HERO 3: EXPERTISE -->
+    <section class="hero-3" aria-label="Expertise and skills">
+      <div class="hero-3-content expertise-content">
+
+        <!-- Left: Title + Chips -->
+        <div class="expertise-left">
+          <div class="expertise-title-block">
+            <div class="section-label">
+              <span class="rule" aria-hidden="true"></span>
+              <span>Expertise</span>
+            </div>
+            <h2 class="expertise-heading">What I do, and what<br>I do it with.</h2>
+          </div>
+          <div class="chips-cluster" role="list" aria-label="Skills">
+            <span class="chip chip--purple" role="listitem">UX design</span>
+            <span class="chip chip--yellow" role="listitem">UI design</span>
+            <span class="chip chip--orange" role="listitem">Product design</span>
+            <span class="chip chip--purple" role="listitem">UX Audit</span>
+            <span class="chip chip--orange" role="listitem">Information Architecture</span>
+            <span class="chip chip--yellow" role="listitem">Design System</span>
+            <span class="chip chip--orange" role="listitem">Product Thinking</span>
+            <span class="chip chip--yellow" role="listitem">Interaction Design</span>
+            <span class="chip chip--purple" role="listitem">Usability Testing</span>
+            <span class="chip chip--orange" role="listitem">Cross-functional Facilitation</span>
+            <span class="chip chip--yellow" role="listitem">Responsive Design</span>
+            <span class="chip chip--purple" role="listitem">Workshop Facilitation</span>
+            <span class="chip chip--yellow" role="listitem">Design Tokens</span>
+            <span class="chip chip--purple" role="listitem">UX Research</span>
+            <span class="chip chip--yellow" role="listitem">Component-driven Design</span>
+            <span class="chip chip--orange" role="listitem">Stakeholder Alignment</span>
+            <span class="chip chip--yellow" role="listitem">UI Audit</span>
+            <span class="chip chip--yellow" role="listitem">Data Visualisation UI</span>
+            <span class="chip chip--orange" role="listitem">Dev Collaboration</span>
+          </div>
+        </div>
+
+        <!-- Right: Tools card -->
+        <div class="skills-card" role="complementary" aria-label="Design tools">
+          <div class="skills-card__group">
+            <p class="skills-card__group-label">Design</p>
+            <p class="skills-card__group-value">Figma · Storybook · Zeplin · Illustrator</p>
+          </div>
+          <div class="skills-card__group">
+            <p class="skills-card__group-label">Research</p>
+            <p class="skills-card__group-value">Dovetail · Condens.io</p>
+          </div>
+          <div class="skills-card__group">
+            <p class="skills-card__group-label">AI &amp; Imaging</p>
+            <p class="skills-card__group-value">Midjourney · Adobe Firefly · Claude Design</p>
+          </div>
+          <div class="skills-card__group">
+            <p class="skills-card__group-label">Collaboration</p>
+            <p class="skills-card__group-value">Asana · Jira · Confluence · Storyblok</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════ HERO 4: CTA -->
+    <section class="hero-4" aria-label="Contact">
+      <div class="hero-4-content">
+        <div class="section-label">
+          <span class="rule" aria-hidden="true"></span>
+          <span>Let's Collaborate</span>
+        </div>
+        <p class="hero-cta-heading">Let's build something great.</p>
+        <p class="hero-cta-sub">Open to full-time roles in B2B, B2C, B2B2C and anywhere in between.</p>
+        <a href="mailto:clement.blindron@gmail.com" class="hero-cta-email">clement.blindron@gmail.com</a>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="logo">
+          clem
+          <span class="logo-dot" aria-hidden="true"></span>
+        </div>
+        <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
+        <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+
+  </div><!-- /page-wrapper -->
+</body>
+</html>
