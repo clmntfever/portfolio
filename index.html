@@ -107,8 +107,12 @@
       display: flex;
       gap: 48px;
       align-items: flex-start;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;     /* 3 cards on one row at desktop */
       margin-top: 8px;
+      /* Bleed the 1176px card row (3×360 + 2×48) symmetrically
+         beyond the 1080px text max-width — matches Figma layout */
+      margin-left: -48px;
+      margin-right: -48px;
     }
 
     /* ── HERO 3: EXPERTISE ─────────────────────────────────── */
