@@ -236,29 +236,23 @@ ul, ol { list-style: none; }
   object-fit: cover;
   display: block;
 }
-/* Bordered variant: 4px black frame on Remediation + BMI thumbnails (Figma 87-953) */
-.project-card__thumb--bordered {
-  border: 4px solid #000;
-}
-/* Zoom variant — Remediation card (node 87-954) */
+/* Zoom variant — Remediation card (node 87-953) */
 .project-card__thumb--zoom-rem img {
   position: absolute;
-  width: 101.77%;
-  height: 98.7%;
+  width: 109.51%;
+  height: 133.43%;
   max-width: none;
-  left: -0.88%;
-  top: 0;
-  object-fit: cover;
+  left: -4.76%;
+  top: -22.51%;
 }
-/* Zoom variant — BMI card (node 87-954) */
+/* Zoom variant — BMI card (node 87-953) */
 .project-card__thumb--zoom-bmi img {
   position: absolute;
-  width: 103.44%;
-  height: 100%;
+  width: 112.88%;
+  height: 130.74%;
   max-width: none;
-  left: -1.72%;
-  top: 0;
-  object-fit: cover;
+  left: -6.44%;
+  top: -15.15%;
 }
 .project-card__body {
   display: flex;
@@ -274,7 +268,7 @@ ul, ol { list-style: none; }
   margin-top: 16px;
 }
 .project-card__company {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-muted);
 }
