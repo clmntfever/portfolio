@@ -59,16 +59,17 @@
       background: #fff; border-bottom: 1px solid var(--border);
       height: 68px;
       display: flex; align-items: center; justify-content: center;
-      padding: 18px var(--pad-r) 18px var(--pad-l);
+      padding: 18px 100px;
     }
     .site-header .inner {
       display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1080px;
     }
     .logo {
       display: flex; align-items: center; gap: 4px;
       font-size: 16px; font-weight: 700; letter-spacing: -0.32px; color: #111110;
     }
-    .logo-dot { width: 6px; height: 6px; flex-shrink: 0; }
+    .logo-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ecf8e; flex-shrink: 0; }
     .btn-talk {
       display: flex; align-items: center; gap: 4px;
       background: #111110; color: #fff;
@@ -113,6 +114,31 @@
       max-width: none; object-fit: cover;
     }
 
+    /* ===== META ===== */
+    .hero-meta {
+      background: #f8f8f8;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 24px 100px;
+      display: flex; justify-content: center;
+    }
+    .hero-meta .inner {
+      display: flex; gap: 40px; align-items: flex-start;
+    }
+    .meta-col {
+      display: flex; flex-direction: column; gap: 16px;
+      flex: 1;
+    }
+    .meta-item {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .meta-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.1px; color: var(--grey); text-transform: uppercase;
+    }
+    .meta-value {
+      font-size: 14px; font-weight: 400; line-height: 1.5; color: #1a1a1a;
+    }
+
     /* ===== HERO 2 ===== */
     .hero2 {
       background: #fff;
@@ -126,7 +152,7 @@
     .h2-left { display: flex; flex-direction: column; gap: 16px; max-width: 588px; }
     .h2-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; width: 371px; height: 371px; flex-shrink: 0;
+      gap: 16px; width: 374px; height: 374px; flex-shrink: 0;
     }
     .h2-grid img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -166,8 +192,14 @@
     .screen-box {
       border: 2px solid #000; border-radius: 16px;
       overflow: hidden; flex-shrink: 0; width: 1060px;
+      height: 509px; position: relative;
     }
     .screen-box img { width: 100%; height: 509px; object-fit: cover; }
+    .screen-box--gif { position: relative; }
+    .screen-box--gif img {
+      position: absolute; width: 100%; height: 115.19%;
+      left: 0; top: -0.03%; max-width: none; object-fit: unset;
+    }
 
     /* ===== HERO 4 ===== */
     .hero4 {
@@ -206,24 +238,18 @@
     }
     /* BMI site inside browser */
     .bmi-site { background: #fff; width: 1080px; min-height: 1708px; }
-    .bmi-header-img { width: 100%; height: 77px; object-fit: cover; }
+    .bmi-header-wrap { position: relative; height: 76.5px; overflow: hidden; }
+    .bmi-header-img { position: absolute; width: 100%; height: 101.38%; left: 0; top: 0; max-width: none; }
     .bmi-hero-zone {
-      position: relative; background: #242424;
-      height: 370px; overflow: hidden;
+      position: relative; height: 362px; overflow: hidden;
     }
     .bmi-bg {
       position: absolute; inset: 0;
-      width: 139.32%; height: 224.92%;
-      left: 0; top: -32.1%;
+      width: 100%; height: 100%;
       object-fit: cover; max-width: none;
     }
-    .bmi-gradient {
-      position: absolute; top: -3px; left: 0;
-      width: 611px; height: 372px; pointer-events: none;
-    }
-    .bmi-gradient img { width: 100%; height: 100%; }
     .bmi-hero-text {
-      position: absolute; top: 155px; left: 58px; width: 325px;
+      position: absolute; top: 91px; left: 129px; width: 324px;
     }
     .bmi-hero-text h2 {
       font-family: 'Montserrat', sans-serif; font-weight: 700;
@@ -502,11 +528,12 @@
     /* ===== FOOTER ===== */
     .site-footer {
       background: #fff; border-top: 1px solid var(--border);
-      padding: 18px var(--pad-r) 18px var(--pad-l);
+      padding: 18px 100px;
       display: flex; justify-content: center;
     }
     .site-footer .inner {
       display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1080px;
     }
     .footer-copy { font-size: 12px; color: #b4aea6; white-space: nowrap; }
     .footer-li { font-size: 12px; color: #8a8580; text-decoration: underline; white-space: nowrap; }
@@ -514,6 +541,9 @@
     /* ===== TABLET (≤768px) ===== */
     @media (max-width: 768px) {
       .site-header { padding: 18px var(--pad-t); }
+      /* Meta */
+      .hero-meta { padding: 24px var(--pad-t); }
+      .hero-meta .inner { flex-direction: column; gap: 24px; }
       /* Hero 1 — thumbnail intentionally bleeds off right edge (Figma design) */
       .hero1 { padding: 56px var(--pad-t) 0; overflow-x: hidden; }
       .hero1 .inner { flex-direction: row; gap: 36px; align-items: flex-start; }
@@ -530,8 +560,9 @@
       .hero3 { padding: var(--py) var(--pad-t); }
       .toggle-row { justify-content: center; padding-right: 0; }
       .screens-track.after { transform: translateX(calc(-688px - 24px)); }
-      .screen-box { width: 688px; }
+      .screen-box { width: 688px; height: 331px; }
       .screen-box img { height: 331px; }
+      .screen-box--gif img { height: 115.19%; }
       /* Hero 4 */
       .hero4 { padding: var(--py) var(--pad-t); }
       .browser-wrap { display: none; }
@@ -562,6 +593,8 @@
     /* ===== MOBILE (≤402px) ===== */
     @media (max-width: 402px) {
       .site-header { padding: 18px var(--pad-m); }
+      /* Meta */
+      .hero-meta { padding: 24px var(--pad-m); }
       /* Hero 1 */
       .hero1 { padding: 56px var(--pad-m) 0; }
       .hero1 .inner { flex-direction: column; gap: 4px; }
@@ -574,8 +607,9 @@
       /* Hero 3 */
       .hero3 { padding: var(--py) var(--pad-m); }
       .screens-track.after { transform: translateX(calc(-364px - 24px)); }
-      .screen-box { width: 364px; }
-      .screen-box img { height: 175px; }
+      .screen-box { width: 364px; height: 175px; border-width: 0.687px; border-radius: 5.494px; }
+      .screen-box img { height: 175px; border-radius: 5.494px; }
+      .screen-box--gif img { height: 115.19%; border-radius: 5.494px; }
       /* Hero 4 */
       .hero4 { padding: var(--py) var(--pad-m); }
       .app-feat-section { padding: 0; }
@@ -601,11 +635,11 @@
   <div class="inner">
     <a href="index.html" class="logo">
       clem
-      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/17cf0ada-36f7-40b3-b0e9-2454d3f8e500" alt="" />
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/762ea00a-22f4-4798-86a0-4aff82cfb61d" alt="" />
     </a>
-    <a href="mailto:clement.blindron@example.com" class="btn-talk">
+    <a href="mailto:clement.blindron@gmail.com" class="btn-talk">
       Let's talk&nbsp;
-      <img src="https://www.figma.com/api/mcp/asset/a9d81743-7ee3-45bb-90f4-3d7026be4a26" alt="" />
+      <img src="https://www.figma.com/api/mcp/asset/3356b650-4c7e-4cc8-858b-55c21860fb9f" alt="" />
     </a>
   </div>
 </header>
@@ -619,7 +653,39 @@
       <p class="h1-subtitle">Making complex mineral data feel clear, trustworthy, and human. A full UI design story from components to product.</p>
     </div>
     <div class="h1-thumb">
-      <img src="https://www.figma.com/api/mcp/asset/bbea6543-5930-4371-b4d6-b496646f15b4" alt="BMI Website UI" />
+      <img src="https://www.figma.com/api/mcp/asset/c705df12-a7e2-47bb-9c94-a8f64aa71239" alt="BMI Website UI" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== META ========== -->
+<section class="hero-meta">
+  <div class="inner">
+    <div class="meta-col">
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Product Designer · UI Focused</span>
+      </div>
+    </div>
+    <div class="meta-col">
+      <div class="meta-item">
+        <span class="meta-label">Timeline</span>
+        <span class="meta-value">6 months</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Platform</span>
+        <span class="meta-value">B2B SaaS · Web App · Marketing website · Mobile App</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Methods</span>
+        <span class="meta-value">Discovery · Prototyping · Testing</span>
+      </div>
+    </div>
+    <div class="meta-col">
+      <div class="meta-item">
+        <span class="meta-label">Team</span>
+        <span class="meta-value">Product managers · Outsourced development team · Data Analysts · Journalists</span>
+      </div>
     </div>
   </div>
 </section>
@@ -634,10 +700,26 @@
       <p class="sbody">But as the platform scaled, the product experience hadn't kept pace. Data was scattered across inconsistent interfaces, the visual language lacked cohesion, and the design had no shared foundation to build from. Analysts trusted the data, but the product didn't always feel like it deserved that trust.</p>
     </div>
     <div class="h2-grid">
-      <img src="https://www.figma.com/api/mcp/asset/21e2b8de-c532-4ea7-8a53-36e08fabc9c9" alt="Raw Materials" />
-      <img src="https://www.figma.com/api/mcp/asset/32113844-cbea-4249-8edf-e561050d75ca" alt="Battery Recycling" />
-      <img src="https://www.figma.com/api/mcp/asset/558befeb-b1d9-493e-b163-2985c1ddecfd" alt="New Technology" />
-      <img src="https://www.figma.com/api/mcp/asset/6777490e-e3c6-45aa-9ac7-ce18b8ca3658" alt="Demand" />
+      <picture>
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/8145c8c8-4b13-45e3-bb89-27544e71450c" />
+        <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/3bf645fa-c59b-4cec-b0b3-64c52a4e2507" />
+        <img src="https://www.figma.com/api/mcp/asset/9c69f078-707c-40b8-8c8d-2db224550af1" alt="Technology" />
+      </picture>
+      <picture>
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/15fdb406-c1a5-4742-a904-74a353d68309" />
+        <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/03dd8444-48c3-40b6-8a1a-6d53e53be77c" />
+        <img src="https://www.figma.com/api/mcp/asset/991759e5-ab09-4242-892f-22576e5343a1" alt="Battery Recycling" />
+      </picture>
+      <picture>
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/9baa215f-2b94-4130-a649-b46fe2f39ef8" />
+        <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/6bf1812c-a056-4708-b7b4-304e70e4fd26" />
+        <img src="https://www.figma.com/api/mcp/asset/fdb43e0a-3831-445e-8732-5c07dc437e18" alt="Demand" />
+      </picture>
+      <picture>
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/27a4c0e7-9c46-4850-934f-9ee16097f08e" />
+        <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/3df89e69-a8d0-4def-a3dc-31a718b4d74e" />
+        <img src="https://www.figma.com/api/mcp/asset/9e5bb640-5ad6-4f4d-a47f-3905211aa176" alt="Raw Materials" />
+      </picture>
     </div>
   </div>
 </section>
@@ -663,10 +745,18 @@
       <div class="screens-clip" style="margin-top:24px;">
         <div class="screens-track" id="h3-track">
           <div class="screen-box">
-            <img src="https://www.figma.com/api/mcp/asset/4b126bc3-f998-46d7-9110-160244f0580f" alt="Before — old navigation" />
+            <picture>
+              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c6c8f6a-fe5d-4e2d-9206-26ebcbd54b74" />
+              <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/35424598-3541-486d-ab0b-41ebec212a91" />
+              <img src="https://www.figma.com/api/mcp/asset/f0884d8d-8807-4284-9e2b-5cbba21d276b" alt="Before — old navigation" />
+            </picture>
           </div>
-          <div class="screen-box">
-            <img src="https://www.figma.com/api/mcp/asset/b5a8df1a-a183-46b1-8c9c-ccfaee7d7a7d" alt="After — mega menu" />
+          <div class="screen-box screen-box--gif">
+            <picture>
+              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/336c40f5-f93d-4ed3-978a-800f4cfbfa1a" />
+              <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/493d08e5-074b-40d0-9a11-c0a7725b3cd3" />
+              <img src="https://www.figma.com/api/mcp/asset/05c641c5-0168-448e-8d3e-be38526a4434" alt="After — mega menu" />
+            </picture>
           </div>
         </div>
       </div>
@@ -695,20 +785,16 @@
         </div>
         <div class="bmi-site">
           <!-- BMI site header bar -->
-          <img class="bmi-header-img" src="https://www.figma.com/api/mcp/asset/38e5a330-4879-4490-a065-02d281de721b" alt="BMI Header" />
-          <!-- BMI hero zone: dark background + text + iPhone -->
+          <div class="bmi-header-wrap">
+            <img class="bmi-header-img" src="https://www.figma.com/api/mcp/asset/6528b669-811b-409a-833f-fe3cf6b766de" alt="BMI Header" />
+          </div>
+          <!-- BMI hero zone: composite background + text overlay -->
           <div class="bmi-hero-zone">
-            <img class="bmi-bg" src="https://www.figma.com/api/mcp/asset/ae549ea8-496a-4832-b923-d0b031e122ad" alt="" />
-            <div class="bmi-gradient">
-              <img src="https://www.figma.com/api/mcp/asset/3dd513aa-87b3-42ac-9286-695ba8ade824" alt="" />
-            </div>
+            <img class="bmi-bg" src="https://www.figma.com/api/mcp/asset/c5b49ee2-8f6f-48b6-a5dd-57d1d955ec87" alt="" />
             <div class="bmi-hero-text">
               <h2>The Benchmark App</h2>
               <p>Designed to place our innovative products and services at your fingertips, empowering you with the latest data and insights across the lithium ion and energy transition supply chain.</p>
               <span class="bmi-cta">Send me the link</span>
-            </div>
-            <div class="bmi-iphone-hero">
-              <img src="https://www.figma.com/api/mcp/asset/6d34e363-fbf9-4c0e-b64f-9584f873cff3" alt="iPhone with Benchmark App" />
             </div>
           </div>
           <!-- Our App provides -->
@@ -730,60 +816,45 @@
               <div class="bmi-pitem">
                 <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:#25262a;">Download The Benchmark App</p>
                 <div class="bmi-stores">
-                  <img src="https://www.figma.com/api/mcp/asset/0c4fa4a4-8653-4670-b924-c170c974e043" alt="App Store" />
-                  <img src="https://www.figma.com/api/mcp/asset/3c05b786-2aa3-40ba-9793-16247a90f39c" alt="Google Play" />
+                  <img src="https://www.figma.com/api/mcp/asset/97db5d6e-801e-46ed-9263-740395476fa1" alt="App Store" />
+                  <img src="https://www.figma.com/api/mcp/asset/5d29ba88-c84a-4a34-a698-27c7bcc639ff" alt="Google Play" />
                 </div>
               </div>
             </div>
             <div class="bmi-photos">
               <div class="bmi-pc w">
-                <div class="bmi-photo tall"><img src="https://www.figma.com/api/mcp/asset/c460ed5b-1d53-4ff2-a542-bfab40e47c61" alt="Trading workplace" /></div>
-                <div class="bmi-photo short"><img src="https://www.figma.com/api/mcp/asset/641bbf66-c73e-4a18-bad9-4f9545b78c71" alt="Analyst" /></div>
+                <div class="bmi-photo tall"><img src="https://www.figma.com/api/mcp/asset/7257f3c5-ac36-4097-8be9-5fd5450710b9" alt="Trading workplace" /></div>
+                <div class="bmi-photo short"><img src="https://www.figma.com/api/mcp/asset/ab88c945-5e20-4b73-87e7-9b354d7e6c2a" alt="Analyst" /></div>
               </div>
               <div class="bmi-pc n">
-                <div class="bmi-photo sq"><img src="https://www.figma.com/api/mcp/asset/ea8a2646-4ea1-4108-a536-a675d39a004e" alt="Mining" /></div>
-                <div class="bmi-photo rot"><img src="https://www.figma.com/api/mcp/asset/61da0003-50e0-4e9a-8c49-beb2e072e52d" alt="Supply chain" /></div>
+                <div class="bmi-photo sq"><img src="https://www.figma.com/api/mcp/asset/9dd6ab78-76fa-42e7-bbcc-58adbcfb3160" alt="Mining" /></div>
+                <div class="bmi-photo rot"><img src="https://www.figma.com/api/mcp/asset/fbce1f22-1a56-4a1b-ac99-05399791f6e7" alt="Supply chain" /></div>
               </div>
             </div>
           </div>
           <!-- Feature cards -->
           <div class="bmi-fcards">
-            <!-- Card 1: Interactive price graphs -->
+            <!-- Card 1 -->
             <div class="bmi-fc">
               <div class="bmi-fc-header">
                 <div class="bmi-fc-num">
-                  <img src="https://www.figma.com/api/mcp/asset/0a40344a-b26c-45da-a059-db77cb10493d" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/1951ace6-98a8-4c02-b890-8c3f0ef14cd8" alt="" />
                   <span>1</span>
                 </div>
                 <span class="bmi-fc-title">Interactive price graphs</span>
               </div>
               <p class="bmi-fc-desc">Visualise historical and latest price assessments with dynamic graphs and charts that allow you to track trends and spot opportunities.</p>
               <div class="bmi-fc-phones">
-                <div class="bmi-phone-stack">
-                  <div class="bmi-phone-item stacked" style="z-index:1;">
-                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/77e1f9b5-941d-4521-a2c0-a8b89a135bbd" alt="" /></div>
-                  </div>
-                  <div class="bmi-phone-item stacked" style="z-index:2;">
-                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/35ef983d-f245-48e4-bac3-35e4de98d1e6" alt="" /></div>
-                  </div>
-                  <div class="bmi-phone-item stacked" style="z-index:3;">
-                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/ccd3ddd0-e06a-4752-ab20-05275bfb2781" alt="" /></div>
-                  </div>
-                  <div class="bmi-phone-item" style="z-index:4;">
-                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/bcee83c3-ab27-4b6d-a45c-31f00497b7dc" alt="Prices" /></div>
-                  </div>
+                <div class="bmi-phone-item">
+                  <img src="https://www.figma.com/api/mcp/asset/c5fa608d-b82e-44ef-bd6e-19cb0fb778e2" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
                 </div>
               </div>
             </div>
-            <!-- Card 2: Latest News -->
+            <!-- Card 2 -->
             <div class="bmi-fc">
               <div class="bmi-fc-header">
                 <div class="bmi-fc-num">
-                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/1951ace6-98a8-4c02-b890-8c3f0ef14cd8" alt="" />
                   <span>2</span>
                 </div>
                 <span class="bmi-fc-title">Latest News and Analysis</span>
@@ -791,16 +862,15 @@
               <p class="bmi-fc-desc">Stay informed with the latest articles and reports from top sources in the lithium-ion battery industry, all curated in one convenient place.</p>
               <div class="bmi-fc-phones">
                 <div class="bmi-phone-item">
-                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/882605ca-6b45-4465-bccf-5398a91a209d" alt="News screen" /></div>
+                  <img src="https://www.figma.com/api/mcp/asset/76fee6fc-c4ab-4e47-bc15-4c7c8a2585b1" alt="News" style="width:100%;height:100%;object-fit:cover;" />
                 </div>
               </div>
             </div>
-            <!-- Card 3: Upcoming Events -->
+            <!-- Card 3 -->
             <div class="bmi-fc">
               <div class="bmi-fc-header">
                 <div class="bmi-fc-num">
-                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/1951ace6-98a8-4c02-b890-8c3f0ef14cd8" alt="" />
                   <span>3</span>
                 </div>
                 <span class="bmi-fc-title">Upcoming Events</span>
@@ -808,16 +878,15 @@
               <p class="bmi-fc-desc">Discover and register for key industry conferences, webinars, and networking events that can help you stay connected and informed.</p>
               <div class="bmi-fc-phones">
                 <div class="bmi-phone-item">
-                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/4d7fb36e-8d4c-4ac9-a1b5-99745acd360c" alt="Events screen" /></div>
+                  <img src="https://www.figma.com/api/mcp/asset/fe7c401a-b325-4f24-afcc-e0159b4ffbd1" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
                 </div>
               </div>
             </div>
-            <!-- Card 4: Stay up to date -->
+            <!-- Card 4 -->
             <div class="bmi-fc">
               <div class="bmi-fc-header">
                 <div class="bmi-fc-num">
-                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/1951ace6-98a8-4c02-b890-8c3f0ef14cd8" alt="" />
                   <span>4</span>
                 </div>
                 <span class="bmi-fc-title">Stay up to date</span>
@@ -825,15 +894,14 @@
               <p class="bmi-fc-desc">Opt in to receive push notifications directly to your mobile phone ensuring you stay up to date with the latest news, analysis, price assessments and events.</p>
               <div class="bmi-fc-phones">
                 <div class="bmi-phone-item">
-                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
-                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/0e88a2e8-f145-44f0-be37-9bdaea773925" alt="Menu screen" /></div>
+                  <img src="https://www.figma.com/api/mcp/asset/09a1723a-925d-450e-86b8-7f8f4a2bc639" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
                 </div>
               </div>
             </div>
           </div>
           <!-- Screenshot footer inside browser -->
           <div class="bmi-screenshot">
-            <img src="https://www.figma.com/api/mcp/asset/80e6493c-b034-4fb0-b589-9ca27487bc73" alt="BMI Header screenshot" />
+            <img src="https://www.figma.com/api/mcp/asset/6c30f940-8165-4e38-9966-205805689408" alt="BMI Header screenshot" />
           </div>
         </div>
       </div>
@@ -849,7 +917,10 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <picture>
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                </picture>
                 <span>1</span>
               </div>
               <span class="feat-title">Interactive price graphs</span>
@@ -858,8 +929,10 @@
           </div>
           <div class="feat-card-bottom">
             <div class="feat-iphone">
-              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
-              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/c6b6d44a-7080-404f-8398-a6913fe3269f" alt="Prices screen" /></div>
+              <picture>
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/ae9c6d8d-9616-48d4-a2f3-5c44e35986c7" />
+                <img src="https://www.figma.com/api/mcp/asset/41ff6c13-655c-46a1-9c80-f3762be54ab3" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
+              </picture>
             </div>
           </div>
         </div>
@@ -868,7 +941,10 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <picture>
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                </picture>
                 <span>2</span>
               </div>
               <span class="feat-title">Latest News and Analysis</span>
@@ -877,8 +953,10 @@
           </div>
           <div class="feat-card-bottom">
             <div class="feat-iphone">
-              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
-              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/5bd922c4-78e2-4b27-ba0a-292006297e37" alt="News screen" /></div>
+              <picture>
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/f7cb5660-a9f3-4dc7-9464-987a09ef7ca8" />
+                <img src="https://www.figma.com/api/mcp/asset/30098e48-847d-4f49-8700-0c72489d1387" alt="News" style="width:100%;height:100%;object-fit:cover;" />
+              </picture>
             </div>
           </div>
         </div>
@@ -887,7 +965,10 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <picture>
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                </picture>
                 <span>3</span>
               </div>
               <span class="feat-title">Upcoming Events</span>
@@ -896,8 +977,10 @@
           </div>
           <div class="feat-card-bottom">
             <div class="feat-iphone">
-              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
-              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/c83c9998-0aa5-4d61-aff4-9ba37ca859e7" alt="Events screen" /></div>
+              <picture>
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c510241-580f-414f-99bd-13d28c2d155b" />
+                <img src="https://www.figma.com/api/mcp/asset/ca1a8655-9dbe-4652-9d07-2c387e331f1c" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
+              </picture>
             </div>
           </div>
         </div>
@@ -906,7 +989,10 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <picture>
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                </picture>
                 <span>4</span>
               </div>
               <span class="feat-title">Stay up to date</span>
@@ -915,8 +1001,10 @@
           </div>
           <div class="feat-card-bottom">
             <div class="feat-iphone">
-              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
-              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/8e5180d0-9209-4b54-a1ff-379b592894d5" alt="Notifications screen" /></div>
+              <picture>
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/968caaed-7844-42a2-80fb-8b1ec28dc532" />
+                <img src="https://www.figma.com/api/mcp/asset/87c74345-774a-49db-9c27-618d414d815b" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
+              </picture>
             </div>
           </div>
         </div>
@@ -935,7 +1023,13 @@
       <p class="sbody">Structured around four principles, Consistent, Scalable, Clean, and Easy, the system covers everything from typography and colour tokens to complex UI patterns. Fully documented and ready to use, it gives design and development a shared language that keeps Benchmark's product aligned across every touchpoint.</p>
       <a href="#" class="btn-julius" target="_blank" rel="noopener">
         Check Julius 2.0
-        <span class="jicon"><img src="https://www.figma.com/api/mcp/asset/e6e1a5bd-aec0-40a2-8149-27ada70e47f2" alt="Figma" /></span>
+        <span class="jicon">
+          <picture>
+            <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/b61f9446-c3fe-43cd-a36e-ed8974e0d834" />
+            <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/c8697727-9e41-41dc-bc69-da1baf131339" />
+            <img src="https://www.figma.com/api/mcp/asset/6c8fe09d-ac36-4787-a001-320e6ee41ad6" alt="Figma" />
+          </picture>
+        </span>
       </a>
     </div>
 
@@ -951,26 +1045,35 @@
       </div>
       <div class="ds-panels">
         <div class="ds-panel on" id="ds-thumbnails">
-          <img src="https://www.figma.com/api/mcp/asset/ae19e6c0-fe32-444c-97bd-78e0360f4848" alt="Julius DS Thumbnails" />
+          <img src="https://www.figma.com/api/mcp/asset/97a8e1e2-3720-4ecb-921d-cc5e069e33c9" alt="Julius DS Thumbnails" />
         </div>
         <div class="ds-panel-doc" id="ds-documentations">
-          <img src="https://www.figma.com/api/mcp/asset/73ac26a9-9f00-4ace-8021-186f7eef7ab3" alt="Julius DS Documentation" />
+          <img src="https://www.figma.com/api/mcp/asset/75a33ab2-22c8-45f1-b1a6-85f442a74a8a" alt="Julius DS Documentation" />
           <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
         </div>
         <div class="ds-panel" id="ds-statistics">
-          <img src="https://www.figma.com/api/mcp/asset/59d039b2-929c-4ce0-bd03-73a37f661970" alt="Julius DS Statistics" />
+          <img src="https://www.figma.com/api/mcp/asset/9d7c43b8-1c52-4102-96a2-3b42b83a44d5" alt="Julius DS Statistics" />
         </div>
       </div>
     </div>
 
     <!-- Tablet/Mobile: stacked images -->
     <div class="ds-stacked">
-      <img class="full" src="https://www.figma.com/api/mcp/asset/c0cc6c47-d57c-4d80-83c1-f01ab47d6b62" alt="Julius DS Thumbnail" />
+      <picture class="full">
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/da734265-be6e-499d-bb03-b8886283178d" />
+        <img src="https://www.figma.com/api/mcp/asset/6adaa570-6000-4f24-b1fa-3109e6bfe7d6" alt="Julius DS Thumbnail" style="width:100%;display:block;" />
+      </picture>
       <div class="ds-doc-wrap">
-        <img src="https://www.figma.com/api/mcp/asset/b423be99-ed56-488e-bee7-a05a35b8b009" alt="Julius DS Documentation" />
+        <picture>
+          <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/7bc0548a-f6b1-41cb-8808-e738be48513b" />
+          <img src="https://www.figma.com/api/mcp/asset/ac4be366-9577-4289-8678-a75aa2195be1" alt="Julius DS Documentation" style="width:100%;" />
+        </picture>
         <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
       </div>
-      <img class="full" src="https://www.figma.com/api/mcp/asset/e86fdc95-2252-4526-86fa-055a366a26ea" alt="Julius DS Statistics" />
+      <picture class="full">
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/9d2cd0a0-6485-46b9-b5b4-20dc7e0e0ec7" />
+        <img src="https://www.figma.com/api/mcp/asset/d1487054-c66f-482e-8c50-24febae37d7c" alt="Julius DS Statistics" style="width:100%;display:block;" />
+      </picture>
     </div>
   </div>
 </section>
@@ -985,7 +1088,11 @@
       <p class="sbody">The tree structure creates spatial awareness, while the active state and tooltip cards reduce cognitive load and encourage cross-market exploration.</p>
     </div>
     <div class="h6-gif">
-      <img src="https://www.figma.com/api/mcp/asset/4384cba3-f974-46f1-b3ef-36bc4b123260" alt="Market Compass interactive demo" />
+      <picture>
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/0be901a5-345b-43c1-a997-487b11f14edb" />
+        <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/b766bd04-c387-4930-b028-dd319dc38116" />
+        <img src="https://www.figma.com/api/mcp/asset/1575ecbc-ba9d-4efa-9de6-cc967e12c5c9" alt="Market Compass interactive demo" />
+      </picture>
     </div>
   </div>
 </section>
@@ -995,7 +1102,7 @@
   <div class="stop">
     <div class="slabel"><span>OUTCOMES</span></div>
     <h2 class="sheading">Where Design Met Business</h2>
-    <p class="sbody" style="max-width:800px;">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch</p>
+    <p class="sbody" style="max-width:800px;">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch.</p>
   </div>
   <div class="h7-cards">
     <div class="result-card">
@@ -1026,7 +1133,7 @@
   <div class="inner">
     <div class="logo">
       clem
-      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/0f439027-d9ba-4dd1-9f5b-befffeb71a15" alt="" />
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/762ea00a-22f4-4798-86a0-4aff82cfb61d" alt="" />
     </div>
     <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
     <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-li" target="_blank" rel="noopener">LinkedIn</a>

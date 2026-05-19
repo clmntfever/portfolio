@@ -129,7 +129,7 @@ ul, ol { list-style: none; }
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 980px;
+  max-width: 1080px;
 }
 .logo {
   display: flex;
