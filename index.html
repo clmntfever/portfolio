@@ -68,7 +68,7 @@
       height: 32px;
       border-radius: 50%;
       flex-shrink: 0;
-      background: radial-gradient(circle at 35% 35%, #f5eb71, #e8825a 60%, #c4604a);
+      background: #3ecf8e; /* Figma 334-1663 — teal green, matches available-dot */
     }
     .hero-body {
       display: flex;
@@ -175,7 +175,6 @@
       gap: 16px;
       max-width: 1081px;
       width: 100%;
-      opacity: 0.8;
     }
     .hero-cta-heading {
       font-size: 38px;
@@ -199,6 +198,52 @@
     }
     .hero-cta-email:hover { opacity: 0.65; }
 
+    /* ── 768px — case study cards: horizontal scroll carousel ─ */
+    /* Figma: 3 cards × 360px + 2 gaps × 48px = 1176px total   */
+    /* Bleed-scroll: cards overflow section padding on both ends */
+    @media (max-width: 768px) {
+      .hero-2 { overflow-x: hidden; }
+      .case-studies-cards {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: auto !important;
+        margin-left:  calc(-1 * var(--pad-h)) !important;
+        margin-right: calc(-1 * var(--pad-h)) !important;
+        padding: 0 var(--pad-h) 8px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 48px !important;
+      }
+      .case-studies-cards::-webkit-scrollbar { display: none; }
+      .project-card {
+        flex: 0 0 360px !important;
+        width: 360px !important;
+        min-width: unset !important;
+        max-width: unset !important;
+      }
+    }
+
+    /* ── ≤600px — reset cards back to stacked column (mobile) ─ */
+    @media (max-width: 600px) {
+      .hero-2 { overflow-x: visible; }
+      .case-studies-cards {
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
+        gap: 16px !important;
+      }
+      .project-card {
+        flex: none !important;
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+      }
+    }
+
     /* ── Tablet overrides ──────────────────────────────────── */
     @media (max-width: 1024px) {
       .hero-1 { padding: 64px var(--pad-h) 48px; }
@@ -206,13 +251,18 @@
       .hero-1-text { max-width: 100%; min-width: unset; flex-shrink: 1; }
       .hero-hi  { font-size: 64px; }
       .hero-name { font-size: 80px; }
-      .glance-card { width: 100%; max-width: 100%; min-width: unset; }
+      /* max-width 440px — not screen-wide (Figma 768px spec) */
+      .glance-card { width: 100%; max-width: 440px; min-width: 360px; }
       .hero-2, .hero-3, .hero-4 { min-height: unset; }
       .hero-3-content { flex-direction: column; align-items: flex-start; }
       .expertise-left { max-width: 100%; }
-      .skills-card { width: 100%; max-width: 100%; }
+      /* max-width 440px — not screen-wide (Figma 768px spec) */
+      .skills-card { width: 100%; max-width: 440px; min-width: 360px; }
       .expertise-heading { font-size: 38px; }
       .section-title-large { font-size: 38px; }
+      /* CTA section — matches Figma tablet node (280-6078) */
+      .hero-cta-heading { font-size: 28px; }
+      .hero-cta-email   { font-size: 28px; letter-spacing: -1.12px; }
     }
 
     @media (max-width: 600px) {
@@ -290,7 +340,7 @@
                 <span class="glance-stat__value">B2B / B2C</span>
                 <span class="glance-stat__label">Products designed</span>
               </div>
-              <div class="glance-stat" style="margin-top:16px;">
+              <div class="glance-stat" style="margin-top:16px; width:158px;">
                 <span class="glance-stat__value">Product SaaS</span>
                 <span class="glance-stat__label">Complex data products</span>
               </div>
@@ -319,8 +369,8 @@
 
           <!-- Card 1: Remediation Objectives -->
           <a href="remediation.html" class="project-card" aria-label="View Remediation Objectives case study">
-            <div class="project-card__thumb">
-              <img src="./assets/thumbnail-remediation.png"
+            <div class="project-card__thumb project-card__thumb--zoom project-card__thumb--bordered">
+              <img src="https://www.figma.com/api/mcp/asset/b0911928-8ccd-43dd-8f72-86200fd3e577"
                    alt="Remediation Objectives — Panaseer dashboard UI" loading="lazy" />
             </div>
             <div class="project-card__body">
@@ -336,8 +386,8 @@
 
           <!-- Card 2: BMI Marketing Website -->
           <a href="bmi.html" class="project-card" aria-label="View Benchmark Mineral Intelligence case study">
-            <div class="project-card__thumb">
-              <img src="./assets/thumbnail-bmi.png"
+            <div class="project-card__thumb project-card__thumb--zoom project-card__thumb--bordered">
+              <img src="https://www.figma.com/api/mcp/asset/acaf9fd2-b4b6-4c3b-b43f-242caa7575a9"
                    alt="Benchmark Mineral Intelligence — marketing website" loading="lazy" />
             </div>
             <div class="project-card__body">
@@ -354,7 +404,7 @@
           <!-- Card 3: Panaseer Design System -->
           <a href="#" class="project-card" aria-label="Panaseer Design System — coming soon">
             <div class="project-card__thumb">
-              <img src="./assets/thumbnail-ds.png"
+              <img src="https://www.figma.com/api/mcp/asset/dbbdf8ee-00e9-4a7a-b232-e4da8949b397"
                    alt="Panaseer Design System" loading="lazy" />
             </div>
             <div class="project-card__body">

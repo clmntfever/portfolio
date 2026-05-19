@@ -6,861 +6,1084 @@
   <title>Benchmark Mineral Intelligence · Clément Blindron</title>
   <meta name="description" content="Case study: UI design for the world's leading mineral price reporting and intelligence platform — from design system to marketing website." />
   <meta name="author" content="Clément Blindron" />
-  <!-- OG -->
   <meta property="og:title" content="Benchmark Mineral Intelligence · Clément Blindron" />
-  <meta property="og:description" content="Case study: UI design for the world's leading mineral price reporting and intelligence platform — from design system to marketing website." />
-  <meta property="og:type" content="article" />
+  <meta property="og:description" content="A full UI design story from components to product." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* ── PAGE-SPECIFIC: BMI ──────────────────────────────── */
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
 
-    /* ── Dark hero ─────────────────────────────────────────── */
-    .bmi-hero {
+    /* ===== TOKENS ===== */
+    :root {
+      --pad-l: 230px;
+      --pad-r: 130px;
+      --pad-t: 32px;
+      --pad-m: 16px;
+      --py: 48px;
+      --max: 1080px;
+      --border: #e4ddd0;
+      --grey: #8a8580;
+      --gold: #cea864;
+    }
+
+    /* ===== SHARED ===== */
+    .inner { max-width: var(--max); width: 100%; }
+    .slabel {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .slabel::before {
+      content: ''; width: 20px; height: 1.5px;
+      background: var(--grey); flex-shrink: 0;
+    }
+    .slabel span {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.1px; color: var(--grey); text-transform: uppercase;
+    }
+    .sheading {
+      font-size: 32px; font-weight: 800;
+      line-height: 1.2; letter-spacing: -0.48px; color: #1a1a1a;
+    }
+    .sbody { font-size: 16px; font-weight: 400; line-height: 1.7; color: #444; }
+    .stop { display: flex; flex-direction: column; gap: 16px; }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid var(--border);
+      height: 68px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 18px var(--pad-r) 18px var(--pad-l);
+    }
+    .site-header .inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 16px; font-weight: 700; letter-spacing: -0.32px; color: #111110;
+    }
+    .logo-dot { width: 6px; height: 6px; flex-shrink: 0; }
+    .btn-talk {
+      display: flex; align-items: center; gap: 4px;
+      background: #111110; color: #fff;
+      font-size: 13px; font-weight: 600;
+      height: 40px; padding: 8px 16px;
+      border-radius: 48px; white-space: nowrap;
+    }
+    .btn-talk img { width: 16px; height: 16px; }
+
+    /* ===== HERO 1 ===== */
+    .hero1 {
       background: #13151d;
-      width: 100%;
-      padding: 48px var(--pad-h) 0;
-      display: flex;
-      justify-content: center;
+      padding: 48px var(--pad-r) 0 var(--pad-l);
+      display: flex; align-items: flex-start; justify-content: center;
     }
-    .bmi-hero__inner {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      width: 100%;
-      max-width: var(--max-w);
-      min-height: 212px;
+    .hero1 .inner {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 40px;
     }
-    .bmi-hero__text {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding-bottom: 24px;
+    .h1-text { display: flex; flex-direction: column; gap: 4px; }
+    .h1-eyebrow {
+      font-size: 14px; font-weight: 400;
+      letter-spacing: 0.56px; color: rgba(255,255,255,.45);
     }
-    .bmi-hero__eyebrow {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.56px;
-      text-transform: uppercase;
+    .h1-title {
+      font-size: 48px; font-weight: 700; line-height: normal;
+      color: #fff; max-width: 559px;
     }
-    .bmi-hero__title {
-      font-size: 48px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.1;
-      max-width: 559px;
+    .h1-subtitle {
+      font-size: 16px; font-weight: 400; line-height: 1.7;
+      color: rgba(255,255,255,.6); max-width: 559px;
     }
-    .bmi-hero__subtitle {
-      font-size: 16px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.7;
-      max-width: 559px;
-      margin-top: 6px;
+    .h1-thumb {
+      border: 1px solid #f4f4f4;
+      border-radius: 16px 16px 0 0;
+      width: 374px; height: 232px;
+      overflow: hidden; flex-shrink: 0; align-self: flex-end;
     }
-    .bmi-hero__thumb {
-      flex-shrink: 0;
-      width: 374px;
-      height: 232px;
-      overflow: hidden;
-      border-radius: 8px 8px 0 0;
-      align-self: flex-end;
-    }
-    .bmi-hero__thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .h1-thumb img {
+      width: 103.89%; height: 100.43%;
+      margin-left: -1.94%; margin-top: -0.43%;
+      max-width: none; object-fit: cover;
     }
 
-    /* ── Overview ──────────────────────────────────────────── */
-    .bmi-overview-layout {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 48px;
-    }
-    .bmi-overview-text {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 588px;
-      flex-shrink: 0;
-    }
-    .bmi-overview-text h2 {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.48px;
-      line-height: 1.2;
-      color: #1a1a1a;
-    }
-    .bmi-overview-text p {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.75;
-      color: #444;
-    }
-
-    /* ── Section bg warm ────────────────────────────────────── */
-    .bmi-section-warm { background: #f7f5f0; }
-
-    /* ── Mega menu section ──────────────────────────────────── */
-    .mega-menu-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      width: 100%;
-    }
-    .mega-menu-toggle-row {
-      display: flex;
-      justify-content: flex-end;
-    }
-    .before-after-wrapper {
-      width: 100%;
-      position: relative;
-    }
-    .ba-screen {
-      width: 100%;
-      border: 2px solid #000;
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    .ba-screen img {
-      width: 100%;
-      display: block;
-    }
-    .ba-screen.is-hidden { display: none; }
-
-    /* ── App section ───────────────────────────────────────── */
-    .app-section-text {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 800px;
-      margin-bottom: 40px;
-    }
-    .app-section-text p {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: #444;
-    }
-    .app-browser-wrap {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 13px;
-    }
-
-    /* App launch page content inside browser */
-    .app-launch-content {
-      background: #242424;
-      padding: 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .app-launch-hero {
-      background: #13151d;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 40px 48px;
-      overflow: hidden;
-      min-height: 320px;
-    }
-    .app-launch-hero__bg {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-    .app-launch-hero__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.3;
-      margin: 0;
-    }
-    .app-launch-hero__text {
-      position: relative;
-      z-index: 1;
-      max-width: 360px;
-    }
-    .app-launch-hero__title {
-      font-size: 27px;
-      font-weight: 700;
-      color: #fafbff;
-      font-family: var(--font-montserrat);
-      margin-bottom: 12px;
-    }
-    .app-launch-hero__subtitle {
-      font-size: 12px;
-      font-weight: 400;
-      color: #fafbff;
-      font-family: var(--font-montserrat);
-      line-height: 1.65;
-      max-width: 304px;
-      margin-bottom: 16px;
-    }
-    .btn-bmi-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 32px;
-      padding: 7.5px 10.5px;
-      background: #fcbd00;
-      color: #000;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--font-montserrat);
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-    .app-launch-hero__mockup {
-      position: relative;
-      z-index: 1;
-      width: 200px;
-      height: 240px;
-      overflow: hidden;
-      border-radius: 16px;
-      flex-shrink: 0;
-    }
-    .app-launch-hero__mockup img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      margin: 0;
-    }
-    /* App provides block */
-    .app-provides {
-      display: flex;
-      gap: 18px;
-      padding: 32px 48px;
+    /* ===== HERO 2 ===== */
+    .hero2 {
       background: #fff;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; justify-content: center;
     }
-    .app-provides__text {
-      max-width: 358px;
-      flex-shrink: 0;
+    .hero2 .inner {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 40px;
     }
-    .app-provides__heading {
-      font-size: 22.5px;
-      font-weight: 700;
-      color: #25262a;
-      font-family: var(--font-montserrat);
-      margin-bottom: 24px;
+    .h2-left { display: flex; flex-direction: column; gap: 16px; max-width: 588px; }
+    .h2-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; width: 371px; height: 371px; flex-shrink: 0;
     }
-    .app-provides__item {
-      margin-bottom: 16px;
-    }
-    .app-provides__item:last-child { margin-bottom: 0; }
-    .app-provides__item-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #25262a;
-      font-family: var(--font-montserrat);
-      margin-bottom: 6px;
-    }
-    .app-provides__item-text {
-      font-size: 12px;
-      font-weight: 400;
-      color: #25262a;
-      font-family: var(--font-montserrat);
-      line-height: 1.65;
-    }
-    .app-store-btns {
-      display: flex;
-      gap: 24px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-    .app-store-btns img {
-      height: 45px;
-      width: auto;
-    }
-    /* App provides pictures */
-    .app-provides__pictures {
-      display: flex;
-      gap: 18px;
-      flex: 1;
-    }
-    .app-pic-col {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      flex: 1;
-    }
-    .app-pic-col img {
-      width: 100%;
-      border-radius: 9px;
-      object-fit: cover;
-      margin: 0;
-    }
-    .app-pic-col img.tall { height: 240px; }
-    .app-pic-col img.short { height: 124.5px; }
-    .app-pic-col img.square { height: 102px; }
-    .app-pic-col img.portrait { height: 263px; }
+    .h2-grid img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* App feature cards scroll wrapper */
-    .app-features-scroll {
-      padding: 24px 48px;
-      background: #f9f9f9;
-      overflow-x: auto;
+    /* ===== HERO 3 ===== */
+    .hero3 {
+      background: #f7f5f0;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; justify-content: center;
+    }
+    .hero3 .inner { display: flex; flex-direction: column; gap: 48px; }
+    .toggle-row { display: flex; justify-content: flex-end; padding-right: 509px; }
+    .toggle-pill {
+      display: inline-flex; align-items: center;
+      border: 1px solid #000; border-radius: 32px; padding: 6px;
+      position: relative; cursor: pointer;
+    }
+    .toggle-bg {
+      position: absolute; left: 6px;
+      background: #1d1d1d; height: 27px; width: 71px;
+      border-radius: 32px; transition: transform .2s ease;
+    }
+    .toggle-bg.right { transform: translateX(79px); }
+    .toggle-opt {
+      position: relative; z-index: 1;
+      font-size: 16px; font-weight: 600;
+      width: 71px; text-align: center; line-height: 27px;
+      transition: color .2s ease;
+    }
+    .toggle-opt.on { color: #fff; }
+    .toggle-opt.off { color: #13151d; }
+    .screens-clip { overflow: hidden; width: 100%; }
+    .screens-track {
+      display: flex; gap: 24px;
+      transition: transform .3s ease;
+    }
+    .screens-track.after { transform: translateX(calc(-1060px - 24px)); }
+    .screen-box {
+      border: 2px solid #000; border-radius: 16px;
+      overflow: hidden; flex-shrink: 0; width: 1060px;
+    }
+    .screen-box img { width: 100%; height: 509px; object-fit: cover; }
+
+    /* ===== HERO 4 ===== */
+    .hero4 {
+      background: #fff;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; justify-content: center;
+    }
+    .hero4 .inner { display: flex; flex-direction: column; gap: 48px; }
+    /* Browser simulation */
+    .browser-wrap { display: flex; flex-direction: column; gap: 13px; }
+    .browser-frame {
+      border: 2px solid #000; border-radius: 12px;
+      background: #242424;
+      width: 1080px; height: 777px;
+      overflow-y: auto; overflow-x: hidden;
+      position: relative;
+    }
+    .browser-chrome {
+      position: sticky; top: 0; z-index: 10;
+      background: #242424; height: 36px;
+      display: flex; align-items: center;
+      padding: 7px 10px; gap: 0;
+    }
+    .b-dot { width: 10px; height: 10px; border-radius: 5px; flex-shrink: 0; }
+    .b-dot.r { background: #ff5f57; margin-right: 4px; margin-left: 4px; }
+    .b-dot.a { background: #febc2e; margin-right: 4px; }
+    .b-dot.g { background: #28c840; margin-right: 8px; }
+    .b-url {
+      background: #1a1a1a; border-radius: 5px;
+      height: 22px; flex: 1;
+      display: flex; align-items: center; padding: 0 10px;
+    }
+    .b-url span {
+      font-size: 11px; color: #fff;
+      font-family: 'Inter', sans-serif; white-space: nowrap;
+    }
+    /* BMI site inside browser */
+    .bmi-site { background: #fff; width: 1080px; min-height: 1708px; }
+    .bmi-header-img { width: 100%; height: 77px; object-fit: cover; }
+    .bmi-hero-zone {
+      position: relative; background: #242424;
+      height: 370px; overflow: hidden;
+    }
+    .bmi-bg {
+      position: absolute; inset: 0;
+      width: 139.32%; height: 224.92%;
+      left: 0; top: -32.1%;
+      object-fit: cover; max-width: none;
+    }
+    .bmi-gradient {
+      position: absolute; top: -3px; left: 0;
+      width: 611px; height: 372px; pointer-events: none;
+    }
+    .bmi-gradient img { width: 100%; height: 100%; }
+    .bmi-hero-text {
+      position: absolute; top: 155px; left: 58px; width: 325px;
+    }
+    .bmi-hero-text h2 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 27px; color: #fafbff; line-height: normal; margin-bottom: 12px;
+    }
+    .bmi-hero-text p {
+      font-family: 'Montserrat', sans-serif; font-weight: 400;
+      font-size: 12px; color: #fafbff; line-height: 1.5;
+      margin-bottom: 12px; width: 304px;
+    }
+    .bmi-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #fcbd00; color: #000;
+      font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+      padding: 7.5px 10.5px; border-radius: 4px; white-space: nowrap;
+    }
+    .bmi-iphone-hero {
+      position: absolute; right: 155px; top: 55px;
+      width: 278px; height: 597px; pointer-events: none;
+    }
+    .bmi-iphone-hero img { width: 100%; height: 100%; object-fit: contain; }
+    .bmi-provides {
+      display: flex; gap: 18px; padding: 48px 48px 0;
+    }
+    .bmi-prov-text {
+      width: 358px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .bmi-prov-text h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 22.5px; color: #25262a;
+    }
+    .bmi-pitem { display: flex; flex-direction: column; gap: 12px; }
+    .bmi-pitem h4 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 15px; color: #25262a;
+    }
+    .bmi-pitem p {
+      font-family: 'Montserrat', sans-serif; font-weight: 400;
+      font-size: 12px; color: #25262a; line-height: 1.4;
+    }
+    .bmi-stores { display: flex; gap: 24px; align-items: center; }
+    .bmi-stores img { height: 45px; width: auto; }
+    .bmi-photos { display: flex; gap: 18px; flex: 1; }
+    .bmi-pc { display: flex; flex-direction: column; gap: 18px; }
+    .bmi-pc.w { width: 358px; }
+    .bmi-pc.n { width: 232px; }
+    .bmi-photo { border-radius: 9px; overflow: hidden; }
+    .bmi-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .bmi-photo.tall { height: 240px; }
+    .bmi-photo.short { height: 125px; }
+    .bmi-photo.sq  { height: 102px; }
+    .bmi-photo.rot { height: 263px; }
+    .bmi-fcards { display: flex; gap: 18px; padding: 48px 48px 48px; }
+    .bmi-fc {
+      background: #fff; border-radius: 9px;
+      box-shadow: 0.75px 0.75px 1.5px #fff, 1.5px 1.5px 6px rgba(0,0,0,.25);
+      padding: 18px; width: 358px; flex-shrink: 0;
+    }
+    .bmi-fc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .bmi-fc-num {
+      width: 21px; height: 21px; position: relative; flex-shrink: 0;
+    }
+    .bmi-fc-num img { width: 100%; height: 100%; }
+    .bmi-fc-num span {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', sans-serif; font-size: 9px;
+      font-weight: 700; color: #fff;
+    }
+    .bmi-fc-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 12px; color: #25262a;
+    }
+    .bmi-fc-desc {
+      font-family: 'Montserrat', sans-serif; font-weight: 400;
+      font-size: 12px; color: #25262a;
+      height: 60px; margin-bottom: 18px;
+    }
+    .bmi-fc-phones {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bmi-phone-stack {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .bmi-phone-item {
+      width: 197px; height: 379px; flex-shrink: 0;
+      position: relative;
+    }
+    .bmi-phone-item.stacked {
+      margin-left: -135px;
+    }
+    .bmi-phone-item .pframe {
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .bmi-phone-item .pframe img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bmi-phone-item .pscreen {
+      position: absolute;
+      top: 10px; left: 16px;
+      width: 165px; height: 356px;
+      overflow: hidden; border-radius: 38px;
+    }
+    .bmi-phone-item .pscreen img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bmi-screenshot { width: 100%; }
+    .bmi-screenshot img { width: 100%; height: 217px; object-fit: cover; }
+    .browser-caption {
+      font-size: 12px; font-style: italic; font-weight: 300;
+      line-height: 1.55; text-align: center; color: #000;
+    }
+    /* Feature cards (tablet/mobile) */
+    .app-feat-section {
+      display: none; flex-direction: column; gap: 16px;
+      padding: 0 16px;
+    }
+    .app-feat-section h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 20px; color: #25262a;
+    }
+    .feat-carousel {
+      display: flex; gap: 16px;
+      overflow-x: auto; padding-bottom: 8px;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
-    .app-features-scroll::-webkit-scrollbar { display: none; }
-    .app-features-row {
-      display: flex;
-      gap: 18px;
-      min-width: max-content;
+    .feat-carousel::-webkit-scrollbar { display: none; }
+    .feat-card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 1px 1px 2px #fff, 2px 2px 8px rgba(0,0,0,.25);
+      padding: 24px 24px; width: 290px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .feat-card-top { display: flex; flex-direction: column; gap: 16px; }
+    .feat-num-row { display: flex; align-items: center; gap: 16px; }
+    .feat-num {
+      width: 28px; height: 28px; position: relative; flex-shrink: 0;
+    }
+    .feat-num img { width: 100%; height: 100%; }
+    .feat-num span {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', sans-serif; font-size: 12px;
+      font-weight: 700; color: #fff;
+    }
+    .feat-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 16px; color: #25262a; flex: 1;
+    }
+    .feat-desc {
+      font-family: 'Montserrat', sans-serif; font-weight: 400;
+      font-size: 16px; color: #25262a;
+    }
+    .feat-card-bottom { display: flex; align-items: center; justify-content: center; }
+    .feat-iphone {
+      width: 193px; height: 371px; position: relative;
+    }
+    .feat-iphone .fi-frame {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .feat-iphone .fi-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .feat-iphone .fi-screen {
+      position: absolute;
+      top: 9px; left: 16px;
+      width: 162px; height: 350px;
+      overflow: hidden; border-radius: 36px;
+    }
+    .feat-iphone .fi-screen img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ===== HERO 5 ===== */
+    .hero5 {
+      background: #f7f5f0;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; justify-content: center;
+    }
+    .hero5 .inner { display: flex; flex-direction: column; gap: 24px; }
+    .btn-julius {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #111110; color: #fff;
+      font-size: 13px; font-weight: 600;
+      padding: 8px 8px 8px 12px; border-radius: 48px;
+      white-space: nowrap; cursor: pointer; width: fit-content;
+    }
+    .btn-julius .jicon { display: flex; align-items: center; padding: 6px 10px; }
+    .btn-julius .jicon img { height: 24px; width: 16px; }
+    /* Tab system */
+    .ds-tabs { display: flex; flex-direction: column; gap: 24px; }
+    .ds-tabbar {
+      display: flex; justify-content: flex-end;
+      padding-right: 406px;
+    }
+    .ds-pill {
+      display: inline-flex; align-items: center;
+      border: 1px solid #000; border-radius: 30px;
+      padding: 8px; position: relative; gap: 0;
+    }
+    .ds-pill-bg {
+      position: absolute; left: 8px;
+      background: #1d1d1d; height: 31px;
+      border-radius: 32px;
+      transition: transform .2s ease, width .2s ease;
+    }
+    .ds-tab {
+      font-size: 16px; font-weight: 600;
+      height: 31px; display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      transition: color .2s ease; white-space: nowrap; cursor: pointer;
+    }
+    .ds-tab[data-t="thumbnails"]     { width: 110px; }
+    .ds-tab[data-t="documentations"] { width: 146px; }
+    .ds-tab[data-t="statistics"]     { width: 80px; }
+    .ds-tab.on  { color: #fff; }
+    .ds-tab.off { color: #13151d; }
+    .ds-panels { position: relative; }
+    .ds-panel { display: none; }
+    .ds-panel.on { display: block; }
+    .ds-panel img { width: 780px; height: 557px; object-fit: cover; }
+    .ds-panel-doc { display: none; flex-direction: column; gap: 10px; width: 780px; }
+    .ds-panel-doc.on { display: flex; }
+    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; }
+    .ds-panel-doc p {
+      font-size: 12px; font-style: italic; font-weight: 300;
+      line-height: 1.55; color: #000;
+    }
+    /* Stacked (tablet/mobile) */
+    .ds-stacked { display: none; flex-direction: column; gap: 36px; }
+    .ds-stacked img.full { width: 100%; aspect-ratio: 2160/1542; object-fit: cover; }
+    .ds-doc-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .ds-doc-wrap img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; }
+    .ds-doc-wrap p {
+      font-size: 12px; font-style: italic; font-weight: 300;
+      line-height: 1.55; color: #000;
     }
 
-    /* ── Design System (Julius 2.0) ─────────────────────────── */
-    .julius-section {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    /* ===== HERO 6 ===== */
+    .hero6 {
+      background: #201e26;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; justify-content: center;
+    }
+    .hero6 .inner { display: flex; flex-direction: column; gap: 24px; }
+    .hero6 .sheading { color: #fff; }
+    .hero6 .sbody { color: #fff; }
+    .hero6 .slabel span { color: var(--grey); }
+    .h6-gif {
+      width: 100%; aspect-ratio: 1080/657;
+      position: relative; overflow: hidden;
+    }
+    .h6-gif img {
+      position: absolute;
+      width: 133.61%; height: 100.04%;
+      left: -16.81%; top: 0; max-width: none;
     }
 
-    /* ── Market Compass (dark) ───────────────────────────────── */
-    .compass-section-text {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 800px;
-      margin-bottom: 32px;
+    /* ===== HERO 7 ===== */
+    .hero7 {
+      background: #fff;
+      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      display: flex; flex-direction: column; gap: 48px;
     }
-    .compass-section-text p {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.75);
+    .h7-cards { display: flex; gap: 17px; }
+    .result-card {
+      flex: 1 0 0; min-width: 258px; max-width: 360px;
+      border: 1px solid #e6e6e6; border-radius: 12px;
+      padding: 24px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      align-items: center; text-align: center; overflow: hidden;
     }
-    .compass-gif-wrap {
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
+    .res-stat { font-size: 32px; font-weight: 800; line-height: 1; color: var(--gold); white-space: nowrap; }
+    .res-label { font-size: 15px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+    .res-desc { font-size: 12px; font-weight: 400; line-height: 1.55; color: #737373; }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 18px var(--pad-r) 18px var(--pad-l);
+      display: flex; justify-content: center;
     }
-    .compass-gif-wrap img {
-      width: 100%;
-      display: block;
+    .site-footer .inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-size: 12px; color: #b4aea6; white-space: nowrap; }
+    .footer-li { font-size: 12px; color: #8a8580; text-decoration: underline; white-space: nowrap; }
+
+    /* ===== TABLET (≤768px) ===== */
+    @media (max-width: 768px) {
+      .site-header { padding: 18px var(--pad-t); }
+      /* Hero 1 — thumbnail intentionally bleeds off right edge (Figma design) */
+      .hero1 { padding: 56px var(--pad-t) 0; overflow-x: hidden; }
+      .hero1 .inner { flex-direction: row; gap: 36px; align-items: flex-start; }
+      .h1-text { width: 356px; }
+      .h1-thumb { margin-top: 16px; }
+      .h1-title { font-size: 40px; max-width: 100%; }
+      .h1-subtitle { max-width: 100%; }
+      /* Hero 2 */
+      .hero2 { padding: var(--py) var(--pad-t); }
+      .hero2 .inner { flex-direction: column; align-items: flex-start; gap: 48px; }
+      .h2-left { max-width: 100%; }
+      .h2-grid { align-self: center; }
+      /* Hero 3 */
+      .hero3 { padding: var(--py) var(--pad-t); }
+      .toggle-row { justify-content: center; padding-right: 0; }
+      .screens-track.after { transform: translateX(calc(-688px - 24px)); }
+      .screen-box { width: 688px; }
+      .screen-box img { height: 331px; }
+      /* Hero 4 */
+      .hero4 { padding: var(--py) var(--pad-t); }
+      .browser-wrap { display: none; }
+      .app-feat-section { display: flex; }
+      /* Hero 5 */
+      .hero5 { padding: var(--py) var(--pad-t); }
+      .ds-tabs { display: none; }
+      .ds-stacked { display: flex; }
+      /* Hero 6 */
+      .hero6 { padding: var(--py) var(--pad-t); }
+      /* Hero 7 — cards bleed to viewport edges for horizontal scroll */
+      .hero7 { padding: var(--py) var(--pad-t); overflow-x: hidden; }
+      .h7-cards {
+        width: auto;
+        margin: 0 calc(-1 * var(--pad-t));
+        padding: 0 var(--pad-t) 16px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .h7-cards::-webkit-scrollbar { display: none; }
+      .result-card { flex: 0 0 258px; }
+      /* Footer */
+      .site-footer { padding: 18px var(--pad-t); }
+      .site-footer .inner { flex-direction: column; gap: 16px; align-items: center; }
     }
 
-    /* ── Outcomes ───────────────────────────────────────────── */
-    .outcomes-intro {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: #444;
-      max-width: 800px;
-      margin-bottom: 32px;
-    }
-
-    /* ── Tablet ─────────────────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .bmi-hero { padding: 40px 48px 0; }
-      .bmi-hero__inner { flex-direction: column; min-height: unset; align-items: flex-start; gap: 32px; }
-      .bmi-hero__thumb { width: 100%; height: 220px; border-radius: 8px; align-self: auto; }
-      .bmi-hero__title { font-size: 34px; }
-      .bmi-overview-layout { flex-direction: column; }
-      .img-grid-2x2 { display: none; }
-      .app-provides { flex-direction: column; }
-      .app-provides__pictures { display: none; }
-    }
-
-    @media (max-width: 600px) {
-      .bmi-hero { padding: 32px 20px 0; }
-      .bmi-hero__title { font-size: 28px; }
-      .bmi-hero__eyebrow { font-size: 11px; }
-      .app-launch-hero { flex-direction: column; gap: 24px; min-height: unset; padding: 28px 20px; }
-      .app-provides { padding: 24px 20px; }
-      .app-features-scroll { padding: 20px; }
-      .mega-menu-toggle-row { justify-content: center; }
+    /* ===== MOBILE (≤402px) ===== */
+    @media (max-width: 402px) {
+      .site-header { padding: 18px var(--pad-m); }
+      /* Hero 1 */
+      .hero1 { padding: 56px var(--pad-m) 0; }
+      .hero1 .inner { flex-direction: column; gap: 4px; }
+      .h1-text { width: 100%; }
+      .h1-thumb { align-self: flex-start; }
+      .h1-title { font-size: 40px; }
+      /* Hero 2 */
+      .hero2 { padding: var(--py) var(--pad-m); }
+      .h2-grid { width: 100%; height: auto; max-width: 371px; aspect-ratio: 1; }
+      /* Hero 3 */
+      .hero3 { padding: var(--py) var(--pad-m); }
+      .screens-track.after { transform: translateX(calc(-364px - 24px)); }
+      .screen-box { width: 364px; }
+      .screen-box img { height: 175px; }
+      /* Hero 4 */
+      .hero4 { padding: var(--py) var(--pad-m); }
+      .app-feat-section { padding: 0; }
+      /* Hero 5 */
+      .hero5 { padding: var(--py) var(--pad-m); }
+      /* Hero 6 */
+      .hero6 { padding: var(--py) var(--pad-m); }
+      /* Hero 7 */
+      .hero7 { padding: var(--py) var(--pad-m); }
+      .h7-cards {
+        margin: 0 calc(-1 * var(--pad-m));
+        padding: 0 var(--pad-m) 16px;
+      }
+      /* Footer */
+      .site-footer { padding: 18px var(--pad-m); }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
 
-    <!-- ═══════════════════════════════════════════════════ HEADER -->
-    <header class="site-header">
-      <div class="header-inner">
-        <a href="index.html" class="logo">
-          clem
-          <span class="logo-dot" aria-hidden="true"></span>
-        </a>
-        <a href="mailto:clement.blindron@gmail.com" class="btn-cta">
-          Let's talk
-          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </header>
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="inner">
+    <a href="index.html" class="logo">
+      clem
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/17cf0ada-36f7-40b3-b0e9-2454d3f8e500" alt="" />
+    </a>
+    <a href="mailto:clement.blindron@example.com" class="btn-talk">
+      Let's talk&nbsp;
+      <img src="https://www.figma.com/api/mcp/asset/1576856f-71ab-417a-ad31-a602482f78b2" alt="" />
+    </a>
+  </div>
+</header>
 
-    <!-- ════════════════════════════════════════════ DARK HERO -->
-    <div class="bmi-hero" aria-label="Case study hero">
-      <div class="bmi-hero__inner">
-        <div class="bmi-hero__text">
-          <p class="bmi-hero__eyebrow">UI / Product Design · B2B SaaS · Benchmark Mineral Intelligence · Market Intelligence</p>
-          <h1 class="bmi-hero__title">Design That Sets<br>the Standard</h1>
-          <p class="bmi-hero__subtitle">Making complex mineral data feel clear, trustworthy, and human. A full UI design story from components to product.</p>
+<!-- ========== HERO 1 ========== -->
+<section class="hero1">
+  <div class="inner">
+    <div class="h1-text">
+      <p class="h1-eyebrow">UI / Product Design · B2B SaaS · Benchmark Mineral Intelligence · Market Intelligence</p>
+      <h1 class="h1-title">Design That Sets the Standard</h1>
+      <p class="h1-subtitle">Making complex mineral data feel clear, trustworthy, and human. A full UI design story from components to product.</p>
+    </div>
+    <div class="h1-thumb">
+      <img src="https://www.figma.com/api/mcp/asset/bbea6543-5930-4371-b4d6-b496646f15b4" alt="BMI Website UI" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== HERO 2 ========== -->
+<section class="hero2">
+  <div class="inner">
+    <div class="h2-left">
+      <div class="slabel"><span>OVERVIEW</span></div>
+      <h2 class="sheading">The data was world-class. The experience to match it, wasn't.</h2>
+      <p class="sbody">Benchmark Mineral Intelligence is the world's leading price reporting agency and market intelligence platform for the lithium-ion battery and critical minerals supply chain. Used by EV manufacturers, battery producers, mining companies, and global investors, BMI sets the price benchmarks that move markets.</p>
+      <p class="sbody">But as the platform scaled, the product experience hadn't kept pace. Data was scattered across inconsistent interfaces, the visual language lacked cohesion, and the design had no shared foundation to build from. Analysts trusted the data, but the product didn't always feel like it deserved that trust.</p>
+    </div>
+    <div class="h2-grid">
+      <img src="https://www.figma.com/api/mcp/asset/21e2b8de-c532-4ea7-8a53-36e08fabc9c9" alt="Raw Materials" />
+      <img src="https://www.figma.com/api/mcp/asset/32113844-cbea-4249-8edf-e561050d75ca" alt="Battery Recycling" />
+      <img src="https://www.figma.com/api/mcp/asset/558befeb-b1d9-493e-b163-2985c1ddecfd" alt="New Technology" />
+      <img src="https://www.figma.com/api/mcp/asset/6777490e-e3c6-45aa-9ac7-ce18b8ca3658" alt="Demand" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== HERO 3 ========== -->
+<section class="hero3">
+  <div class="inner">
+    <div class="stop">
+      <div class="slabel"><span>MEGA MENU</span></div>
+      <h2 class="sheading">Mega Menu: Less guessing, more finding.</h2>
+      <p class="sbody">Our old menu was minimal, perhaps too minimal. With a growing product suite spanning markets, data tools, events, and publications, a simple dropdown was no longer enough.</p>
+      <p class="sbody">Enter the mega menu. A deliberate, organised layout that groups related content visually and contextually. Users can now see the full scope of Benchmark's offering at a glance, and navigate to exactly the right place, without the trial and error.</p>
+    </div>
+    <!-- Toggle + screens -->
+    <div>
+      <div class="toggle-row">
+        <div class="toggle-pill" role="group" aria-label="Before/After toggle">
+          <div class="toggle-bg" id="h3-bg"></div>
+          <button class="toggle-opt on"  id="h3-before" onclick="setH3('before')">Before</button>
+          <button class="toggle-opt off" id="h3-after"  onclick="setH3('after')">After</button>
         </div>
-        <div class="bmi-hero__thumb">
-          <img src="./assets/bmi-hero-thumb.png"
-               alt="Benchmark Mineral Intelligence — marketing website screenshot" />
+      </div>
+      <div class="screens-clip" style="margin-top:24px;">
+        <div class="screens-track" id="h3-track">
+          <div class="screen-box">
+            <img src="https://www.figma.com/api/mcp/asset/4b126bc3-f998-46d7-9110-160244f0580f" alt="Before — old navigation" />
+          </div>
+          <div class="screen-box">
+            <img src="https://www.figma.com/api/mcp/asset/b5a8df1a-a183-46b1-8c9c-ccfaee7d7a7d" alt="After — mega menu" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HERO 4 ========== -->
+<section class="hero4">
+  <div class="inner">
+    <div class="stop">
+      <div class="slabel"><span>THE APP</span></div>
+      <h2 class="sheading">The market in your pocket, introducing the Benchmark app</h2>
+      <p class="sbody">For an organisation that runs events worldwide and serves a global audience of analysts, executives, and policymakers, being mobile-ready isn't a nice-to-have. It's essential. Benchmark's users don't sit still, and neither should their access to the market.</p>
+      <p class="sbody">This work covered two fronts: developing new features within the app, and designing the launch presentation page that introduces it to the world. The goal was to create a page that does justice to the product, clearly communicating that this isn't just a companion app, but a full intelligence hub. Prices, news, events, analysis, everything Benchmark delivers, now in your pocket.</p>
+    </div>
+
+    <!-- Desktop: browser simulation -->
+    <div class="browser-wrap">
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="b-dot r"></div>
+          <div class="b-dot a"></div>
+          <div class="b-dot g"></div>
+          <div class="b-url"><span>benchmarkminerals.com/tools</span></div>
+        </div>
+        <div class="bmi-site">
+          <!-- BMI site header bar -->
+          <img class="bmi-header-img" src="https://www.figma.com/api/mcp/asset/38e5a330-4879-4490-a065-02d281de721b" alt="BMI Header" />
+          <!-- BMI hero zone: dark background + text + iPhone -->
+          <div class="bmi-hero-zone">
+            <img class="bmi-bg" src="https://www.figma.com/api/mcp/asset/ae549ea8-496a-4832-b923-d0b031e122ad" alt="" />
+            <div class="bmi-gradient">
+              <img src="https://www.figma.com/api/mcp/asset/3dd513aa-87b3-42ac-9286-695ba8ade824" alt="" />
+            </div>
+            <div class="bmi-hero-text">
+              <h2>The Benchmark App</h2>
+              <p>Designed to place our innovative products and services at your fingertips, empowering you with the latest data and insights across the lithium ion and energy transition supply chain.</p>
+              <span class="bmi-cta">Send me the link</span>
+            </div>
+            <div class="bmi-iphone-hero">
+              <img src="https://www.figma.com/api/mcp/asset/6d34e363-fbf9-4c0e-b64f-9584f873cff3" alt="iPhone with Benchmark App" />
+            </div>
+          </div>
+          <!-- Our App provides -->
+          <div class="bmi-provides">
+            <div class="bmi-prov-text">
+              <h3>Our App provides</h3>
+              <div class="bmi-pitem">
+                <h4>Access to Latest Prices</h4>
+                <p>Be the first to receive the latest lithium ion and energy transition supply chain prices from markets worldwide.</p>
+              </div>
+              <div class="bmi-pitem">
+                <h4>Comprehensive Market Insights</h4>
+                <p>Leverage detailed news and analysis to make informed decisions, backed by data from industry experts.</p>
+              </div>
+              <div class="bmi-pitem">
+                <h4>Insights Personalised Experience</h4>
+                <p>Personalise your app based on the markets and topics that matter most to you.</p>
+              </div>
+              <div class="bmi-pitem">
+                <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:#25262a;">Download The Benchmark App</p>
+                <div class="bmi-stores">
+                  <img src="https://www.figma.com/api/mcp/asset/0c4fa4a4-8653-4670-b924-c170c974e043" alt="App Store" />
+                  <img src="https://www.figma.com/api/mcp/asset/3c05b786-2aa3-40ba-9793-16247a90f39c" alt="Google Play" />
+                </div>
+              </div>
+            </div>
+            <div class="bmi-photos">
+              <div class="bmi-pc w">
+                <div class="bmi-photo tall"><img src="https://www.figma.com/api/mcp/asset/c460ed5b-1d53-4ff2-a542-bfab40e47c61" alt="Trading workplace" /></div>
+                <div class="bmi-photo short"><img src="https://www.figma.com/api/mcp/asset/641bbf66-c73e-4a18-bad9-4f9545b78c71" alt="Analyst" /></div>
+              </div>
+              <div class="bmi-pc n">
+                <div class="bmi-photo sq"><img src="https://www.figma.com/api/mcp/asset/ea8a2646-4ea1-4108-a536-a675d39a004e" alt="Mining" /></div>
+                <div class="bmi-photo rot"><img src="https://www.figma.com/api/mcp/asset/61da0003-50e0-4e9a-8c49-beb2e072e52d" alt="Supply chain" /></div>
+              </div>
+            </div>
+          </div>
+          <!-- Feature cards -->
+          <div class="bmi-fcards">
+            <!-- Card 1: Interactive price graphs -->
+            <div class="bmi-fc">
+              <div class="bmi-fc-header">
+                <div class="bmi-fc-num">
+                  <img src="https://www.figma.com/api/mcp/asset/0a40344a-b26c-45da-a059-db77cb10493d" alt="" />
+                  <span>1</span>
+                </div>
+                <span class="bmi-fc-title">Interactive price graphs</span>
+              </div>
+              <p class="bmi-fc-desc">Visualise historical and latest price assessments with dynamic graphs and charts that allow you to track trends and spot opportunities.</p>
+              <div class="bmi-fc-phones">
+                <div class="bmi-phone-stack">
+                  <div class="bmi-phone-item stacked" style="z-index:1;">
+                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/77e1f9b5-941d-4521-a2c0-a8b89a135bbd" alt="" /></div>
+                  </div>
+                  <div class="bmi-phone-item stacked" style="z-index:2;">
+                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/35ef983d-f245-48e4-bac3-35e4de98d1e6" alt="" /></div>
+                  </div>
+                  <div class="bmi-phone-item stacked" style="z-index:3;">
+                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/ccd3ddd0-e06a-4752-ab20-05275bfb2781" alt="" /></div>
+                  </div>
+                  <div class="bmi-phone-item" style="z-index:4;">
+                    <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                    <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/bcee83c3-ab27-4b6d-a45c-31f00497b7dc" alt="Prices" /></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2: Latest News -->
+            <div class="bmi-fc">
+              <div class="bmi-fc-header">
+                <div class="bmi-fc-num">
+                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <span>2</span>
+                </div>
+                <span class="bmi-fc-title">Latest News and Analysis</span>
+              </div>
+              <p class="bmi-fc-desc">Stay informed with the latest articles and reports from top sources in the lithium-ion battery industry, all curated in one convenient place.</p>
+              <div class="bmi-fc-phones">
+                <div class="bmi-phone-item">
+                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/882605ca-6b45-4465-bccf-5398a91a209d" alt="News screen" /></div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3: Upcoming Events -->
+            <div class="bmi-fc">
+              <div class="bmi-fc-header">
+                <div class="bmi-fc-num">
+                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <span>3</span>
+                </div>
+                <span class="bmi-fc-title">Upcoming Events</span>
+              </div>
+              <p class="bmi-fc-desc">Discover and register for key industry conferences, webinars, and networking events that can help you stay connected and informed.</p>
+              <div class="bmi-fc-phones">
+                <div class="bmi-phone-item">
+                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/4d7fb36e-8d4c-4ac9-a1b5-99745acd360c" alt="Events screen" /></div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 4: Stay up to date -->
+            <div class="bmi-fc">
+              <div class="bmi-fc-header">
+                <div class="bmi-fc-num">
+                  <img src="https://www.figma.com/api/mcp/asset/0d26bf0e-f698-4732-8a57-1217c88442f5" alt="" />
+                  <span>4</span>
+                </div>
+                <span class="bmi-fc-title">Stay up to date</span>
+              </div>
+              <p class="bmi-fc-desc">Opt in to receive push notifications directly to your mobile phone ensuring you stay up to date with the latest news, analysis, price assessments and events.</p>
+              <div class="bmi-fc-phones">
+                <div class="bmi-phone-item">
+                  <div class="pframe"><img src="https://www.figma.com/api/mcp/asset/f7b4b1cb-7d9b-419a-9a9c-29be5c028d68" alt="" /></div>
+                  <div class="pscreen"><img src="https://www.figma.com/api/mcp/asset/0e88a2e8-f145-44f0-be37-9bdaea773925" alt="Menu screen" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Screenshot footer inside browser -->
+          <div class="bmi-screenshot">
+            <img src="https://www.figma.com/api/mcp/asset/80e6493c-b034-4fb0-b589-9ca27487bc73" alt="BMI Header screenshot" />
+          </div>
+        </div>
+      </div>
+      <p class="browser-caption">Marketing page of the application flagship launching (scrollable page).</p>
+    </div>
+
+    <!-- Tablet/Mobile: feature cards carousel -->
+    <div class="app-feat-section">
+      <h3>The Benchmark App features</h3>
+      <div class="feat-carousel">
+        <!-- Card 1 -->
+        <div class="feat-card">
+          <div class="feat-card-top">
+            <div class="feat-num-row">
+              <div class="feat-num">
+                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <span>1</span>
+              </div>
+              <span class="feat-title">Interactive price graphs</span>
+            </div>
+            <p class="feat-desc">Visualise historical and latest price assessments with dynamic graphs and charts that allow you to track trends and spot opportunities.</p>
+          </div>
+          <div class="feat-card-bottom">
+            <div class="feat-iphone">
+              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
+              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/c6b6d44a-7080-404f-8398-a6913fe3269f" alt="Prices screen" /></div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="feat-card">
+          <div class="feat-card-top">
+            <div class="feat-num-row">
+              <div class="feat-num">
+                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <span>2</span>
+              </div>
+              <span class="feat-title">Latest News and Analysis</span>
+            </div>
+            <p class="feat-desc">Stay informed with the latest articles and reports from top sources in the lithium-ion battery industry, all curated in one convenient place.</p>
+          </div>
+          <div class="feat-card-bottom">
+            <div class="feat-iphone">
+              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
+              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/5bd922c4-78e2-4b27-ba0a-292006297e37" alt="News screen" /></div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="feat-card">
+          <div class="feat-card-top">
+            <div class="feat-num-row">
+              <div class="feat-num">
+                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <span>3</span>
+              </div>
+              <span class="feat-title">Upcoming Events</span>
+            </div>
+            <p class="feat-desc">Discover and register for key industry conferences, webinars, and networking events that can help you stay connected and informed.</p>
+          </div>
+          <div class="feat-card-bottom">
+            <div class="feat-iphone">
+              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
+              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/c83c9998-0aa5-4d61-aff4-9ba37ca859e7" alt="Events screen" /></div>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="feat-card">
+          <div class="feat-card-top">
+            <div class="feat-num-row">
+              <div class="feat-num">
+                <img src="https://www.figma.com/api/mcp/asset/cd1b8465-dff5-42ac-926e-8025ae2e5c64" alt="" />
+                <span>4</span>
+              </div>
+              <span class="feat-title">Stay up to date</span>
+            </div>
+            <p class="feat-desc">Opt in to receive push notifications directly to your mobile phone ensuring you stay up to date with the latest news, analysis, price assessments and events across the industry.</p>
+          </div>
+          <div class="feat-card-bottom">
+            <div class="feat-iphone">
+              <div class="fi-frame"><img src="https://www.figma.com/api/mcp/asset/c3b41c84-9ee0-42eb-9c90-9ad292d2664b" alt="" /></div>
+              <div class="fi-screen"><img src="https://www.figma.com/api/mcp/asset/8e5180d0-9209-4b54-a1ff-379b592894d5" alt="Notifications screen" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HERO 5 ========== -->
+<section class="hero5">
+  <div class="inner">
+    <div class="stop">
+      <div class="slabel"><span>THE DESIGN SYSTEM</span></div>
+      <h2 class="sheading">Julius 2.0,<br>Consistency as a foundation</h2>
+      <p class="sbody">Good design systems do more than organise components. They encode decisions, communicate intent, and make the right way to build things also the easiest way. Julius 2.0 was built with exactly that in mind.</p>
+      <p class="sbody">Structured around four principles, Consistent, Scalable, Clean, and Easy, the system covers everything from typography and colour tokens to complex UI patterns. Fully documented and ready to use, it gives design and development a shared language that keeps Benchmark's product aligned across every touchpoint.</p>
+      <a href="#" class="btn-julius" target="_blank" rel="noopener">
+        Check Julius 2.0
+        <span class="jicon"><img src="https://www.figma.com/api/mcp/asset/e6e1a5bd-aec0-40a2-8149-27ada70e47f2" alt="Figma" /></span>
+      </a>
+    </div>
+
+    <!-- Desktop: tab system -->
+    <div class="ds-tabs">
+      <div class="ds-tabbar">
+        <div class="ds-pill">
+          <div class="ds-pill-bg" id="ds-bg" style="width:110px;"></div>
+          <button class="ds-tab on"  data-t="thumbnails"     onclick="setDsTab('thumbnails')">Thumbnails</button>
+          <button class="ds-tab off" data-t="documentations" onclick="setDsTab('documentations')">Documentations</button>
+          <button class="ds-tab off" data-t="statistics"     onclick="setDsTab('statistics')">Statistics</button>
+        </div>
+      </div>
+      <div class="ds-panels">
+        <div class="ds-panel on" id="ds-thumbnails">
+          <img src="https://www.figma.com/api/mcp/asset/ae19e6c0-fe32-444c-97bd-78e0360f4848" alt="Julius DS Thumbnails" />
+        </div>
+        <div class="ds-panel-doc" id="ds-documentations">
+          <img src="https://www.figma.com/api/mcp/asset/73ac26a9-9f00-4ace-8021-186f7eef7ab3" alt="Julius DS Documentation" />
+          <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
+        </div>
+        <div class="ds-panel" id="ds-statistics">
+          <img src="https://www.figma.com/api/mcp/asset/59d039b2-929c-4ce0-bd03-73a37f661970" alt="Julius DS Statistics" />
         </div>
       </div>
     </div>
 
-    <!-- ════════════════════════════════════════════ META BAR -->
-    <div class="meta-bar" role="complementary" aria-label="Project details">
-      <div class="meta-bar__inner">
-        <div>
-          <div class="meta-item" style="margin-bottom:8px;">
-            <span class="meta-item__label">My Role</span>
-            <span class="meta-item__value">Product Designer · UI Focused</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-item__label">Timeline</span>
-            <span class="meta-item__value">6 months</span>
-          </div>
-        </div>
-        <div>
-          <div class="meta-item" style="margin-bottom:8px;">
-            <span class="meta-item__label">Platform</span>
-            <span class="meta-item__value">B2B SaaS · Web App · Marketing website · Mobile App</span>
-          </div>
-          <div class="meta-item">
-            <span class="meta-item__label">Methods</span>
-            <span class="meta-item__value">Discovery · Prototyping · Testing</span>
-          </div>
-        </div>
-        <div class="meta-item">
-          <span class="meta-item__label">Team</span>
-          <span class="meta-item__value">Product managers · Out sourced development team<br>· Data Analysts · Journalists</span>
-        </div>
+    <!-- Tablet/Mobile: stacked images -->
+    <div class="ds-stacked">
+      <img class="full" src="https://www.figma.com/api/mcp/asset/c0cc6c47-d57c-4d80-83c1-f01ab47d6b62" alt="Julius DS Thumbnail" />
+      <div class="ds-doc-wrap">
+        <img src="https://www.figma.com/api/mcp/asset/b423be99-ed56-488e-bee7-a05a35b8b009" alt="Julius DS Documentation" />
+        <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
       </div>
+      <img class="full" src="https://www.figma.com/api/mcp/asset/e86fdc95-2252-4526-86fa-055a366a26ea" alt="Julius DS Statistics" />
     </div>
+  </div>
+</section>
 
-    <!-- ════════════════════════════════════════════ OVERVIEW -->
-    <section class="case-section" aria-labelledby="overview-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span>Overview</span>
-          </div>
-        </div>
-        <div class="bmi-overview-layout">
-          <div class="bmi-overview-text">
-            <h2 id="overview-heading">The data was world-class. The experience to match it, wasn't.</h2>
-            <p>Benchmark Mineral Intelligence is the world's leading price reporting agency and market intelligence platform for the lithium-ion battery and critical minerals supply chain. Used by EV manufacturers, battery producers, mining companies, and global investors, BMI sets the price benchmarks that move markets.</p>
-            <p>But as the platform scaled, the product experience hadn't kept pace. Data was scattered across inconsistent interfaces, the visual language lacked cohesion, and the design had no shared foundation to build from. Analysts trusted the data, but the product didn't always feel like it deserved that trust.</p>
-          </div>
-          <!-- 2x2 image grid -->
-          <div class="img-grid-2x2" aria-hidden="true">
-            <div class="img-grid-2x2__cell">
-              <img src="./assets/raw-materials.png" alt="Raw materials" loading="lazy" />
-            </div>
-            <div class="img-grid-2x2__cell">
-              <img src="./assets/battery-recycling.png" alt="Battery recycling" loading="lazy" />
-            </div>
-            <div class="img-grid-2x2__cell">
-              <img src="./assets/new-technology.png" alt="New technology" loading="lazy" />
-            </div>
-            <div class="img-grid-2x2__cell">
-              <img src="./assets/demand.png" alt="Demand" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- ========== HERO 6 ========== -->
+<section class="hero6">
+  <div class="inner">
+    <div class="stop">
+      <div class="slabel"><span>THE MARKET COMPASS</span></div>
+      <h2 class="sheading" style="color:#fff;">Market Compass<br>Contextual Navigation at Scale</h2>
+      <p class="sbody">Deep B2B platforms suffer from discovery friction. Users land on one market page and rarely find their way to adjacent opportunities. I designed the Market Compass as a persistent end-of-page component that mirrors the global architecture, letting users orient themselves within the full supply chain — from Energy &amp; Grid to Battery Recycling — without returning to the top nav.</p>
+      <p class="sbody">The tree structure creates spatial awareness, while the active state and tooltip cards reduce cognitive load and encourage cross-market exploration.</p>
+    </div>
+    <div class="h6-gif">
+      <img src="https://www.figma.com/api/mcp/asset/4384cba3-f974-46f1-b3ef-36bc4b123260" alt="Market Compass interactive demo" />
+    </div>
+  </div>
+</section>
 
-    <!-- ════════════════════════════════════════════ MEGA MENU -->
-    <section class="case-section bmi-section-warm" aria-labelledby="megamenu-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span>Mega Menu</span>
-          </div>
-          <h2 id="megamenu-heading">Mega Menu: Less guessing, more finding.</h2>
-          <p>Our old menu was minimal, perhaps too minimal. With a growing product suite spanning markets, data tools, events, and publications, a simple dropdown was no longer enough.</p>
-          <p style="margin-top:8px;">Enter the mega menu. A deliberate, organised layout that groups related content visually and contextually. Users can now see the full scope of Benchmark's offering at a glance, and navigate to exactly the right place, without the trial and error.</p>
-        </div>
+<!-- ========== HERO 7 ========== -->
+<section class="hero7">
+  <div class="stop">
+    <div class="slabel"><span>OUTCOMES</span></div>
+    <h2 class="sheading">Where Design Met Business</h2>
+    <p class="sbody" style="max-width:800px;">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch</p>
+  </div>
+  <div class="h7-cards">
+    <div class="result-card">
+      <p class="res-stat">+38%</p>
+      <p class="res-label">Time on Site</p>
+      <p class="res-desc">Market Compass and structured content hierarchy drove deeper engagement across market pages</p>
+    </div>
+    <div class="result-card">
+      <p class="res-stat">-22%</p>
+      <p class="res-label">Bounce rate</p>
+      <p class="res-desc">Intuitive market architecture reduced dead-end exits and encouraged onward navigation</p>
+    </div>
+    <div class="result-card">
+      <p class="res-stat">+60%</p>
+      <p class="res-label">App download</p>
+      <p class="res-desc">Designed app landing page drove iOS adoption in the first 90 days post-launch</p>
+    </div>
+    <div class="result-card">
+      <p class="res-stat">+50%</p>
+      <p class="res-label">Dev time saved</p>
+      <p class="res-desc">Julius eliminated rework and streamlined handoff with the external dev team</p>
+    </div>
+  </div>
+</section>
 
-        <!-- Before / After toggle -->
-        <div class="mega-menu-container">
-          <div class="mega-menu-toggle-row">
-            <div class="toggle-pill" role="group" aria-label="Toggle before/after view">
-              <button class="active" id="toggle-before" aria-pressed="true">Before</button>
-              <button id="toggle-after" aria-pressed="false">After</button>
-            </div>
-          </div>
-          <div class="before-after-wrapper">
-            <div class="ba-screen" id="screen-before">
-              <img src="./assets/mega-menu-before.png"
-                   alt="BMI website — before: minimal navigation menu" loading="lazy" />
-            </div>
-            <div class="ba-screen is-hidden" id="screen-after">
-              <img src="./assets/mega-menu-after.gif"
-                   alt="BMI website — after: comprehensive mega menu with grouped categories" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="inner">
+    <div class="logo">
+      clem
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/0f439027-d9ba-4dd1-9f5b-befffeb71a15" alt="" />
+    </div>
+    <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
+    <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-li" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
 
-    <!-- ════════════════════════════════════════════ THE APP -->
-    <section class="case-section" aria-labelledby="app-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span>The App</span>
-          </div>
-          <h2 id="app-heading">The market in your pocket, introducing the Benchmark app</h2>
-        </div>
-        <div class="app-section-text">
-          <p>For an organisation that runs events worldwide and serves a global audience of analysts, executives, and policymakers, being mobile-ready isn't a nice-to-have. It's essential. Benchmark's users don't sit still, and neither should their access to the market.</p>
-          <p>This work covered two fronts: developing new features within the app, and designing the launch presentation page that introduces it to the world. The goal was to create a page that does justice to the product, clearly communicating that this isn't just a companion app, but a full intelligence hub. Prices, news, events, analysis — everything Benchmark delivers, now in your pocket.</p>
-        </div>
+<script>
+  /* ===== HERO 3: Before/After toggle ===== */
+  function setH3(state) {
+    var track = document.getElementById('h3-track');
+    var bg    = document.getElementById('h3-bg');
+    var btnB  = document.getElementById('h3-before');
+    var btnA  = document.getElementById('h3-after');
+    if (state === 'after') {
+      track.classList.add('after');
+      bg.classList.add('right');
+      btnB.classList.replace('on','off');
+      btnA.classList.replace('off','on');
+    } else {
+      track.classList.remove('after');
+      bg.classList.remove('right');
+      btnB.classList.replace('off','on');
+      btnA.classList.replace('on','off');
+    }
+    // Responsive: update translate distance
+    var w = window.innerWidth;
+    if (w <= 402) {
+      track.style.setProperty('--slide', 'calc(-364px - 24px)');
+    } else if (w <= 768) {
+      track.style.setProperty('--slide', 'calc(-688px - 24px)');
+    }
+  }
 
-        <!-- Browser frame -->
-        <div class="app-browser-wrap">
-          <div class="browser-frame">
-            <div class="browser-frame__bar">
-              <div class="browser-frame__dots">
-                <span class="browser-frame__dot browser-frame__dot--red"></span>
-                <span class="browser-frame__dot browser-frame__dot--amber"></span>
-                <span class="browser-frame__dot browser-frame__dot--green"></span>
-              </div>
-              <div class="browser-frame__urlbar">
-                <span class="browser-frame__url">benchmarkminerals.com/tools</span>
-              </div>
-            </div>
-            <div class="browser-frame__content" style="overflow:auto;max-height:777px;">
+  /* ===== HERO 5: DS Tab system ===== */
+  var dsTabWidths = { thumbnails: 110, documentations: 146, statistics: 80 };
+  var dsTabOffsets = { thumbnails: 0, documentations: 110, statistics: 256 };
+  function setDsTab(tab) {
+    var bg  = document.getElementById('ds-bg');
+    var tabs = document.querySelectorAll('.ds-tab');
+    var panels = ['ds-thumbnails','ds-documentations','ds-statistics'];
+    // Update pill
+    bg.style.width  = dsTabWidths[tab] + 'px';
+    bg.style.transform = 'translateX(' + dsTabOffsets[tab] + 'px)';
+    // Update tab labels
+    tabs.forEach(function(t) {
+      if (t.dataset.t === tab) { t.classList.replace('off','on'); }
+      else { t.classList.replace('on','off'); }
+    });
+    // Show/hide panels
+    document.getElementById('ds-thumbnails').className    = 'ds-panel' + (tab === 'thumbnails' ? ' on' : '');
+    document.getElementById('ds-documentations').className = 'ds-panel-doc' + (tab === 'documentations' ? ' on' : '');
+    document.getElementById('ds-statistics').className    = 'ds-panel' + (tab === 'statistics' ? ' on' : '');
+  }
+  // Init pill position
+  document.getElementById('ds-bg').style.width = '110px';
+  document.getElementById('ds-bg').style.transform = 'translateX(0)';
+</script>
 
-              <!-- App launch hero -->
-              <div class="app-launch-hero">
-                <div class="app-launch-hero__bg">
-                  <img src="./assets/app-launch-bg.png"
-                       alt="" aria-hidden="true" loading="lazy" />
-                </div>
-                <!-- Gradient overlay -->
-                <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(19,21,29,0.9) 40%, rgba(19,21,29,0.4) 100%);z-index:0;"></div>
-                <div class="app-launch-hero__text">
-                  <p class="app-launch-hero__title">The Benchmark App</p>
-                  <p class="app-launch-hero__subtitle">Designed to place our innovative products and services at your fingertips, empowering you with the latest data and insights across the lithium ion and energy transition supply chain.</p>
-                  <span class="btn-bmi-primary">Send me the link</span>
-                </div>
-                <div class="app-launch-hero__mockup">
-                  <img src="./assets/iphone-mockup.png"
-                       alt="Benchmark app — iPhone mockup" loading="lazy" />
-                </div>
-              </div>
-
-              <!-- App provides -->
-              <div class="app-provides">
-                <div class="app-provides__text">
-                  <p class="app-provides__heading">Our App provides</p>
-                  <div class="app-provides__item">
-                    <p class="app-provides__item-title">Access to Latest Prices</p>
-                    <p class="app-provides__item-text">Be the first to receive the latest lithium ion and energy transition supply chain prices from markets worldwide.</p>
-                  </div>
-                  <div class="app-provides__item">
-                    <p class="app-provides__item-title">Comprehensive Market Insights</p>
-                    <p class="app-provides__item-text">Leverage detailed news and analysis to make informed decisions, backed by data from industry experts.</p>
-                  </div>
-                  <div class="app-provides__item">
-                    <p class="app-provides__item-title">Insights Personalised Experience</p>
-                    <p class="app-provides__item-text">Personalise your app based on the markets and topics that matter most to you.</p>
-                  </div>
-                  <div class="app-provides__item">
-                    <p class="app-provides__item-title" style="font-size:12px;color:#25262a;">Download The Benchmark App</p>
-                    <div class="app-store-btns">
-                      <img src="./assets/app-store-badge.png" alt="Download on App Store" loading="lazy" />
-                      <img src="./assets/google-play-badge.png" alt="Get it on Google Play" loading="lazy" />
-                    </div>
-                  </div>
-                </div>
-                <div class="app-provides__pictures">
-                  <div class="app-pic-col">
-                    <img class="tall" src="./assets/photo-workplace.png" alt="Stock trading workplace" loading="lazy" />
-                    <img class="short" src="./assets/photo-penwell.png" alt="Professionals meeting" loading="lazy" />
-                  </div>
-                  <div class="app-pic-col" style="max-width:232px;">
-                    <img class="square" src="./assets/photo-conference.png" alt="Conference" loading="lazy" />
-                    <img class="portrait" src="./assets/photo-event.png" alt="Industry event" loading="lazy" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- App feature cards -->
-              <div class="app-features-scroll" role="region" aria-label="App features">
-                <div class="app-features-row">
-                  <!-- Feature 1 -->
-                  <div class="app-feature-card">
-                    <div>
-                      <div class="app-feature-card__num-row">
-                        <span class="app-feature-card__num-badge">1</span>
-                        <span class="app-feature-card__title">Interactive price graphs</span>
-                      </div>
-                      <p class="app-feature-card__desc" style="margin-top:12px;">Visualise historical and latest price assessments with dynamic graphs and charts that allow you to track trends and spot opportunities.</p>
-                    </div>
-                    <div class="app-feature-card__screen">
-                      <img src="./assets/feature-prices.png"
-                           alt="App screen — prices" loading="lazy" style="max-height:260px;width:auto;border-radius:8px;" />
-                    </div>
-                  </div>
-                  <!-- Feature 2 -->
-                  <div class="app-feature-card">
-                    <div>
-                      <div class="app-feature-card__num-row">
-                        <span class="app-feature-card__num-badge" style="background:#25262a;">2</span>
-                        <span class="app-feature-card__title">Latest News and Analysis</span>
-                      </div>
-                      <p class="app-feature-card__desc" style="margin-top:12px;">Stay informed with the latest articles and reports from top sources in the lithium-ion battery industry, all curated in one convenient place.</p>
-                    </div>
-                    <div class="app-feature-card__screen">
-                      <img src="./assets/feature-news.png"
-                           alt="App screen — news" loading="lazy" style="max-height:260px;width:auto;border-radius:8px;" />
-                    </div>
-                  </div>
-                  <!-- Feature 3 -->
-                  <div class="app-feature-card">
-                    <div>
-                      <div class="app-feature-card__num-row">
-                        <span class="app-feature-card__num-badge" style="background:#25262a;">3</span>
-                        <span class="app-feature-card__title">Upcoming Events</span>
-                      </div>
-                      <p class="app-feature-card__desc" style="margin-top:12px;">Discover and register for key industry conferences, webinars, and networking events that can help you stay connected and informed.</p>
-                    </div>
-                    <div class="app-feature-card__screen">
-                      <img src="./assets/feature-events.png"
-                           alt="App screen — events" loading="lazy" style="max-height:260px;width:auto;border-radius:8px;" />
-                    </div>
-                  </div>
-                  <!-- Feature 4 -->
-                  <div class="app-feature-card">
-                    <div>
-                      <div class="app-feature-card__num-row">
-                        <span class="app-feature-card__num-badge" style="background:#25262a;">4</span>
-                        <span class="app-feature-card__title">Stay up to date</span>
-                      </div>
-                      <p class="app-feature-card__desc" style="margin-top:12px;">Opt in to receive push notifications directly to your mobile phone ensuring you stay up to date with the latest news, analysis, price assessments and events across the industry.</p>
-                    </div>
-                    <div class="app-feature-card__screen">
-                      <img src="./assets/feature-menu.png"
-                           alt="App screen — notifications menu" loading="lazy" style="max-height:260px;width:auto;border-radius:8px;" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Website screenshot footer -->
-              <div style="background:#fff; overflow:hidden;">
-                <img src="./assets/bmi-website-screenshot.png"
-                     alt="BMI website screenshot" loading="lazy"
-                     style="width:100%;display:block;margin:0;" />
-              </div>
-
-            </div><!-- /browser content -->
-          </div><!-- /browser frame -->
-          <p class="fig-caption">Marketing page of the application flagship launching (scrollable page).</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════ DESIGN SYSTEM (Julius 2.0) -->
-    <section class="case-section bmi-section-warm" aria-labelledby="julius-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span>The Design System</span>
-          </div>
-          <h2 id="julius-heading">Julius 2.0,<br>Consistency as a foundation</h2>
-          <p>Good design systems do more than organise components. They encode decisions, communicate intent, and make the right way to build things also the easiest way. Julius 2.0 was built with exactly that in mind.</p>
-          <p style="margin-top:8px;">Structured around four principles — Consistent, Scalable, Clean, and Easy — the system covers everything from typography and colour tokens to complex UI patterns. Fully documented and ready to use, it gives design and development a shared language that keeps Benchmark's product aligned across every touchpoint.</p>
-          <a href="https://www.figma.com/design/sJvrXqnz6etK7Dp9YWiy4U/Clement-Portfolio-2026?node-id=223-2129"
-             target="_blank" rel="noopener noreferrer" class="btn-julius" style="margin-top:8px;width:fit-content;text-decoration:none;">
-            Check Julius 2.0
-            <span class="btn-julius__figma-icon" aria-hidden="true">
-              <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" fill="#1ABCFE"/>
-                <path d="M0 20a4 4 0 0 1 4-4h4v4a4 4 0 0 1-8 0z" fill="#0ACF83"/>
-                <path d="M8 0v8H4a4 4 0 0 1 0-8h4z" fill="#FF7262"/>
-                <path d="M0 4a4 4 0 0 1 4-4h4v8H4A4 4 0 0 1 0 4z" fill="#F24E1E"/>
-                <path d="M8 0h4a4 4 0 0 1 0 8H8V0z" fill="#FF7262"/>
-              </svg>
-            </span>
-          </a>
-        </div>
-
-        <!-- Design System viewer tabs -->
-        <div class="julius-section">
-          <div class="ds-tabs">
-            <div class="ds-tabs-pill" role="tablist" aria-label="Design system views">
-              <button class="active" role="tab" aria-selected="true" data-tab="thumbnails">Thumbnails</button>
-              <button role="tab" aria-selected="false" data-tab="documentation">Documentation</button>
-              <button role="tab" aria-selected="false" data-tab="statistics">Statistics</button>
-            </div>
-          </div>
-          <div class="ds-panels">
-            <!-- Thumbnails panel -->
-            <div class="ds-panel active" id="tab-thumbnails" role="tabpanel">
-              <div style="width:100%;">
-                <img src="./assets/julius-thumbnails.png"
-                     alt="Julius 2.0 design system — thumbnail overview" loading="lazy"
-                     style="width:100%;border-radius:8px;" />
-              </div>
-            </div>
-            <!-- Documentation panel -->
-            <div class="ds-panel" id="tab-documentation" role="tabpanel">
-              <div style="width:100%; display:flex; flex-direction:column; gap:10px;">
-                <img src="./assets/julius-documentation.png"
-                     alt="Julius 2.0 — component documentation and feature overview" loading="lazy"
-                     style="width:100%;border-radius:8px;" />
-                <p class="ds-panel__caption">Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
-              </div>
-            </div>
-            <!-- Statistics panel -->
-            <div class="ds-panel" id="tab-statistics" role="tabpanel">
-              <div style="width:100%;">
-                <img src="./assets/julius-statistics.png"
-                     alt="Julius 2.0 — statistics and feature card metrics" loading="lazy"
-                     style="width:100%;border-radius:8px;" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════ MARKET COMPASS (dark) -->
-    <section class="case-section" style="background:#201e26;" aria-labelledby="compass-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span style="color:var(--text-muted);">The Market Compass</span>
-          </div>
-          <h2 id="compass-heading" style="color:#fff;">Market Compass<br>Contextual Navigation at Scale</h2>
-        </div>
-        <div class="compass-section-text">
-          <p>Deep B2B platforms suffer from discovery friction. Users land on one market page and rarely find their way to adjacent opportunities. I designed the Market Compass as a persistent end-of-page component that mirrors the global architecture, letting users orient themselves within the full supply chain — from Energy &amp; Grid to Battery Recycling — without returning to the top nav.</p>
-          <p>The tree structure creates spatial awareness, while the active state and tooltip cards reduce cognitive load and encourage cross-market exploration.</p>
-        </div>
-        <div class="compass-gif-wrap">
-          <img src="./assets/market-compass.gif"
-               alt="Market Compass — interactive navigation component demonstration" loading="lazy" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════ OUTCOMES -->
-    <section class="case-section" aria-labelledby="outcomes-heading">
-      <div class="case-section__inner">
-        <div class="section-heading">
-          <div class="section-label">
-            <span class="rule" aria-hidden="true"></span>
-            <span>Outcomes</span>
-          </div>
-          <h2 id="outcomes-heading">Where Design Met Business</h2>
-        </div>
-        <p class="outcomes-intro">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch.</p>
-
-        <div class="result-cards" role="list">
-          <div class="result-card" role="listitem">
-            <p class="result-card__value">+38%</p>
-            <p class="result-card__title">Time on Site</p>
-            <p class="result-card__desc">Market Compass and structured content hierarchy drove deeper engagement across market pages</p>
-          </div>
-          <div class="result-card" role="listitem">
-            <p class="result-card__value">-22%</p>
-            <p class="result-card__title">Bounce rate</p>
-            <p class="result-card__desc">Intuitive market architecture reduced dead-end exits and encouraged onward navigation</p>
-          </div>
-          <div class="result-card" role="listitem">
-            <p class="result-card__value">+60%</p>
-            <p class="result-card__title">App download</p>
-            <p class="result-card__desc">Designed app landing page drove iOS adoption in the first 90 days post-launch</p>
-          </div>
-          <div class="result-card" role="listitem">
-            <p class="result-card__value">+50%</p>
-            <p class="result-card__title">Dev time saved</p>
-            <p class="result-card__desc">Julius eliminated rework and streamlined handoff with the external dev team</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════ FOOTER -->
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <a href="index.html" class="logo">
-          clem
-          <span class="logo-dot" aria-hidden="true"></span>
-        </a>
-        <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
-        <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-
-  </div><!-- /page-wrapper -->
-
-  <!-- ══════════════════════════════ JAVASCRIPT -->
-  <script>
-    // ── Before / After toggle ───────────────────────────
-    (function () {
-      const btnBefore = document.getElementById('toggle-before');
-      const btnAfter  = document.getElementById('toggle-after');
-      const screenBefore = document.getElementById('screen-before');
-      const screenAfter  = document.getElementById('screen-after');
-
-      function showBefore() {
-        screenBefore.classList.remove('is-hidden');
-        screenAfter.classList.add('is-hidden');
-        btnBefore.classList.add('active');
-        btnAfter.classList.remove('active');
-        btnBefore.setAttribute('aria-pressed', 'true');
-        btnAfter.setAttribute('aria-pressed', 'false');
-      }
-      function showAfter() {
-        screenAfter.classList.remove('is-hidden');
-        screenBefore.classList.add('is-hidden');
-        btnAfter.classList.add('active');
-        btnBefore.classList.remove('active');
-        btnAfter.setAttribute('aria-pressed', 'true');
-        btnBefore.setAttribute('aria-pressed', 'false');
-      }
-
-      btnBefore.addEventListener('click', showBefore);
-      btnAfter.addEventListener('click', showAfter);
-    })();
-
-    // ── Design System Tabs ──────────────────────────────
-    (function () {
-      const tabs   = document.querySelectorAll('.ds-tabs-pill [role="tab"]');
-      const panels = { thumbnails: 'tab-thumbnails', documentation: 'tab-documentation', statistics: 'tab-statistics' };
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          // Deactivate all
-          tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-          document.querySelectorAll('.ds-panel').forEach(p => p.classList.remove('active'));
-          // Activate clicked
-          tab.classList.add('active');
-          tab.setAttribute('aria-selected', 'true');
-          const panelId = panels[tab.dataset.tab];
-          if (panelId) document.getElementById(panelId).classList.add('active');
-        });
-      });
-    })();
-  </script>
 </body>
 </html>

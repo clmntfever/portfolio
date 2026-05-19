@@ -145,7 +145,7 @@ ul, ol { list-style: none; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #e8825a; /* warm orange dot */
+  background: #3ecf8e; /* teal green — matches Figma header/footer logo dot */
   flex-shrink: 0;
 }
 
@@ -224,15 +224,31 @@ ul, ol { list-style: none; }
 }
 .project-card__thumb {
   width: 100%;
-  height: 232px;
+  height: 231px;
+  position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  border-radius: 16px 16px 0 0;
 }
 .project-card__thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+/* Bordered variant: 4px black frame on Remediation + BMI thumbnails (Figma 87-953) */
+.project-card__thumb--bordered {
+  border: 4px solid #000;
+}
+/* Zoom variant: slight overflow crop matching Figma card design */
+.project-card__thumb--zoom img {
+  position: absolute;
+  width: 103.55%;
+  height: 100.43%;
+  max-width: none; /* override global img { max-width: 100% } */
+  left: -1.78%;
+  top: -0.43%;
+  object-fit: cover;
 }
 .project-card__body {
   display: flex;
@@ -336,6 +352,7 @@ ul, ol { list-style: none; }
   letter-spacing: -0.78px;
   color: var(--text-primary);
   line-height: 1;
+  white-space: nowrap; /* prevent wrapping on short values like "Product SaaS" */
 }
 .glance-stat__label {
   font-size: 12px;
@@ -1224,20 +1241,33 @@ ul, ol { list-style: none; }
    RESPONSIVE BREAKPOINTS
    ============================================================ */
 
+/* ── Small desktop (≤ 1440px) ───────────────────────────── */
+/* Reduces horizontal padding so the 1080px content fits      */
+/* within a 1280px viewport. At 1440px, max-width + flex      */
+/* centering keep the visual offset identical (180px).        */
+@media (max-width: 1440px) {
+  :root {
+    --pad-h: 100px;
+  }
+  .site-header,
+  .site-footer { padding: 0 100px; }
+}
+
 /* ── Tablet (≤ 1024px) ───────────────────────────────────── */
 @media (max-width: 1024px) {
   :root {
-    --pad-h: 48px;
+    --pad-h: 32px;
     --pad-v: 48px;
   }
 
   .site-header,
-  .site-footer { padding: 0 48px; }
+  .site-footer { padding: 0 32px; }
 
   /* Homepage hero layout */
   .hero-1-content { flex-direction: column !important; gap: 40px !important; }
   .hero-1-text { max-width: 100% !important; min-width: unset !important; }
-  .glance-card { max-width: 100%; min-width: unset; width: 100%; }
+  /* Card constrained to its natural max-width — not screen-wide (Figma 768px) */
+  .glance-card { max-width: 440px; min-width: 360px; width: 100%; }
 
   /* Case studies cards */
   .case-studies-cards { flex-wrap: wrap !important; gap: 24px !important; margin-left: 0 !important; margin-right: 0 !important; }
@@ -1245,7 +1275,8 @@ ul, ol { list-style: none; }
 
   /* Hero 3 (expertise) */
   .expertise-content { flex-direction: column !important; }
-  .skills-card { max-width: 100%; width: 100%; }
+  /* Card constrained to its natural max-width — not screen-wide (Figma 768px) */
+  .skills-card { max-width: 440px; min-width: 360px; width: 100%; }
 
   /* Case study header */
   .case-header__thumb { display: none; }
@@ -1282,7 +1313,7 @@ ul, ol { list-style: none; }
   /* Cards */
   .project-card { width: 100%; min-width: unset; max-width: 100%; }
   .case-studies-cards { flex-direction: column !important; align-items: stretch !important; }
-  .project-card__thumb { height: 200px; }
+  .project-card__thumb { height: 200px; border-radius: 16px 16px 0 0; }
 
   /* Carousel */
   .carousel { flex-direction: column; }
@@ -1305,9 +1336,11 @@ ul, ol { list-style: none; }
   .img-grid-2x2 { display: none; }
   .meta-bar__inner { flex-wrap: wrap; gap: 20px; }
 
-  /* Footer */
-  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
-  .site-footer { height: auto; padding: 16px 20px; }
+  /* Footer — stack: logo → LinkedIn → copyright */
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; align-items: center; }
+  .site-footer { height: auto; padding: 24px 20px; }
+  .footer-link { order: 2; }
+  .footer-copy  { order: 3; }
 
   /* Before/after */
   .toggle-row { padding-right: 0; justify-content: center; }

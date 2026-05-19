@@ -53,9 +53,10 @@ echo ""
 
 # ── Homepage ─────────────────────────────────────────────────
 echo "[ 1/3 ] Homepage assets…"
-download_asset "f5043cd3-c1c8-40c6-93dc-9c2692e54631" "thumbnail-remediation"
-download_asset "edc3e084-aee2-4391-a581-8a0b065525d0" "thumbnail-bmi"
-download_asset "eabf5924-048b-4278-9b07-fc60e433d39b" "thumbnail-ds"
+# Updated card thumbnails (v2 — improved card component May 2026)
+download_asset "55f8c813-c554-4f3d-aaa3-1ee090f569f8" "thumbnail-remediation"
+download_asset "200bf68e-ff08-412f-a48c-15d228889119" "thumbnail-bmi"
+download_asset "4f5f1fe9-c419-4048-90dc-d6d87eeb9d45" "thumbnail-ds"
 
 # ── Remediation page ─────────────────────────────────────────
 echo "[ 2/3 ] Remediation page assets…"

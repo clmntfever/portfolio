@@ -32,10 +32,10 @@ echo ""
 echo "Replacing CDN URLs with local ./assets/ paths…"
 echo ""
 
-# Homepage
-patch "f5043cd3-c1c8-40c6-93dc-9c2692e54631" "thumbnail-remediation"
-patch "edc3e084-aee2-4391-a581-8a0b065525d0" "thumbnail-bmi"
-patch "eabf5924-048b-4278-9b07-fc60e433d39b" "thumbnail-ds"
+# Homepage — card thumbnails (v2 updated May 2026)
+patch "55f8c813-c554-4f3d-aaa3-1ee090f569f8" "thumbnail-remediation"
+patch "200bf68e-ff08-412f-a48c-15d228889119" "thumbnail-bmi"
+patch "4f5f1fe9-c419-4048-90dc-d6d87eeb9d45" "thumbnail-ds"
 
 # Remediation
 patch "2bef38aa-8cf0-44ad-ad74-0510d0861ecb" "user-journey-1"
