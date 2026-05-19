@@ -141,12 +141,19 @@ ul, ol { list-style: none; }
   color: var(--text-primary);
   text-decoration: none;
 }
+@keyframes dot-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(62, 207, 142, 0.55); }
+  65%  { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0.00); }
+  100% { box-shadow: 0 0 0 0   rgba(62, 207, 142, 0.00); }
+}
+
 .logo-dot {
-  width: 6px;
-  height: 6px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #3ecf8e; /* teal green — matches Figma header/footer logo dot */
+  background: #3ecf8e; /* teal green — Figma Online indicator Default: size-[9px] */
   flex-shrink: 0;
+  animation: dot-pulse 2s ease-out infinite;
 }
 
 /* ── CTA Button ──────────────────────────────────────────── */
@@ -210,7 +217,7 @@ ul, ol { list-style: none; }
   width: 360px;
   min-width: 360px;
   max-width: 360px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 16px;
   background: var(--bg);
   overflow: hidden;
@@ -1093,7 +1100,7 @@ ul, ol { list-style: none; }
 .app-feature-card {
   background: #fff;
   border-radius: 9px;
-  box-shadow: 0.75px 0.75px 1.5px 0 white, 1.5px 1.5px 6px 0 rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 2px 0px white, 2px 2px 8px 0px rgba(0,0,0,0.25); /* Figma node 403:9251 */
   padding: 18px;
   flex-shrink: 0;
   width: 357.75px;
@@ -1342,7 +1349,7 @@ ul, ol { list-style: none; }
 
   /* Footer — stack: logo → LinkedIn → copyright */
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; align-items: center; }
-  .site-footer { height: auto; padding: 24px 20px; }
+  .site-footer { height: auto; padding: 18px 24px; }
   .footer-link { order: 2; }
   .footer-copy  { order: 3; }
 
@@ -1359,8 +1366,9 @@ ul, ol { list-style: none; }
   :root {
     --pad-h: 24px;
   }
-  .site-header,
-  .site-footer { padding: 0 24px; }
+  .site-header { padding: 0 24px; }
+  /* Footer keeps vertical padding — Figma node 284:8850: py-18px px-24px */
+  .site-footer { height: auto; padding: 18px 24px; }
 }
 
 /* ── Print / no-motion ───────────────────────────────────── */

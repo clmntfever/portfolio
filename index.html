@@ -54,7 +54,7 @@
     .hero-name-row {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 8px; /* Figma: gap-[8px] at desktop + 1280px (nodes 334:1653, 55:575) */
     }
     .hero-name {
       font-size: 110px;
@@ -62,13 +62,6 @@
       letter-spacing: -5px;
       line-height: 0.86;
       color: var(--text-primary);
-    }
-    .hero-name-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      background: #3ecf8e; /* Figma 334-1663 — teal green, matches available-dot */
     }
     .hero-body {
       display: flex;
@@ -234,7 +227,7 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding: 0 !important;
-        gap: 16px !important;
+        gap: 48px !important; /* Figma node 145:4066 */
       }
       .project-card {
         flex: none !important;
@@ -270,11 +263,60 @@
       .hero-2, .hero-3, .hero-4 { padding-left: 24px; padding-right: 24px; }
       .hero-hi  { font-size: 48px; letter-spacing: -2px; }
       .hero-name { font-size: 64px; letter-spacing: -3px; }
-      .hero-cta-email { font-size: 24px; letter-spacing: -0.5px; }
+      .hero-cta-email { font-size: 24px; letter-spacing: -1.76px; }
       .hero-cta-heading { font-size: 28px; }
       .section-title-large { font-size: 32px; }
       .expertise-heading { font-size: 32px; }
-      .hero-name-circle { width: 22px; height: 22px; }
+    }
+
+    /* ── Phone (≤ 402px) — CTA heading matches email at 24px ─ */
+    /* Figma node 145:4137 */
+    @media (max-width: 402px) {
+      .hero-cta-heading { font-size: 24px; letter-spacing: -0.95px; }
+      .hero-cta-email   { font-size: 24px; letter-spacing: -1.76px; }
+    }
+
+    /* ── Hero name — full vs short (Figma: "Clem" at ≤768px) ── */
+    .hero-name-short { display: none; }
+    @media (max-width: 768px) {
+      .hero-name-long  { display: none; }
+      .hero-name-short { display: inline; }
+      /* Tighter gap at tablet/mobile — Figma nodes 145:4027, 280:5970: gap-[16px] */
+      .hero-name-row { gap: 16px; }
+      /* Extra pt-16px wrapper present in Figma at tablet/mobile — node 457:9919 */
+      .hero-online { padding-top: calc(22.857px + 16px); }
+    }
+
+    /* ── Hero Online indicator — image-based component ──────── */
+    /* Figma: 80×80px container, p-22.857px, inner image 68.571px */
+    /* Nodes 334:1653 (desktop), 55:575 (1280), 145:4027 (tablet), 280:5970 (mobile) */
+    @keyframes hero-online-pulse {
+      0%, 100% { opacity: 1;    transform: scale(1); }
+      50%       { opacity: 0.85; transform: scale(1.04); }
+    }
+    .hero-online {
+      width: 80px;
+      height: 80px;
+      padding: 22.857px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      animation: hero-online-pulse 2.5s ease-in-out infinite;
+    }
+    .hero-online__inner {
+      position: relative;
+      width: 68.571px;
+      height: 68.571px;
+      flex-shrink: 0;
+    }
+    .hero-online__inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      max-width: none;
     }
   </style>
 </head>
@@ -308,8 +350,14 @@
             </div>
             <p class="hero-hi">Hi, I'm</p>
             <div class="hero-name-row">
-              <h1 class="hero-name">Clément</h1>
-              <span class="hero-name-circle" aria-hidden="true"></span>
+              <h1 class="hero-name" aria-label="Clément">
+                <span class="hero-name-long"  aria-hidden="true">Clément</span><span class="hero-name-short" aria-hidden="true">Clem</span>
+              </h1>
+              <div class="hero-online" aria-hidden="true">
+                <div class="hero-online__inner">
+                  <img src="https://www.figma.com/api/mcp/asset/9937507d-0aaf-481f-8093-10424ef861a6" alt="" />
+                </div>
+              </div>
             </div>
           </div>
           <div class="hero-body">

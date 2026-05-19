@@ -70,7 +70,12 @@
       display: flex; align-items: center; gap: 4px;
       font-size: 16px; font-weight: 700; letter-spacing: -0.32px; color: #111110;
     }
-    .logo-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ecf8e; flex-shrink: 0; }
+    @keyframes dot-pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(62, 207, 142, 0.55); }
+      65%  { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0.00); }
+      100% { box-shadow: 0 0 0 0   rgba(62, 207, 142, 0.00); }
+    }
+    .logo-dot { width: 9px; height: 9px; border-radius: 50%; background: #3ecf8e; flex-shrink: 0; animation: dot-pulse 2s ease-out infinite; }
     .btn-talk {
       display: flex; align-items: center; gap: 4px;
       background: #111110; color: #fff;
