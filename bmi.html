@@ -14,6 +14,7 @@
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; } /* prevent horizontal scrollbar from panel overflow */
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
@@ -118,25 +119,26 @@
     .hero-meta {
       background: #f8f8f8;
       border-bottom: 1px solid #e5e5e5;
-      padding: 24px 100px;
+      padding: 24px 180px 24px 140px;
       display: flex; justify-content: center;
     }
     .hero-meta .inner {
-      display: flex; gap: 40px; align-items: flex-start;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1080px; min-width: 1000px; flex: 1 0 0;
     }
     .meta-col {
-      display: flex; flex-direction: column; gap: 16px;
-      flex: 1;
+      display: flex; flex-direction: column; gap: 8px;
     }
+    .meta-col--team { width: 244px; }
     .meta-item {
       display: flex; flex-direction: column; gap: 4px;
     }
     .meta-label {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 1.1px; color: var(--grey); text-transform: uppercase;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.88px; color: #888;
     }
     .meta-value {
-      font-size: 14px; font-weight: 400; line-height: 1.5; color: #1a1a1a;
+      font-size: 13px; font-weight: 700; color: #1a1a1a;
     }
 
     /* ===== HERO 2 ===== */
@@ -165,12 +167,12 @@
     .hero3 .inner { display: flex; flex-direction: column; gap: 48px; }
     .toggle-row { display: flex; justify-content: flex-end; padding-right: 509px; }
     .toggle-pill {
-      display: inline-flex; align-items: center;
+      display: inline-flex; align-items: center; gap: 8px;
       border: 1px solid #000; border-radius: 32px; padding: 6px;
-      position: relative; cursor: pointer;
+      position: relative; cursor: pointer; overflow: hidden;
     }
     .toggle-bg {
-      position: absolute; left: 6px;
+      position: absolute; left: 6px; top: 6px;
       background: #1d1d1d; height: 27px; width: 71px;
       border-radius: 32px; transition: transform .2s ease;
     }
@@ -183,7 +185,7 @@
     }
     .toggle-opt.on { color: #fff; }
     .toggle-opt.off { color: #13151d; }
-    .screens-clip { overflow: hidden; width: 100%; }
+    .screens-clip { overflow: visible; width: 100%; }
     .screens-track {
       display: flex; gap: 24px;
       transition: transform .3s ease;
@@ -376,8 +378,10 @@
     .feat-carousel {
       display: flex; gap: 16px;
       overflow-x: auto; padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      width: 100%; min-width: 0;
     }
     .feat-carousel::-webkit-scrollbar { display: none; }
     .feat-card {
@@ -385,6 +389,7 @@
       box-shadow: 1px 1px 2px #fff, 2px 2px 8px rgba(0,0,0,.25);
       padding: 24px 24px; width: 290px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 24px;
+      scroll-snap-align: start;
     }
     .feat-card-top { display: flex; flex-direction: column; gap: 16px; }
     .feat-num-row { display: flex; align-items: center; gap: 16px; }
@@ -410,6 +415,9 @@
     .feat-iphone {
       width: 193px; height: 371px; position: relative;
     }
+    .feat-iphone picture,
+    .feat-iphone picture img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Legacy (unused) fi-frame / fi-screen kept for reference */
     .feat-iphone .fi-frame {
       position: absolute; inset: 0; overflow: hidden;
     }
@@ -427,6 +435,7 @@
       background: #f7f5f0;
       padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
       display: flex; justify-content: center;
+      overflow: visible; /* panels break out to full viewport width */
     }
     .hero5 .inner { display: flex; flex-direction: column; gap: 24px; }
     .btn-julius {
@@ -466,13 +475,19 @@
     .ds-tab[data-t="statistics"]     { width: 80px; }
     .ds-tab.on  { color: #fff; }
     .ds-tab.off { color: #13151d; }
-    .ds-panels { position: relative; }
-    .ds-panel { display: none; }
-    .ds-panel.on { display: block; }
-    .ds-panel img { width: 780px; height: 557px; object-fit: cover; }
-    .ds-panel-doc { display: none; flex-direction: column; gap: 10px; width: 780px; }
-    .ds-panel-doc.on { display: flex; }
-    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; }
+    .ds-panels { overflow: visible; /* panels bleed beyond container — clipped only by body */ }
+    .ds-track {
+      display: flex; gap: 48px;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      will-change: transform;
+    }
+    .ds-panel { width: 780px; flex-shrink: 0; }
+    .ds-panel img { width: 780px; height: 557px; object-fit: cover; display: block; }
+    .ds-panel-doc {
+      width: 780px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; display: block; }
     .ds-panel-doc p {
       font-size: 12px; font-style: italic; font-weight: 300;
       line-height: 1.55; color: #000;
@@ -541,9 +556,8 @@
     /* ===== TABLET (≤768px) ===== */
     @media (max-width: 768px) {
       .site-header { padding: 18px var(--pad-t); }
-      /* Meta */
-      .hero-meta { padding: 24px var(--pad-t); }
-      .hero-meta .inner { flex-direction: column; gap: 24px; }
+      /* Meta — hidden at tablet and below per Figma */
+      .hero-meta { display: none; }
       /* Hero 1 — thumbnail intentionally bleeds off right edge (Figma design) */
       .hero1 { padding: 56px var(--pad-t) 0; overflow-x: hidden; }
       .hero1 .inner { flex-direction: row; gap: 36px; align-items: flex-start; }
@@ -593,8 +607,6 @@
     /* ===== MOBILE (≤402px) ===== */
     @media (max-width: 402px) {
       .site-header { padding: 18px var(--pad-m); }
-      /* Meta */
-      .hero-meta { padding: 24px var(--pad-m); }
       /* Hero 1 */
       .hero1 { padding: 56px var(--pad-m) 0; }
       .hero1 .inner { flex-direction: column; gap: 4px; }
@@ -663,15 +675,15 @@
   <div class="inner">
     <div class="meta-col">
       <div class="meta-item">
-        <span class="meta-label">Role</span>
+        <span class="meta-label">My Role</span>
         <span class="meta-value">Product Designer · UI Focused</span>
       </div>
-    </div>
-    <div class="meta-col">
       <div class="meta-item">
         <span class="meta-label">Timeline</span>
         <span class="meta-value">6 months</span>
       </div>
+    </div>
+    <div class="meta-col">
       <div class="meta-item">
         <span class="meta-label">Platform</span>
         <span class="meta-value">B2B SaaS · Web App · Marketing website · Mobile App</span>
@@ -681,10 +693,10 @@
         <span class="meta-value">Discovery · Prototyping · Testing</span>
       </div>
     </div>
-    <div class="meta-col">
+    <div class="meta-col meta-col--team">
       <div class="meta-item">
         <span class="meta-label">Team</span>
-        <span class="meta-value">Product managers · Outsourced development team · Data Analysts · Journalists</span>
+        <span class="meta-value">· Product managers<br>· Out sourced development team<br>· Data Analysts · Journalists</span>
       </div>
     </div>
   </div>
@@ -748,14 +760,14 @@
             <picture>
               <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c6c8f6a-fe5d-4e2d-9206-26ebcbd54b74" />
               <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/35424598-3541-486d-ab0b-41ebec212a91" />
-              <img src="https://www.figma.com/api/mcp/asset/f0884d8d-8807-4284-9e2b-5cbba21d276b" alt="Before — old navigation" />
+              <img src="https://www.figma.com/api/mcp/asset/f1a6152d-1f12-4f6e-809a-6669d3e845a9" alt="Before — old navigation" />
             </picture>
           </div>
           <div class="screen-box screen-box--gif">
             <picture>
               <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/336c40f5-f93d-4ed3-978a-800f4cfbfa1a" />
               <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/493d08e5-074b-40d0-9a11-c0a7725b3cd3" />
-              <img src="https://www.figma.com/api/mcp/asset/05c641c5-0168-448e-8d3e-be38526a4434" alt="After — mega menu" />
+              <img src="https://www.figma.com/api/mcp/asset/a6102e53-837c-4018-a18f-b9595afed97d" alt="After — mega menu" />
             </picture>
           </div>
         </div>
@@ -905,7 +917,7 @@
           </div>
         </div>
       </div>
-      <p class="browser-caption">Marketing page of the application flagship launching (scrollable page).</p>
+      <p class="browser-caption">Mobile App Launch Page, Scrollable Preview</p>
     </div>
 
     <!-- Tablet/Mobile: feature cards carousel -->
@@ -919,7 +931,7 @@
               <div class="feat-num">
                 <picture>
                   <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
-                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>1</span>
               </div>
@@ -931,7 +943,7 @@
             <div class="feat-iphone">
               <picture>
                 <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/ae9c6d8d-9616-48d4-a2f3-5c44e35986c7" />
-                <img src="https://www.figma.com/api/mcp/asset/41ff6c13-655c-46a1-9c80-f3762be54ab3" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
+                <img src="https://www.figma.com/api/mcp/asset/ca02879f-e179-4df5-b64b-df81a054846a" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -943,7 +955,7 @@
               <div class="feat-num">
                 <picture>
                   <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
-                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>2</span>
               </div>
@@ -955,7 +967,7 @@
             <div class="feat-iphone">
               <picture>
                 <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/f7cb5660-a9f3-4dc7-9464-987a09ef7ca8" />
-                <img src="https://www.figma.com/api/mcp/asset/30098e48-847d-4f49-8700-0c72489d1387" alt="News" style="width:100%;height:100%;object-fit:cover;" />
+                <img src="https://www.figma.com/api/mcp/asset/601e053e-1818-4174-80a5-460b079dd0e0" alt="News" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -967,7 +979,7 @@
               <div class="feat-num">
                 <picture>
                   <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
-                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>3</span>
               </div>
@@ -979,7 +991,7 @@
             <div class="feat-iphone">
               <picture>
                 <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c510241-580f-414f-99bd-13d28c2d155b" />
-                <img src="https://www.figma.com/api/mcp/asset/ca1a8655-9dbe-4652-9d07-2c387e331f1c" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
+                <img src="https://www.figma.com/api/mcp/asset/44fb17e6-caac-45e3-847a-f82e27812227" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -991,7 +1003,7 @@
               <div class="feat-num">
                 <picture>
                   <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
-                  <img src="https://www.figma.com/api/mcp/asset/5ba44c34-1c91-42d6-95f3-70ea14a58992" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>4</span>
               </div>
@@ -1003,7 +1015,7 @@
             <div class="feat-iphone">
               <picture>
                 <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/968caaed-7844-42a2-80fb-8b1ec28dc532" />
-                <img src="https://www.figma.com/api/mcp/asset/87c74345-774a-49db-9c27-618d414d815b" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
+                <img src="https://www.figma.com/api/mcp/asset/6f266891-6213-4dfd-b83f-447dd5f3b26c" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -1044,15 +1056,17 @@
         </div>
       </div>
       <div class="ds-panels">
-        <div class="ds-panel on" id="ds-thumbnails">
-          <img src="https://www.figma.com/api/mcp/asset/97a8e1e2-3720-4ecb-921d-cc5e069e33c9" alt="Julius DS Thumbnails" />
-        </div>
-        <div class="ds-panel-doc" id="ds-documentations">
-          <img src="https://www.figma.com/api/mcp/asset/75a33ab2-22c8-45f1-b1a6-85f442a74a8a" alt="Julius DS Documentation" />
-          <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
-        </div>
-        <div class="ds-panel" id="ds-statistics">
-          <img src="https://www.figma.com/api/mcp/asset/9d7c43b8-1c52-4102-96a2-3b42b83a44d5" alt="Julius DS Statistics" />
+        <div class="ds-track" id="ds-track">
+          <div class="ds-panel" id="ds-thumbnails">
+            <img src="https://www.figma.com/api/mcp/asset/db01be22-d3bc-4791-aa51-25a6f897d40c" alt="Julius DS Thumbnails" />
+          </div>
+          <div class="ds-panel-doc" id="ds-documentations">
+            <img src="https://www.figma.com/api/mcp/asset/17f6b355-7221-476d-8b69-84511014d34a" alt="Julius DS Documentation" />
+            <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
+          </div>
+          <div class="ds-panel" id="ds-statistics">
+            <img src="https://www.figma.com/api/mcp/asset/df3adfd2-2956-4966-80f0-8cfcfc687b3f" alt="Julius DS Statistics" />
+          </div>
         </div>
       </div>
     </div>
@@ -1084,7 +1098,7 @@
     <div class="stop">
       <div class="slabel"><span>THE MARKET COMPASS</span></div>
       <h2 class="sheading" style="color:#fff;">Market Compass<br>Contextual Navigation at Scale</h2>
-      <p class="sbody">Deep B2B platforms suffer from discovery friction. Users land on one market page and rarely find their way to adjacent opportunities. I designed the Market Compass as a persistent end-of-page component that mirrors the global architecture, letting users orient themselves within the full supply chain — from Energy &amp; Grid to Battery Recycling — without returning to the top nav.</p>
+      <p class="sbody">Deep B2B platforms suffer from discovery friction. Users land on one market page and rarely find their way to adjacent opportunities. I designed the Market Compass as a persistent end-of-page component that mirrors the global architecture, letting users orient themselves within the full supply chain, from Energy &amp; Grid to Battery Recycling, without returning to the top nav.</p>
       <p class="sbody">The tree structure creates spatial awareness, while the active state and tooltip cards reduce cognitive load and encourage cross-market exploration.</p>
     </div>
     <div class="h6-gif">
@@ -1167,29 +1181,32 @@
     }
   }
 
-  /* ===== HERO 5: DS Tab system ===== */
-  var dsTabWidths = { thumbnails: 110, documentations: 146, statistics: 80 };
-  var dsTabOffsets = { thumbnails: 0, documentations: 110, statistics: 256 };
+  /* ===== HERO 5: DS carousel ===== */
+  // Track layout: T(0–780) gap(48) D(828–1608) gap(48) S(1656–2436) — all within 1080px inner div.
+  // overflow:visible on .ds-panels lets neighbors bleed beyond the container.
+  // thumbnails   → translateX(0)     : T flush with inner div left edge (= section left margin)
+  // documentations → translateX(-678): D centred in 1080px container (540 − 1218 = −678)
+  // statistics   → translateX(-1356) : S right-aligned in container (1080 − 2436 = −1356)
+  var dsTabWidths  = { thumbnails: 110, documentations: 146, statistics: 80 };
+  var dsTabOffsets = { thumbnails: 0,   documentations: 110, statistics: 256 };
+  var dsTrackPos   = { thumbnails: 0,   documentations: -678, statistics: -1356 };
+
   function setDsTab(tab) {
-    var bg  = document.getElementById('ds-bg');
+    var bg   = document.getElementById('ds-bg');
     var tabs = document.querySelectorAll('.ds-tab');
-    var panels = ['ds-thumbnails','ds-documentations','ds-statistics'];
-    // Update pill
-    bg.style.width  = dsTabWidths[tab] + 'px';
+    bg.style.width     = dsTabWidths[tab] + 'px';
     bg.style.transform = 'translateX(' + dsTabOffsets[tab] + 'px)';
-    // Update tab labels
     tabs.forEach(function(t) {
       if (t.dataset.t === tab) { t.classList.replace('off','on'); }
-      else { t.classList.replace('on','off'); }
+      else                     { t.classList.replace('on','off'); }
     });
-    // Show/hide panels
-    document.getElementById('ds-thumbnails').className    = 'ds-panel' + (tab === 'thumbnails' ? ' on' : '');
-    document.getElementById('ds-documentations').className = 'ds-panel-doc' + (tab === 'documentations' ? ' on' : '');
-    document.getElementById('ds-statistics').className    = 'ds-panel' + (tab === 'statistics' ? ' on' : '');
+    document.getElementById('ds-track').style.transform = 'translateX(' + dsTrackPos[tab] + 'px)';
   }
-  // Init pill position
-  document.getElementById('ds-bg').style.width = '110px';
+
+  // Init
+  document.getElementById('ds-bg').style.width     = '110px';
   document.getElementById('ds-bg').style.transform = 'translateX(0)';
+  document.getElementById('ds-track').style.transform = 'translateX(0)';
 </script>
 
 </body>
