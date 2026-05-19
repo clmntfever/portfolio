@@ -28,7 +28,7 @@
     a { text-decoration: none; color: inherit; }
 
     /* ── HEADER / NAV ───────────────────────────────────────── */
-    .site-nav {
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 100;
@@ -40,56 +40,50 @@
       justify-content: center;
       padding: 18px 100px;
     }
-    .site-nav__inner {
+    .site-header .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
       max-width: 1080px;
     }
-    .site-nav__logo {
+    .site-header .logo {
       display: flex;
       align-items: center;
       gap: 4px;
-      text-decoration: none;
-    }
-    .site-nav__logo-text {
       font-size: 16px;
       font-weight: 700;
       color: #111110;
       letter-spacing: -0.32px;
       line-height: normal;
+      text-decoration: none;
     }
-    .site-nav__logo-dot {
+    .site-header .logo-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: #3ecf8e;
       flex-shrink: 0;
+      display: block;
     }
-    .site-nav__cta {
+    .site-header .btn-talk {
       display: flex;
       align-items: center;
       gap: 4px;
       background: #111110;
       color: #ffffff;
       padding: 8px 16px;
+      height: 40px;
       border-radius: 48px;
       font-size: 13px;
       font-weight: 600;
       line-height: normal;
       text-decoration: none;
       transition: opacity 0.15s ease;
+      white-space: nowrap;
     }
-    .site-nav__cta:hover { opacity: 0.85; }
-    .site-nav__cta-arrow {
-      width: 16px;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .site-nav__cta-arrow svg { width: 14px; height: 14px; }
+    .site-header .btn-talk:hover { opacity: 0.85; }
+    .site-header .btn-talk img { width: 16px; height: 16px; display: block; }
 
     /* ── SECTION LABEL PATTERN ──────────────────────────────── */
     .section-label {
@@ -1031,8 +1025,8 @@
     /* ── TABLET ≤768px ──────────────────────────────────────── */
     @media (max-width: 768px) {
       /* Nav */
-      .site-nav { padding: 18px 16px; }
-      .site-nav__inner { width: 100%; }
+      .site-header { padding: 18px 32px; }
+      .site-header .header-inner { width: 100%; }
 
       /* Hero 1 — tablet */
       .hero1 {
@@ -1162,17 +1156,15 @@
 <body>
 
   <!-- ════ HEADER ════════════════════════════════════════════ -->
-  <header class="site-nav" role="banner">
-    <div class="site-nav__inner">
-      <a href="index.html" class="site-nav__logo" aria-label="Clément Blindron — home">
-        <span class="site-nav__logo-text">clem</span>
-        <span class="site-nav__logo-dot" aria-hidden="true"></span>
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Clément Blindron — home">
+        clem
+        <span class="logo-dot" aria-hidden="true"></span>
       </a>
-      <a href="mailto:clement.blindron@gmail.com" class="site-nav__cta">
+      <a href="mailto:clement.blindron@gmail.com" class="btn-talk">
         Let's talk&nbsp;
-        <span class="site-nav__cta-arrow" aria-hidden="true">
-          <img src="https://www.figma.com/api/mcp/asset/3356b650-4c7e-4cc8-858b-55c21860fb9f" alt="" style="width:14px;height:14px;" />
-        </span>
+        <img src="https://www.figma.com/api/mcp/asset/f90f3eab-f4fd-4ab2-beb9-e33bf1ca03d2" alt="" />
       </a>
     </div>
   </header>

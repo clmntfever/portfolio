@@ -23,8 +23,8 @@
 
     /* ===== TOKENS ===== */
     :root {
-      --pad-l: 230px;
-      --pad-r: 130px;
+      --pad-l: 100px;
+      --pad-r: 100px;
       --pad-t: 32px;
       --pad-m: 24px;
       --py: 48px;
@@ -35,7 +35,7 @@
     }
 
     /* ===== SHARED ===== */
-    .inner { max-width: var(--max); width: 100%; }
+    .inner { max-width: var(--max); width: 100%; min-width: 1000px; }
     .slabel {
       display: flex; align-items: center; gap: 8px;
     }
@@ -51,7 +51,7 @@
       font-size: 32px; font-weight: 800;
       line-height: 1.2; letter-spacing: -0.48px; color: #1a1a1a;
     }
-    .sbody { font-size: 16px; font-weight: 400; line-height: 1.7; color: #444; }
+    .sbody { font-size: 16px; font-weight: 400; line-height: 1.7; color: #444; max-width: 800px; }
     .stop { display: flex; flex-direction: column; gap: 16px; }
 
     /* ===== HEADER ===== */
@@ -210,6 +210,7 @@
       display: flex; justify-content: center;
     }
     .hero4 .inner { display: flex; flex-direction: column; gap: 48px; }
+    .hero4 .sheading { max-width: 519px; }
     /* Browser simulation */
     .browser-wrap { display: flex; flex-direction: column; gap: 13px; }
     .browser-frame {
@@ -386,8 +387,8 @@
     .feat-carousel::-webkit-scrollbar { display: none; }
     .feat-card {
       background: #fff; border-radius: 12px;
-      box-shadow: 1px 1px 2px #fff, 2px 2px 8px rgba(0,0,0,.25);
-      padding: 24px 24px; width: 290px; flex-shrink: 0;
+      box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.25), 1px 1px 2px 0px white, 2px 2px 8px 0px rgba(0,0,0,0.25);
+      padding: 16px 24px; width: 290px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 24px;
       scroll-snap-align: start;
     }
@@ -442,11 +443,12 @@
       display: inline-flex; align-items: center; gap: 4px;
       background: #111110; color: #fff;
       font-size: 13px; font-weight: 600;
-      padding: 8px 8px 8px 12px; border-radius: 48px;
+      padding: 8px 8px 8px 18px; border-radius: 48px;
       white-space: nowrap; cursor: pointer; width: fit-content;
     }
     .btn-julius .jicon { display: flex; align-items: center; padding: 6px 10px; }
-    .btn-julius .jicon img { height: 24px; width: 16px; }
+    .btn-julius .jicon-wrap { width: 16px; height: 24px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .btn-julius .jicon-wrap img { position: absolute; width: 276.92%; height: 186.21%; left: -88.21%; top: -43.1%; max-width: none; }
     /* Tab system */
     .ds-tabs { display: flex; flex-direction: column; gap: 24px; }
     .ds-tabbar {
@@ -481,13 +483,13 @@
       transition: transform .35s cubic-bezier(.4,0,.2,1);
       will-change: transform;
     }
-    .ds-panel { width: 780px; flex-shrink: 0; }
-    .ds-panel img { width: 780px; height: 557px; object-fit: cover; display: block; }
+    .ds-panel { width: 780px; flex-shrink: 0; border-radius: 20px; overflow: hidden; }
+    .ds-panel img { width: 780px; height: 557px; object-fit: cover; display: block; border-radius: 20px; }
     .ds-panel-doc {
       width: 780px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 10px;
     }
-    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; display: block; }
+    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; display: block; border-radius: 20px; }
     .ds-panel-doc p {
       font-size: 12px; font-style: italic; font-weight: 300;
       line-height: 1.55; color: #000;
@@ -525,7 +527,7 @@
     /* ===== HERO 7 ===== */
     .hero7 {
       background: #fff;
-      padding: var(--py) var(--pad-r) var(--py) var(--pad-l);
+      padding: var(--py) 180px var(--py) var(--pad-l);
       display: flex; flex-direction: column; gap: 48px;
     }
     .h7-cards { display: flex; gap: 17px; }
@@ -555,6 +557,9 @@
 
     /* ===== TABLET (≤768px) ===== */
     @media (max-width: 768px) {
+      .inner { min-width: unset; }
+      .sbody { max-width: 100%; }
+      .hero4 .sheading { max-width: 100%; }
       .site-header { padding: 18px var(--pad-t); }
       /* Meta — hidden at tablet and below per Figma */
       .hero-meta { display: none; }
@@ -585,6 +590,8 @@
       .hero5 { padding: var(--py) var(--pad-t); }
       .ds-tabs { display: none; }
       .ds-stacked { display: flex; }
+      .ds-stacked img.full { border-radius: 20px; }
+      .ds-doc-wrap img { border-radius: 20px; }
       /* Hero 6 */
       .hero6 { padding: var(--py) var(--pad-t); }
       /* Hero 7 — cards bleed to viewport edges for horizontal scroll */
@@ -627,8 +634,12 @@
       .app-feat-section { padding: 0; }
       /* Hero 5 */
       .hero5 { padding: var(--py) var(--pad-m); }
+      .ds-stacked img.full { border-radius: 12px; }
+      .ds-doc-wrap img { border-radius: 12px; }
       /* Hero 6 */
       .hero6 { padding: var(--py) var(--pad-m); }
+      .h6-gif { height: 278px; width: 100%; aspect-ratio: unset; }
+      .h6-gif img { width: 151.47%; height: 100.04%; left: -25.74%; top: -0.04%; }
       /* Hero 7 */
       .hero7 { padding: var(--py) var(--pad-m); }
       .h7-cards {
@@ -647,11 +658,11 @@
   <div class="inner">
     <a href="index.html" class="logo">
       clem
-      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/762ea00a-22f4-4798-86a0-4aff82cfb61d" alt="" />
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/b0eacc32-ed6c-4680-90c7-373624dc20dc" alt="" />
     </a>
     <a href="mailto:clement.blindron@gmail.com" class="btn-talk">
       Let's talk&nbsp;
-      <img src="https://www.figma.com/api/mcp/asset/3356b650-4c7e-4cc8-858b-55c21860fb9f" alt="" />
+      <img src="https://www.figma.com/api/mcp/asset/f40cbb9e-c90f-4116-bdfe-f19a5cd727bd" alt="" />
     </a>
   </div>
 </header>
@@ -758,14 +769,14 @@
         <div class="screens-track" id="h3-track">
           <div class="screen-box">
             <picture>
-              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c6c8f6a-fe5d-4e2d-9206-26ebcbd54b74" />
+              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/05f1ce81-fcac-4cb6-8e0a-45b2a59bdeef" />
               <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/35424598-3541-486d-ab0b-41ebec212a91" />
               <img src="https://www.figma.com/api/mcp/asset/f1a6152d-1f12-4f6e-809a-6669d3e845a9" alt="Before — old navigation" />
             </picture>
           </div>
           <div class="screen-box screen-box--gif">
             <picture>
-              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/336c40f5-f93d-4ed3-978a-800f4cfbfa1a" />
+              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/58c1e0dd-a8ff-4e1f-aa5b-25649d4c78bd" />
               <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/493d08e5-074b-40d0-9a11-c0a7725b3cd3" />
               <img src="https://www.figma.com/api/mcp/asset/a6102e53-837c-4018-a18f-b9595afed97d" alt="After — mega menu" />
             </picture>
@@ -930,7 +941,7 @@
             <div class="feat-num-row">
               <div class="feat-num">
                 <picture>
-                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/5311c2d6-dee9-43bd-a3cc-f8d16d07dc83" />
                   <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>1</span>
@@ -942,8 +953,8 @@
           <div class="feat-card-bottom">
             <div class="feat-iphone">
               <picture>
-                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/ae9c6d8d-9616-48d4-a2f3-5c44e35986c7" />
-                <img src="https://www.figma.com/api/mcp/asset/ca02879f-e179-4df5-b64b-df81a054846a" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/d0aee1e0-fb54-408b-b851-bf337ef081ee" />
+                <img src="https://www.figma.com/api/mcp/asset/6109da9f-fd42-4b4d-b0d5-2c1228262534" alt="Prices" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -954,7 +965,7 @@
             <div class="feat-num-row">
               <div class="feat-num">
                 <picture>
-                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/5311c2d6-dee9-43bd-a3cc-f8d16d07dc83" />
                   <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>2</span>
@@ -966,8 +977,8 @@
           <div class="feat-card-bottom">
             <div class="feat-iphone">
               <picture>
-                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/f7cb5660-a9f3-4dc7-9464-987a09ef7ca8" />
-                <img src="https://www.figma.com/api/mcp/asset/601e053e-1818-4174-80a5-460b079dd0e0" alt="News" style="width:100%;height:100%;object-fit:cover;" />
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/cce6a57c-cbaa-456c-880b-65c81465be1e" />
+                <img src="https://www.figma.com/api/mcp/asset/208404c6-3c80-4ef4-bdc2-39e474e4c102" alt="News" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -978,7 +989,7 @@
             <div class="feat-num-row">
               <div class="feat-num">
                 <picture>
-                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/5311c2d6-dee9-43bd-a3cc-f8d16d07dc83" />
                   <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>3</span>
@@ -990,8 +1001,8 @@
           <div class="feat-card-bottom">
             <div class="feat-iphone">
               <picture>
-                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/1c510241-580f-414f-99bd-13d28c2d155b" />
-                <img src="https://www.figma.com/api/mcp/asset/44fb17e6-caac-45e3-847a-f82e27812227" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/3864d41b-7792-44ba-bf90-348767fcc447" />
+                <img src="https://www.figma.com/api/mcp/asset/dd7836b4-907a-4935-ab49-602d4926618a" alt="Events" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -1002,7 +1013,7 @@
             <div class="feat-num-row">
               <div class="feat-num">
                 <picture>
-                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/a82db8b7-67de-4510-b71a-068dd61d8901" />
+                  <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/5311c2d6-dee9-43bd-a3cc-f8d16d07dc83" />
                   <img src="https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c" alt="" />
                 </picture>
                 <span>4</span>
@@ -1014,8 +1025,8 @@
           <div class="feat-card-bottom">
             <div class="feat-iphone">
               <picture>
-                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/968caaed-7844-42a2-80fb-8b1ec28dc532" />
-                <img src="https://www.figma.com/api/mcp/asset/6f266891-6213-4dfd-b83f-447dd5f3b26c" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
+                <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/0c2061fc-04a7-495d-997a-4965828463dc" />
+                <img src="https://www.figma.com/api/mcp/asset/6aedebf3-4de8-4273-8fd1-60ce92ea3dec" alt="Notifications" style="width:100%;height:100%;object-fit:cover;" />
               </picture>
             </div>
           </div>
@@ -1033,14 +1044,16 @@
       <h2 class="sheading">Julius 2.0,<br>Consistency as a foundation</h2>
       <p class="sbody">Good design systems do more than organise components. They encode decisions, communicate intent, and make the right way to build things also the easiest way. Julius 2.0 was built with exactly that in mind.</p>
       <p class="sbody">Structured around four principles, Consistent, Scalable, Clean, and Easy, the system covers everything from typography and colour tokens to complex UI patterns. Fully documented and ready to use, it gives design and development a shared language that keeps Benchmark's product aligned across every touchpoint.</p>
-      <a href="#" class="btn-julius" target="_blank" rel="noopener">
+      <a href="https://www.figma.com/design/Yepmp7si23vB6nMTGmC1tw/Julius-2.0-Design-System?node-id=7-41675&t=AcFAFss5QlgtEQVo-1" class="btn-julius" target="_blank" rel="noopener">
         Check Julius 2.0
         <span class="jicon">
-          <picture>
-            <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/b61f9446-c3fe-43cd-a36e-ed8974e0d834" />
-            <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/c8697727-9e41-41dc-bc69-da1baf131339" />
-            <img src="https://www.figma.com/api/mcp/asset/6c8fe09d-ac36-4787-a001-320e6ee41ad6" alt="Figma" />
-          </picture>
+          <div class="jicon-wrap">
+            <picture>
+              <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/092b27c1-450c-4ce4-a078-ed7d671425c7" />
+              <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/278e48f6-284f-4925-9388-836cf2bcaad7" />
+              <img src="https://www.figma.com/api/mcp/asset/13c2c70e-d862-4a20-94d3-4869305882f7" alt="Figma" />
+            </picture>
+          </div>
         </span>
       </a>
     </div>
@@ -1058,14 +1071,14 @@
       <div class="ds-panels">
         <div class="ds-track" id="ds-track">
           <div class="ds-panel" id="ds-thumbnails">
-            <img src="https://www.figma.com/api/mcp/asset/db01be22-d3bc-4791-aa51-25a6f897d40c" alt="Julius DS Thumbnails" />
+            <img src="https://www.figma.com/api/mcp/asset/5875679c-7ee2-4ba9-aa0d-8513cb75c695" alt="Julius DS Thumbnails" />
           </div>
           <div class="ds-panel-doc" id="ds-documentations">
-            <img src="https://www.figma.com/api/mcp/asset/17f6b355-7221-476d-8b69-84511014d34a" alt="Julius DS Documentation" />
+            <img src="https://www.figma.com/api/mcp/asset/98a0eb10-cb6c-4516-81c6-b96f3876ce5a" alt="Julius DS Documentation" />
             <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
           </div>
           <div class="ds-panel" id="ds-statistics">
-            <img src="https://www.figma.com/api/mcp/asset/df3adfd2-2956-4966-80f0-8cfcfc687b3f" alt="Julius DS Statistics" />
+            <img src="https://www.figma.com/api/mcp/asset/aea7b847-fcbc-4307-86e7-0f156030ebc4" alt="Julius DS Statistics" />
           </div>
         </div>
       </div>
@@ -1074,19 +1087,19 @@
     <!-- Tablet/Mobile: stacked images -->
     <div class="ds-stacked">
       <picture class="full">
-        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/da734265-be6e-499d-bb03-b8886283178d" />
-        <img src="https://www.figma.com/api/mcp/asset/6adaa570-6000-4f24-b1fa-3109e6bfe7d6" alt="Julius DS Thumbnail" style="width:100%;display:block;" />
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/b1acbb89-bdb4-4e51-b2d1-b37ddb7d21a9" />
+        <img src="https://www.figma.com/api/mcp/asset/07b7f997-11fe-4f3c-933d-04ce04399572" alt="Julius DS Thumbnail" style="width:100%;display:block;" />
       </picture>
       <div class="ds-doc-wrap">
         <picture>
-          <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/7bc0548a-f6b1-41cb-8808-e738be48513b" />
-          <img src="https://www.figma.com/api/mcp/asset/ac4be366-9577-4289-8678-a75aa2195be1" alt="Julius DS Documentation" style="width:100%;" />
+          <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/614aa461-e43d-4f9b-ae0b-059620329b8f" />
+          <img src="https://www.figma.com/api/mcp/asset/b8654f74-0151-4a17-a57a-d421dbd640da" alt="Julius DS Documentation" style="width:100%;" />
         </picture>
         <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
       </div>
       <picture class="full">
-        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/9d2cd0a0-6485-46b9-b5b4-20dc7e0e0ec7" />
-        <img src="https://www.figma.com/api/mcp/asset/d1487054-c66f-482e-8c50-24febae37d7c" alt="Julius DS Statistics" style="width:100%;display:block;" />
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/59c43619-e7a9-4cd8-9b20-16290967efc2" />
+        <img src="https://www.figma.com/api/mcp/asset/18677343-e295-4173-9036-d7886cfdec3c" alt="Julius DS Statistics" style="width:100%;display:block;" />
       </picture>
     </div>
   </div>
@@ -1103,7 +1116,7 @@
     </div>
     <div class="h6-gif">
       <picture>
-        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/0be901a5-345b-43c1-a997-487b11f14edb" />
+        <source media="(max-width:402px)" srcset="https://www.figma.com/api/mcp/asset/77a7a9f3-88d0-43b9-8573-c86f7226c9e6" />
         <source media="(max-width:768px)" srcset="https://www.figma.com/api/mcp/asset/b766bd04-c387-4930-b028-dd319dc38116" />
         <img src="https://www.figma.com/api/mcp/asset/1575ecbc-ba9d-4efa-9de6-cc967e12c5c9" alt="Market Compass interactive demo" />
       </picture>
@@ -1116,7 +1129,7 @@
   <div class="stop">
     <div class="slabel"><span>OUTCOMES</span></div>
     <h2 class="sheading">Where Design Met Business</h2>
-    <p class="sbody" style="max-width:800px;">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch.</p>
+    <p class="sbody">Shipped to strong reception from both internal stakeholders and customers. Key metrics tracked across the first 90 days post-launch.</p>
   </div>
   <div class="h7-cards">
     <div class="result-card">
@@ -1147,7 +1160,7 @@
   <div class="inner">
     <div class="logo">
       clem
-      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/762ea00a-22f4-4798-86a0-4aff82cfb61d" alt="" />
+      <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/b0eacc32-ed6c-4680-90c7-373624dc20dc" alt="" />
     </div>
     <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
     <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-li" target="_blank" rel="noopener">LinkedIn</a>
