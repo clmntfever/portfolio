@@ -240,14 +240,24 @@ ul, ol { list-style: none; }
 .project-card__thumb--bordered {
   border: 4px solid #000;
 }
-/* Zoom variant: slight overflow crop matching Figma card design */
-.project-card__thumb--zoom img {
+/* Zoom variant — Remediation card (node 87-954) */
+.project-card__thumb--zoom-rem img {
   position: absolute;
-  width: 103.55%;
-  height: 100.43%;
-  max-width: none; /* override global img { max-width: 100% } */
-  left: -1.78%;
-  top: -0.43%;
+  width: 101.77%;
+  height: 98.7%;
+  max-width: none;
+  left: -0.88%;
+  top: 0;
+  object-fit: cover;
+}
+/* Zoom variant — BMI card (node 87-954) */
+.project-card__thumb--zoom-bmi img {
+  position: absolute;
+  width: 103.44%;
+  height: 100%;
+  max-width: none;
+  left: -1.72%;
+  top: 0;
   object-fit: cover;
 }
 .project-card__body {
@@ -1348,6 +1358,15 @@ ul, ol { list-style: none; }
   /* DS tabs */
   .ds-tabs { justify-content: center; }
   .ds-tabs-pill button { font-size: 13px; padding: 0 10px; }
+}
+
+/* ── Phone (≤ 402px) ─────────────────────────────────────── */
+@media (max-width: 402px) {
+  :root {
+    --pad-h: 24px;
+  }
+  .site-header,
+  .site-footer { padding: 0 24px; }
 }
 
 /* ── Print / no-motion ───────────────────────────────────── */

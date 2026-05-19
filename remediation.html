@@ -38,7 +38,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 18px 230px;
+      padding: 18px 100px;
     }
     .site-nav__inner {
       display: flex;
@@ -124,7 +124,7 @@
     }
     .hero1__inner {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       width: 100%;
       max-width: 1080px;
@@ -164,21 +164,20 @@
     }
     .hero1__thumb-wrap {
       position: relative;
-      width: 374px;
-      height: 232px;
-      border: 1px solid #f4f4f4;
+      width: 377px;
+      height: 243px;
+      border: 4px solid #ffffff;
       border-radius: 16px;
       overflow: hidden;
       flex-shrink: 0;
     }
     .hero1__thumb-img {
       position: absolute;
-      width: 103.55%;
-      height: 100.43%;
-      left: -1.78%;
-      top: -0.43%;
+      width: 109.51%;
+      height: 133.43%;
+      left: -4.76%;
+      top: -22.51%;
       max-width: none;
-      object-fit: cover;
     }
 
     /* ── META BAR ───────────────────────────────────────────── */
@@ -266,7 +265,7 @@
       gap: 16px;
       flex-shrink: 0;
     }
-    .hero2__left .rem-section__title { width: 570px; }
+    .hero2__left .rem-section__title { width: 588px; }
     .hero2__body1 {
       font-size: 16px;
       font-weight: 400;
@@ -1047,18 +1046,21 @@
         gap: 36px;
         max-width: 100%;
       }
-      .hero1__text { flex: 1; max-width: 356px; min-width: 0; }
+      .hero1__text { flex: 1; max-width: 356px; min-width: 356px; }
+      .hero1__info { gap: 8px; }
       .hero1__title { font-size: 40px; width: 100%; }
       .hero1__desc { width: 100%; }
       .hero1__thumb-col {
         display: flex;
         flex-direction: column;
-        padding-top: 44px;
+        padding-top: 80px;
         flex-shrink: 0;
       }
       .hero1__thumb-wrap {
-        border-width: 2px;
-        border-color: #f4f4f4;
+        width: 323px;
+        height: 208px;
+        border-width: 4px;
+        border-color: #ffffff;
       }
 
       /* Meta bar — hidden */
@@ -1132,6 +1134,7 @@
       .hero1 { padding: 56px 16px 0; flex-direction: column; gap: 0; }
       .hero1__inner { flex-direction: column; gap: 4px; max-width: 100%; }
       .hero1__text { max-width: 100%; padding-bottom: 16px; }
+      .hero1__info { gap: 8px; }
       .hero1__title { font-size: 40px; width: 100%; }
       .hero1__desc { width: 100%; }
       .hero1__thumb-col { padding-top: 0; }
@@ -1139,14 +1142,6 @@
         width: 100%;
         max-width: 377px;
         height: 243px;
-        border-color: #ffffff;
-        border-width: 4px;
-      }
-      .hero1__thumb-img {
-        width: 100.08%;
-        height: 99.86%;
-        left: 0;
-        top: 0.03%;
       }
 
       /* Generic sections */
@@ -1174,9 +1169,7 @@
       <a href="mailto:clement.blindron@gmail.com" class="site-nav__cta">
         Let's talk&nbsp;
         <span class="site-nav__cta-arrow" aria-hidden="true">
-          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="https://www.figma.com/api/mcp/asset/a9d81743-7ee3-45bb-90f4-3d7026be4a26" alt="" style="width:14px;height:14px;" />
         </span>
       </a>
     </div>
@@ -1197,7 +1190,7 @@
         <div class="hero1__thumb-col">
           <div class="hero1__thumb-wrap">
             <!-- TO SAVE LOCALLY: open src URL in browser → Save As → assets/hero1-thumbnail.png, then update src -->
-            <img class="hero1__thumb-img" src="https://www.figma.com/api/mcp/asset/95ffe4c2-9228-47c2-8f1f-fdee285934c7" alt="Remediation Objectives — product screenshot" />
+            <img class="hero1__thumb-img" src="https://www.figma.com/api/mcp/asset/772fcec7-464e-4c2a-ba9c-38e88488f6f3" alt="Remediation Objectives — product screenshot" />
           </div>
         </div>
       </div>
@@ -1245,7 +1238,7 @@
           <div class="hero2__screenshot">
             <!-- Figma node 123:5573 — "Screenshot 2026-05-12 at 10.58.19 AM 1" (353×187, rounded-16) -->
             <!-- TO SAVE LOCALLY: open src URL in browser → Save As → assets/hero2-context-screenshot.png, then update src -->
-            <img class="hero2__screenshot-img" src="https://www.figma.com/api/mcp/asset/05d39420-473c-4ba7-9896-7ba1a1f9b7b8" alt="Panaseer platform — security controls view" />
+            <img class="hero2__screenshot-img" src="https://www.figma.com/api/mcp/asset/2822139e-2abc-4f2b-8b25-82783034c0d8" alt="Panaseer platform — security controls view" />
           </div>
           <!-- Decorative dots (positioned over the screenshot) -->
           <div class="hero2__dots" aria-hidden="true">
