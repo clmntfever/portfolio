@@ -1197,12 +1197,13 @@
   /* ===== HERO 5: DS carousel ===== */
   // Track layout: T(0–780) gap(48) D(828–1608) gap(48) S(1656–2436) — all within 1080px inner div.
   // overflow:visible on .ds-panels lets neighbors bleed beyond the container.
-  // thumbnails   → translateX(0)     : T flush with inner div left edge (= section left margin)
-  // documentations → translateX(-678): D centred in 1080px container (540 − 1218 = −678)
-  // statistics   → translateX(-1356) : S right-aligned in container (1080 − 2436 = −1356)
+  // Carousel: each panel (780px) sits flush-left, next panel peeks 252px on the right
+  // thumbnails   → translateX(0)     : T at x=0, Documentation peeks from x=828
+  // documentations → translateX(-828): D at x=0, Statistics peeks from x=828
+  // statistics   → translateX(-1656) : S at x=0, no next panel
   var dsTabWidths  = { thumbnails: 110, documentations: 146, statistics: 80 };
   var dsTabOffsets = { thumbnails: 0,   documentations: 110, statistics: 256 };
-  var dsTrackPos   = { thumbnails: 0,   documentations: -678, statistics: -1356 };
+  var dsTrackPos   = { thumbnails: 0,   documentations: -828, statistics: -1656 };
 
   function setDsTab(tab) {
     var bg   = document.getElementById('ds-bg');
