@@ -284,20 +284,20 @@
       /* Tighter gap at tablet/mobile — Figma nodes 145:4027, 280:5970: gap-[16px] */
       .hero-name-row { gap: 16px; }
       /* Extra pt-16px wrapper present in Figma at tablet/mobile — node 457:9919 */
-      .hero-online { padding-top: calc(22.857px + 16px); }
+      .hero-online { padding-top: calc(24px + 16px); }
     }
 
     /* ── Hero Online indicator — image-based component ──────── */
-    /* Figma: 80×80px container, p-22.857px, inner image 68.571px */
+    /* Figma: 84×84px container, p-24px, inner image 72px */
     /* Nodes 334:1653 (desktop), 55:575 (1280), 145:4027 (tablet), 280:5970 (mobile) */
     @keyframes hero-online-pulse {
       0%, 100% { opacity: 1;    transform: scale(1); }
       50%       { opacity: 0.85; transform: scale(1.04); }
     }
     .hero-online {
-      width: 80px;
-      height: 80px;
-      padding: 22.857px;
+      width: 84px;
+      height: 84px;
+      padding: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -306,8 +306,8 @@
     }
     .hero-online__inner {
       position: relative;
-      width: 68.571px;
-      height: 68.571px;
+      width: 72px;
+      height: 72px;
       flex-shrink: 0;
     }
     .hero-online__inner img {
@@ -355,7 +355,7 @@
               </h1>
               <div class="hero-online" aria-hidden="true">
                 <div class="hero-online__inner">
-                  <img src="https://www.figma.com/api/mcp/asset/9937507d-0aaf-481f-8093-10424ef861a6" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/af84a6e6-c3a7-47a4-a8a8-978354a0c2a9" alt="" />
                 </div>
               </div>
             </div>
