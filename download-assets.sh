@@ -1,105 +1,196 @@
 #!/usr/bin/env bash
-# =============================================================
+# ─────────────────────────────────────────────────────────────────────────────
 # download-assets.sh
-# Downloads all Figma image assets to ./assets/ and patches
-# the HTML files to use local paths.
+# Downloads all Figma CDN assets to ./assets/ and rewrites HTML/CSS references.
 #
-# HOW TO USE:
-#   1. Open Terminal
-#   2. cd to this folder  (cd "path/to/IMPLEMENTATION PORTOLIO CLEMENT")
-#   3. chmod +x download-assets.sh
-#   4. ./download-assets.sh
+# HOW TO RUN (one-time, from your Terminal):
+#   cd "/Users/clementblindron/Documents/Claude/Projects/IMPLEMENTATION PORTOLIO CLEMENT"
+#   bash download-assets.sh
 #
-# Requirements: curl (pre-installed on macOS)
-# =============================================================
+# What it does:
+#   1. Creates ./assets/ directory
+#   2. Downloads all 78 Figma images (auto-detects PNG/JPG/SVG extension)
+#   3. Rewrites every figma.com URL in index.html, remediation.html,
+#      bmi.html and style.css to a local ./assets/ path
+#   4. Prints a summary — every file should show OK
+# ─────────────────────────────────────────────────────────────────────────────
 
-set -e
+set -euo pipefail
 
-ASSETS_DIR="$(dirname "$0")/assets"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ASSETS_DIR="$SCRIPT_DIR/assets"
+FILES=("index.html" "remediation.html" "bmi.html" "style.css")
+
 mkdir -p "$ASSETS_DIR"
+echo "📁  Assets folder: $ASSETS_DIR"
+echo ""
 
-BASE_URL="https://www.figma.com/api/mcp/asset"
+URLS=(
+  "https://www.figma.com/api/mcp/asset/03dd8444-48c3-40b6-8a1a-6d53e53be77c"
+  "https://www.figma.com/api/mcp/asset/05f1ce81-fcac-4cb6-8e0a-45b2a59bdeef"
+  "https://www.figma.com/api/mcp/asset/07b7f997-11fe-4f3c-933d-04ce04399572"
+  "https://www.figma.com/api/mcp/asset/081feb16-d8a0-4f1e-a1ca-ca7c1a3e20ea"
+  "https://www.figma.com/api/mcp/asset/092b27c1-450c-4ce4-a078-ed7d671425c7"
+  "https://www.figma.com/api/mcp/asset/09a1723a-925d-450e-86b8-7f8f4a2bc639"
+  "https://www.figma.com/api/mcp/asset/09cb75fc-0529-451d-9caa-139558b177b0"
+  "https://www.figma.com/api/mcp/asset/0c2061fc-04a7-495d-997a-4965828463dc"
+  "https://www.figma.com/api/mcp/asset/0d56600b-b7a4-4276-a6a5-0773e37dad01"
+  "https://www.figma.com/api/mcp/asset/13c2c70e-d862-4a20-94d3-4869305882f7"
+  "https://www.figma.com/api/mcp/asset/1575ecbc-ba9d-4efa-9de6-cc967e12c5c9"
+  "https://www.figma.com/api/mcp/asset/15fdb406-c1a5-4742-a904-74a353d68309"
+  "https://www.figma.com/api/mcp/asset/18677343-e295-4173-9036-d7886cfdec3c"
+  "https://www.figma.com/api/mcp/asset/1951ace6-98a8-4c02-b890-8c3f0ef14cd8"
+  "https://www.figma.com/api/mcp/asset/208404c6-3c80-4ef4-bdc2-39e474e4c102"
+  "https://www.figma.com/api/mcp/asset/233b8eb6-badf-431a-ac12-ec3e232952a5"
+  "https://www.figma.com/api/mcp/asset/247a8060-a7e7-481f-bdb4-9bffc2f4e9fc"
+  "https://www.figma.com/api/mcp/asset/278e48f6-284f-4925-9388-836cf2bcaad7"
+  "https://www.figma.com/api/mcp/asset/27a4c0e7-9c46-4850-934f-9ee16097f08e"
+  "https://www.figma.com/api/mcp/asset/2822139e-2abc-4f2b-8b25-82783034c0d8"
+  "https://www.figma.com/api/mcp/asset/349dc878-f32c-4fcf-86f8-975a71416065"
+  "https://www.figma.com/api/mcp/asset/35424598-3541-486d-ab0b-41ebec212a91"
+  "https://www.figma.com/api/mcp/asset/3864d41b-7792-44ba-bf90-348767fcc447"
+  "https://www.figma.com/api/mcp/asset/3bf645fa-c59b-4cec-b0b3-64c52a4e2507"
+  "https://www.figma.com/api/mcp/asset/3df89e69-a8d0-4def-a3dc-31a718b4d74e"
+  "https://www.figma.com/api/mcp/asset/493d08e5-074b-40d0-9a11-c0a7725b3cd3"
+  "https://www.figma.com/api/mcp/asset/4e9725f4-896f-419d-b420-4db07662e819"
+  "https://www.figma.com/api/mcp/asset/5311c2d6-dee9-43bd-a3cc-f8d16d07dc83"
+  "https://www.figma.com/api/mcp/asset/5875679c-7ee2-4ba9-aa0d-8513cb75c695"
+  "https://www.figma.com/api/mcp/asset/58c1e0dd-a8ff-4e1f-aa5b-25649d4c78bd"
+  "https://www.figma.com/api/mcp/asset/59c43619-e7a9-4cd8-9b20-16290967efc2"
+  "https://www.figma.com/api/mcp/asset/5d29ba88-c84a-4a34-a698-27c7bcc639ff"
+  "https://www.figma.com/api/mcp/asset/6109da9f-fd42-4b4d-b0d5-2c1228262534"
+  "https://www.figma.com/api/mcp/asset/614aa461-e43d-4f9b-ae0b-059620329b8f"
+  "https://www.figma.com/api/mcp/asset/6528b669-811b-409a-833f-fe3cf6b766de"
+  "https://www.figma.com/api/mcp/asset/6aedebf3-4de8-4273-8fd1-60ce92ea3dec"
+  "https://www.figma.com/api/mcp/asset/6bf1812c-a056-4708-b7b4-304e70e4fd26"
+  "https://www.figma.com/api/mcp/asset/6c30f940-8165-4e38-9966-205805689408"
+  "https://www.figma.com/api/mcp/asset/70d9cff3-1306-4cf8-af7f-ea0b4b6aa13c"
+  "https://www.figma.com/api/mcp/asset/7257f3c5-ac36-4097-8be9-5fd5450710b9"
+  "https://www.figma.com/api/mcp/asset/72823bb0-8c88-4475-8171-3ce66d28a187"
+  "https://www.figma.com/api/mcp/asset/76fee6fc-c4ab-4e47-bc15-4c7c8a2585b1"
+  "https://www.figma.com/api/mcp/asset/77a7a9f3-88d0-43b9-8573-c86f7226c9e6"
+  "https://www.figma.com/api/mcp/asset/8145c8c8-4b13-45e3-bb89-27544e71450c"
+  "https://www.figma.com/api/mcp/asset/8cc620ca-9e68-49d4-a1ee-81c06bcdc938"
+  "https://www.figma.com/api/mcp/asset/962ac520-4961-492a-8992-b8e8012c14f3"
+  "https://www.figma.com/api/mcp/asset/97db5d6e-801e-46ed-9263-740395476fa1"
+  "https://www.figma.com/api/mcp/asset/98a0eb10-cb6c-4516-81c6-b96f3876ce5a"
+  "https://www.figma.com/api/mcp/asset/991759e5-ab09-4242-892f-22576e5343a1"
+  "https://www.figma.com/api/mcp/asset/9b2631ff-496e-4e57-aeed-2ba2f8c0f3b8"
+  "https://www.figma.com/api/mcp/asset/9baa215f-2b94-4130-a649-b46fe2f39ef8"
+  "https://www.figma.com/api/mcp/asset/9c69f078-707c-40b8-8c8d-2db224550af1"
+  "https://www.figma.com/api/mcp/asset/9dd6ab78-76fa-42e7-bbcc-58adbcfb3160"
+  "https://www.figma.com/api/mcp/asset/9e5bb640-5ad6-4f4d-a47f-3905211aa176"
+  "https://www.figma.com/api/mcp/asset/a6102e53-837c-4018-a18f-b9595afed97d"
+  "https://www.figma.com/api/mcp/asset/ab88c945-5e20-4b73-87e7-9b354d7e6c2a"
+  "https://www.figma.com/api/mcp/asset/ae7f3194-5635-4bbd-9ad2-212249592d9c"
+  "https://www.figma.com/api/mcp/asset/aea7b847-fcbc-4307-86e7-0f156030ebc4"
+  "https://www.figma.com/api/mcp/asset/b1acbb89-bdb4-4e51-b2d1-b37ddb7d21a9"
+  "https://www.figma.com/api/mcp/asset/b766bd04-c387-4930-b028-dd319dc38116"
+  "https://www.figma.com/api/mcp/asset/b8654f74-0151-4a17-a57a-d421dbd640da"
+  "https://www.figma.com/api/mcp/asset/bb812529-b02b-4815-a7a5-4ec8e4bef838"
+  "https://www.figma.com/api/mcp/asset/c5b49ee2-8f6f-48b6-a5dd-57d1d955ec87"
+  "https://www.figma.com/api/mcp/asset/c5fa608d-b82e-44ef-bd6e-19cb0fb778e2"
+  "https://www.figma.com/api/mcp/asset/c705df12-a7e2-47bb-9c94-a8f64aa71239"
+  "https://www.figma.com/api/mcp/asset/cce6a57c-cbaa-456c-880b-65c81465be1e"
+  "https://www.figma.com/api/mcp/asset/cdc6a61b-0eae-47b2-b4bc-5d547fcdbdaa"
+  "https://www.figma.com/api/mcp/asset/cee241f6-8a14-4332-ba5e-f2e763706a8c"
+  "https://www.figma.com/api/mcp/asset/cf0a638c-3806-4715-8b52-7ca49d764e43"
+  "https://www.figma.com/api/mcp/asset/d0aee1e0-fb54-408b-b851-bf337ef081ee"
+  "https://www.figma.com/api/mcp/asset/dd7836b4-907a-4935-ab49-602d4926618a"
+  "https://www.figma.com/api/mcp/asset/e85ebb6a-76ee-405e-8068-4780564c524d"
+  "https://www.figma.com/api/mcp/asset/f1a6152d-1f12-4f6e-809a-6669d3e845a9"
+  "https://www.figma.com/api/mcp/asset/f40cbb9e-c90f-4116-bdfe-f19a5cd727bd"
+  "https://www.figma.com/api/mcp/asset/f90f3eab-f4fd-4ab2-beb9-e33bf1ca03d2"
+  "https://www.figma.com/api/mcp/asset/fbce1f22-1a56-4a1b-ac99-05399791f6e7"
+  "https://www.figma.com/api/mcp/asset/fdb43e0a-3831-445e-8732-5c07dc437e18"
+  "https://www.figma.com/api/mcp/asset/fe7c401a-b325-4f24-afcc-e0159b4ffbd1"
+)
 
-download_asset() {
-  local uuid="$1"
-  local filename="$2"
-  local ext="${3:-png}"
-  local dest="$ASSETS_DIR/${filename}.${ext}"
+# ── Step 1: Download each asset ───────────────────────────────────────────────
+echo "⬇️   Downloading ${#URLS[@]} assets..."
+echo ""
 
-  if [ -f "$dest" ]; then
-    echo "  ✓ already exists: ${filename}.${ext}"
-    return 0
+OK=0; FAIL=0
+
+for URL in "${URLS[@]}"; do
+  UUID="${URL##*/}"
+  TMPFILE="$ASSETS_DIR/${UUID}.tmp"
+
+  HTTP_CODE=$(curl -sSL -w "%{http_code}" -o "$TMPFILE" "$URL" 2>/dev/null)
+
+  if [[ "$HTTP_CODE" != "200" ]] || [[ ! -s "$TMPFILE" ]]; then
+    echo "  FAIL [$HTTP_CODE] $UUID"
+    rm -f "$TMPFILE"
+    (( FAIL++ )) || true
+    continue
   fi
 
-  echo "  ↓ downloading: ${filename}.${ext}"
-  if curl -fsSL --retry 2 \
-    -H "User-Agent: Mozilla/5.0" \
-    "${BASE_URL}/${uuid}" \
-    -o "$dest" 2>/dev/null; then
-    echo "  ✓ saved: ${filename}.${ext}"
-  else
-    echo "  ✗ failed (URL may have expired): ${filename}.${ext}" >&2
-    echo "    → Upload the image manually to assets/ as: ${filename}.${ext}"
-  fi
-}
+  # Detect file type from magic bytes
+  MAGIC=$(xxd -p -l 4 "$TMPFILE" 2>/dev/null || true)
+  case "$MAGIC" in
+    89504e47) EXT=".png" ;;
+    ffd8ff*)  EXT=".jpg" ;;
+    47494638) EXT=".gif" ;;
+    52494646) EXT=".webp" ;;
+    *)
+      HEAD=$(head -c 5 "$TMPFILE" 2>/dev/null || true)
+      if [[ "$HEAD" == "<?xml" ]] || [[ "$HEAD" == "<svg " ]]; then
+        EXT=".svg"
+      else
+        EXT=".png"
+      fi
+      ;;
+  esac
+
+  FINAL="$ASSETS_DIR/${UUID}${EXT}"
+  mv "$TMPFILE" "$FINAL"
+  echo "  OK  ${UUID}${EXT}"
+  (( OK++ )) || true
+done
 
 echo ""
-echo "╔══════════════════════════════════════════════════╗"
-echo "║  Clément Blindron Portfolio — Asset Downloader   ║"
-echo "╚══════════════════════════════════════════════════╝"
-echo ""
-echo "Saving images to: ./assets/"
+echo "✅  Downloaded: $OK  |  Failed: $FAIL"
 echo ""
 
-# ── Homepage ─────────────────────────────────────────────────
-echo "[ 1/3 ] Homepage assets…"
-# Updated card thumbnails (v2 — improved card component May 2026)
-download_asset "55f8c813-c554-4f3d-aaa3-1ee090f569f8" "thumbnail-remediation"
-download_asset "200bf68e-ff08-412f-a48c-15d228889119" "thumbnail-bmi"
-download_asset "4f5f1fe9-c419-4048-90dc-d6d87eeb9d45" "thumbnail-ds"
+if [[ "$FAIL" -gt 0 ]]; then
+  echo "⚠️   Some assets failed — Figma tokens may have expired."
+  echo "    Start a new Cowork session to refresh URLs, then re-run this script."
+  echo ""
+fi
 
-# ── Remediation page ─────────────────────────────────────────
-echo "[ 2/3 ] Remediation page assets…"
-download_asset "2bef38aa-8cf0-44ad-ad74-0510d0861ecb" "user-journey-1"
-download_asset "b5c615e1-3c04-4347-b39b-0eda64f60328" "user-journey-2"
-download_asset "ba223855-5f5f-49f4-864d-228763b913a7" "data-model"
-download_asset "c0914d9b-5791-4419-81e0-3e548c09d800" "crazy8s-spritesheet"
-download_asset "e1bac48c-3b85-4080-8dcb-46b2c049f5e8" "wireframes-1"
-download_asset "47244d9c-1f37-4b2c-9fc6-ec15f11efc68" "wireframes-2"
-download_asset "461560aa-95e8-451a-9102-4a72dde9b6c5" "wireframes-3"
+# ── Step 2: Rewrite URLs in HTML/CSS files ────────────────────────────────────
+echo "🔁  Rewriting asset URLs in HTML/CSS files..."
+echo ""
 
-# ── BMI page ─────────────────────────────────────────────────
-echo "[ 3/3 ] BMI page assets…"
-download_asset "c40d0103-2899-4922-89bf-602dde8b8c94" "bmi-hero-thumb"
-download_asset "7d21991e-9c11-4819-ae35-9b5311752619" "raw-materials"
-download_asset "2813f69c-4e81-42d8-bc97-bb162dc3da18" "battery-recycling"
-download_asset "649f8ad5-4d1d-47aa-b08c-8b18219d7ec5" "new-technology"
-download_asset "bb8c55bd-a64a-46b5-9f96-4ad24aa7f61f" "demand"
-download_asset "66d475c1-4541-45ec-ba5e-b7974069fc1b" "mega-menu-before"
-download_asset "4832dab0-c5af-45f2-9211-8d2e391d599e" "mega-menu-after" "gif"
-download_asset "a3d08379-6f7c-419c-b5b4-aef05e125037" "app-launch-bg"
-download_asset "696c4ef1-8fab-4c90-be8d-10e1fc16d87d" "iphone-mockup"
-download_asset "26610af1-ed8b-47c1-b2d4-f86a98eb6da5" "app-store-badge"
-download_asset "4895648a-b34e-4dc2-bc88-e5bf10b630c3" "google-play-badge"
-download_asset "e5758205-ec26-4db7-b3fe-3a2c0627d29b" "photo-workplace"
-download_asset "2130bce7-ef0e-42ec-8700-42658894bfef" "photo-penwell"
-download_asset "0449a967-e2c1-4ee6-b1f1-0cc49bee813f" "photo-conference"
-download_asset "0ae6640b-bebc-4274-ba34-39e72cc57383" "photo-event"
-download_asset "499418c5-37e3-42fb-a1bf-1356b50f9002" "feature-prices"
-download_asset "86a99dc8-e63f-4cc4-9ac6-eaf8649e71cd" "feature-news"
-download_asset "1a9e941e-9915-45f7-954f-6c01dd51d7ee" "feature-events"
-download_asset "318fe2b7-94ff-41c4-944c-0bff6627b92a" "feature-menu"
-download_asset "df3debb9-533f-4768-9a7a-329f65d0f38c" "bmi-website-screenshot"
-download_asset "a01ae993-acf7-4cb6-9bab-2e53c5847f6c" "julius-thumbnails"
-download_asset "00bd4e9f-c032-4e75-a940-5d6e56f4adb2" "julius-documentation"
-download_asset "830ee195-4d05-41eb-9493-e8cd6675b856" "julius-statistics"
-download_asset "a95e029a-bef0-4704-9d91-11755fab2a8d" "market-compass" "gif"
+REPLACED=0
+
+for FILE in "${FILES[@]}"; do
+  FILEPATH="$SCRIPT_DIR/$FILE"
+  [[ -f "$FILEPATH" ]] || continue
+
+  BEFORE=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null || echo 0)
+  [[ "$BEFORE" -eq 0 ]] && continue
+
+  for ASSET in "$ASSETS_DIR"/*; do
+    [[ -f "$ASSET" ]] || continue
+    BASENAME=$(basename "$ASSET")
+    UUID="${BASENAME%.*}"
+    FIGMA_URL="https://www.figma.com/api/mcp/asset/${UUID}"
+    LOCAL_PATH="./assets/${BASENAME}"
+    sed -i '' "s|${FIGMA_URL}|${LOCAL_PATH}|g" "$FILEPATH"
+  done
+
+  AFTER=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null || echo 0)
+  DIFF=$(( BEFORE - AFTER ))
+  echo "  $FILE — $DIFF replaced, $AFTER remaining"
+  (( REPLACED += DIFF )) || true
+done
 
 echo ""
-echo "──────────────────────────────────────────────────"
-echo "  Done! Check ./assets/ for all downloaded files."
+echo "🎉  Done! $REPLACED Figma URLs replaced with local paths."
 echo ""
-echo "  Next step: run patch-html.sh to update HTML files"
-echo "  to reference local ./assets/ paths instead of CDN URLs."
-echo "──────────────────────────────────────────────────"
-echo ""
+echo "Next steps:"
+echo "  1. Open index.html in your browser — all images should load"
+echo "  2. git add assets/ index.html remediation.html bmi.html style.css"
+echo "  3. git commit -m 'chore: localise all Figma assets'"
+echo "  4. git push — portfolio works forever on GitHub Pages"

@@ -283,31 +283,28 @@
       .hero-name-short { display: inline; }
       /* Tighter gap at tablet/mobile — Figma nodes 145:4027, 280:5970: gap-[16px] */
       .hero-name-row { gap: 16px; }
-      /* Extra pt-16px wrapper present in Figma at tablet/mobile — node 457:9919 */
-      .hero-online { padding-top: calc(24px + 16px); }
+      /* pt-16px wrapper baked into base padding-top:40px — no tablet override needed */
     }
 
     /* ── Hero Online indicator — image-based component ──────── */
-    /* Figma: 84×84px container, p-24px, inner image 72px */
+    /* Figma: big variant — p-24px Online + pt-16px wrapper, inner image 36px */
     /* Nodes 334:1653 (desktop), 55:575 (1280), 145:4027 (tablet), 280:5970 (mobile) */
     @keyframes hero-online-pulse {
       0%, 100% { opacity: 1;    transform: scale(1); }
       50%       { opacity: 0.85; transform: scale(1.04); }
     }
     .hero-online {
-      width: 84px;
-      height: 84px;
       padding: 24px;
+      padding-top: 40px; /* 24px Online + 16px wrapper = 40px */
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-start;
       flex-shrink: 0;
       animation: hero-online-pulse 2.5s ease-in-out infinite;
     }
     .hero-online__inner {
       position: relative;
-      width: 72px;
-      height: 72px;
+      width: 36px;
+      height: 36px;
       flex-shrink: 0;
     }
     .hero-online__inner img {
@@ -328,7 +325,7 @@
       <div class="header-inner">
         <a href="index.html" class="logo">
           clem
-          <span class="logo-dot" aria-hidden="true"></span>
+          <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/bb812529-b02b-4815-a7a5-4ec8e4bef838" alt="" aria-hidden="true" />
         </a>
         <a href="mailto:clement.blindron@gmail.com" class="btn-cta">
           Let's talk
@@ -355,7 +352,7 @@
               </h1>
               <div class="hero-online" aria-hidden="true">
                 <div class="hero-online__inner">
-                  <img src="https://www.figma.com/api/mcp/asset/af84a6e6-c3a7-47a4-a8a8-978354a0c2a9" alt="" />
+                  <img src="https://www.figma.com/api/mcp/asset/cf0a638c-3806-4715-8b52-7ca49d764e43" alt="" />
                 </div>
               </div>
             </div>
@@ -546,7 +543,7 @@
       <div class="footer-inner">
         <div class="logo">
           clem
-          <span class="logo-dot" aria-hidden="true"></span>
+          <img class="logo-dot" src="https://www.figma.com/api/mcp/asset/bb812529-b02b-4815-a7a5-4ec8e4bef838" alt="" aria-hidden="true" />
         </div>
         <p class="footer-copy">© 2026 Clément Blindron · Designed and built in Barcelona</p>
         <a href="https://www.linkedin.com/in/clement-blindron/" class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>

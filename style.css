@@ -151,7 +151,7 @@ ul, ol { list-style: none; }
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #3ecf8e; /* teal green — Figma Online indicator Default: size-[9px] */
+  display: block; /* image-based — Figma Online small 1: size-[9px], p-[6px] */
   flex-shrink: 0;
   animation: dot-pulse 2s ease-out infinite;
 }
