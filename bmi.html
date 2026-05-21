@@ -172,20 +172,20 @@
     .hero3 .inner { display: flex; flex-direction: column; gap: 48px; }
     .toggle-row { display: flex; justify-content: flex-end; padding-right: 509px; }
     .toggle-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      border: 2px solid #000; border-radius: 32px; padding: 6px;
+      display: inline-flex; align-items: center; gap: 16px;
+      border: 2px solid #000; border-radius: 32px; padding: 2px;
       position: relative; cursor: pointer; overflow: hidden;
     }
     .toggle-bg {
-      position: absolute; left: 6px; top: 6px;
-      background: #1d1d1d; height: 27px; width: 71px;
+      position: absolute; left: 2px; top: 2px;
+      background: #1d1d1d; height: 35px; width: 75px;
       border-radius: 32px; transition: transform .2s ease;
     }
-    .toggle-bg.right { transform: translateX(79px); }
+    .toggle-bg.right { transform: translateX(91px); }
     .toggle-opt {
       position: relative; z-index: 1;
       font-size: 16px; font-weight: 600;
-      width: 71px; text-align: center; line-height: 27px;
+      width: 75px; text-align: center; line-height: 35px;
       transition: color .2s ease;
     }
     .toggle-opt.on { color: #fff; }
@@ -462,23 +462,23 @@
     .ds-pill {
       display: inline-flex; align-items: center;
       border: 2px solid #000; border-radius: 30px;
-      padding: 8px; position: relative; gap: 0;
+      padding: 2px; position: relative; gap: 0;
     }
     .ds-pill-bg {
-      position: absolute; left: 8px;
-      background: #1d1d1d; height: 31px;
+      position: absolute; left: 2px; top: 2px;
+      background: #1d1d1d; height: 35px;
       border-radius: 32px;
       transition: transform .2s ease, width .2s ease;
     }
     .ds-tab {
       font-size: 16px; font-weight: 600;
-      height: 31px; display: flex; align-items: center; justify-content: center;
+      height: 35px; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 1;
       transition: color .2s ease; white-space: nowrap; cursor: pointer;
     }
-    .ds-tab[data-t="thumbnails"]     { width: 110px; }
-    .ds-tab[data-t="documentations"] { width: 146px; }
-    .ds-tab[data-t="statistics"]     { width: 80px; }
+    .ds-tab[data-t="thumbnails"]     { width: 115px; }
+    .ds-tab[data-t="documentations"] { width: 148px; }
+    .ds-tab[data-t="statistics"]     { width: 97px; }
     .ds-tab.on  { color: #fff; }
     .ds-tab.off { color: #13151d; }
     .ds-panels { overflow: hidden; }
@@ -772,10 +772,10 @@
       <div class="screens-clip" style="margin-top:24px;">
         <div class="screens-track" id="h3-track">
           <div class="screen-box">
-            <img src="./assets/14f22f3f-7ac1-4cba-a2f0-31f3c2d719fa.png" alt="Before — old navigation" />
+            <img src="./assets/6a2c60da-ba1c-4cf7-9708-02781a0d6a5b.png" alt="Before — old navigation" />
           </div>
           <div class="screen-box screen-box--gif">
-            <img src="./assets/f34403c6-91b5-43a1-b296-36330fcae7ec.gif" alt="After — mega menu" />
+            <img src="./assets/307f10b0-f35e-4ef5-95bc-2c51159143c3.gif" alt="After — mega menu" />
           </div>
         </div>
       </div>
@@ -1034,7 +1034,7 @@
     <div class="ds-tabs">
       <div class="ds-tabbar">
         <div class="ds-pill">
-          <div class="ds-pill-bg" id="ds-bg" style="width:110px;"></div>
+          <div class="ds-pill-bg" id="ds-bg" style="width:115px;"></div>
           <button class="ds-tab on"  data-t="thumbnails"     onclick="setDsTab('thumbnails')">Thumbnails</button>
           <button class="ds-tab off" data-t="documentations" onclick="setDsTab('documentations')">Documentations</button>
           <button class="ds-tab off" data-t="statistics"     onclick="setDsTab('statistics')">Statistics</button>
@@ -1043,14 +1043,14 @@
       <div class="ds-panels">
         <div class="ds-track" id="ds-track">
           <div class="ds-panel" id="ds-thumbnails">
-            <img src="./assets/1bc6fb18-a190-4378-9aa9-18ab0bb858de.png" alt="Julius DS Thumbnails" />
+            <img src="./assets/10a9c75c-9ca5-481f-9f33-811ba8115cab.png" alt="Julius DS Thumbnails" />
           </div>
           <div class="ds-panel-doc" id="ds-documentations">
-            <img src="./assets/58522c12-4bd1-44f6-9268-bf1b39850266.png" alt="Julius DS Documentation" />
+            <img src="./assets/76d6742a-e248-4de6-91a5-9c4f5965e980.png" alt="Julius DS Documentation" />
             <p>Every component in Julius 2.0 is fully documented, covering anatomy, states, variants, and do and don't usage guidelines. From behaviour specs to accessibility validation, each element is ready for a clean, confident developer handover.</p>
           </div>
           <div class="ds-panel" id="ds-statistics">
-            <img src="./assets/d0e5bd09-2cd2-46ce-b7fe-f0a1aa802a2a.png" alt="Julius DS Statistics" />
+            <img src="./assets/ca138da4-67bb-4b37-94ac-861e6b12e1ed.png" alt="Julius DS Statistics" />
           </div>
         </div>
       </div>
@@ -1173,8 +1173,8 @@
   // thumbnails   → translateX(0)     : T at x=0, Documentation peeks from x=828
   // documentations → translateX(-828): D at x=0, Statistics peeks from x=828
   // statistics   → translateX(-1656) : S at x=0, no next panel
-  var dsTabWidths  = { thumbnails: 110, documentations: 146, statistics: 80 };
-  var dsTabOffsets = { thumbnails: 0,   documentations: 110, statistics: 256 };
+  var dsTabWidths  = { thumbnails: 115, documentations: 148, statistics: 97 };
+  var dsTabOffsets = { thumbnails: 0,   documentations: 115, statistics: 263 };
   var dsTrackPos   = { thumbnails: 0,   documentations: -828, statistics: -1656 };
 
   function setDsTab(tab) {
@@ -1190,7 +1190,7 @@
   }
 
   // Init
-  document.getElementById('ds-bg').style.width     = '110px';
+  document.getElementById('ds-bg').style.width     = '115px';
   document.getElementById('ds-bg').style.transform = 'translateX(0)';
   document.getElementById('ds-track').style.transform = 'translateX(0)';
 </script>
