@@ -75,7 +75,7 @@ URLS=(
   "https://www.figma.com/api/mcp/asset/77a7a9f3-88d0-43b9-8573-c86f7226c9e6"
   "https://www.figma.com/api/mcp/asset/8145c8c8-4b13-45e3-bb89-27544e71450c"
   "https://www.figma.com/api/mcp/asset/8cc620ca-9e68-49d4-a1ee-81c06bcdc938"
-  "https://www.figma.com/api/mcp/asset/962ac520-4961-492a-8992-b8e8012c14f3"
+  "https://www.figma.com/api/mcp/asset/ec6692aa-ebfd-445b-bd9d-9ee9f3448e03"
   "https://www.figma.com/api/mcp/asset/97db5d6e-801e-46ed-9263-740395476fa1"
   "https://www.figma.com/api/mcp/asset/98a0eb10-cb6c-4516-81c6-b96f3876ce5a"
   "https://www.figma.com/api/mcp/asset/991759e5-ab09-4242-892f-22576e5343a1"
