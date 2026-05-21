@@ -177,7 +177,8 @@ for FILE in "${FILES[@]}"; do
   FILEPATH="$SCRIPT_DIR/$FILE"
   [[ -f "$FILEPATH" ]] || continue
 
-  BEFORE=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null || echo 0)
+  BEFORE=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null; true)
+  BEFORE=${BEFORE:-0}
   [[ "$BEFORE" -eq 0 ]] && continue
 
   for ASSET in "$ASSETS_DIR"/*; do
@@ -189,10 +190,11 @@ for FILE in "${FILES[@]}"; do
     sed -i '' "s|${FIGMA_URL}|${LOCAL_PATH}|g" "$FILEPATH"
   done
 
-  AFTER=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null || echo 0)
+  AFTER=$(grep -c 'figma\.com/api/mcp/asset' "$FILEPATH" 2>/dev/null; true)
+  AFTER=${AFTER:-0}
   DIFF=$(( BEFORE - AFTER ))
   echo "  $FILE — $DIFF replaced, $AFTER remaining"
-  (( REPLACED += DIFF )) || true
+  REPLACED=$(( REPLACED + DIFF ))
 done
 
 echo ""
