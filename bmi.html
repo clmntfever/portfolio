@@ -190,7 +190,9 @@
     }
     .toggle-opt.on { color: #fff; }
     .toggle-opt.off { color: #13151d; }
-    .screens-clip { overflow: visible; width: 100%; }
+    .screens-clip { overflow: hidden; width: 100%; }
+    /* picture elements inside screen-boxes must be layout-transparent */
+    .screen-box picture, .screen-box--gif picture { display: contents; }
     .screens-track {
       display: flex; gap: 24px;
       transition: transform .3s ease;
@@ -392,7 +394,7 @@
     .feat-carousel::-webkit-scrollbar { display: none; }
     .feat-card {
       background: #fff; border-radius: 12px;
-      box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.25), 1px 1px 2px 0px white, 2px 2px 8px 0px rgba(0,0,0,0.25);
+      border: 1px solid #cecece;
       padding: 16px 24px; width: 290px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 24px;
       scroll-snap-align: start;
@@ -493,7 +495,7 @@
       width: 780px; flex-shrink: 0;
       display: flex; flex-direction: column; gap: 10px;
     }
-    .ds-panel-doc > img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; display: block; border-radius: 20px; }
+    .ds-panel-doc > img { width: 100%; height: auto; display: block; border-radius: 20px; }
     .ds-panel-doc p {
       font-size: 12px; font-style: italic; font-weight: 300;
       line-height: 1.55; color: #000;
@@ -502,7 +504,7 @@
     .ds-stacked { display: none; flex-direction: column; gap: 36px; }
     .ds-stacked img.full { width: 100%; aspect-ratio: 2160/1542; object-fit: cover; }
     .ds-doc-wrap { display: flex; flex-direction: column; gap: 8px; }
-    .ds-doc-wrap img { width: 100%; aspect-ratio: 2160/1543; object-fit: cover; }
+    .ds-doc-wrap img { width: 100%; height: auto; }
     .ds-doc-wrap p {
       font-size: 12px; font-style: italic; font-weight: 300;
       line-height: 1.55; color: #000;
@@ -532,8 +534,9 @@
     .hero7 {
       background: #fff;
       padding: var(--py) 180px var(--py) var(--pad-l);
-      display: flex; flex-direction: column; gap: 48px;
+      display: flex; justify-content: center;
     }
+    .hero7 .inner { display: flex; flex-direction: column; gap: 48px; }
     .h7-cards { display: flex; gap: 17px; }
     .result-card {
       flex: 1 0 0; min-width: 258px; max-width: 360px;
@@ -772,10 +775,16 @@
       <div class="screens-clip" style="margin-top:24px;">
         <div class="screens-track" id="h3-track">
           <div class="screen-box">
-            <img src="./assets/6a2c60da-ba1c-4cf7-9708-02781a0d6a5b.png" alt="Before — old navigation" />
+            <picture>
+              <source media="(max-width: 402px)" srcset="./assets/139b4a94-ad97-4334-b690-ea90025b623e.png" />
+              <img src="./assets/2217dba7-ec0d-4c0a-9ac5-61b60eabea7d.png" alt="Before — old navigation" />
+            </picture>
           </div>
           <div class="screen-box screen-box--gif">
-            <img src="./assets/307f10b0-f35e-4ef5-95bc-2c51159143c3.gif" alt="After — mega menu" />
+            <picture>
+              <source media="(max-width: 402px)" srcset="./assets/3f8dc928-7a5d-4379-8f9e-c5b2dc3601ad.gif" type="image/gif" />
+              <img src="./assets/1ebfb794-8ba9-4e29-bac8-cc1779234e57.gif" alt="After — mega menu" />
+            </picture>
           </div>
         </div>
       </div>
@@ -1098,6 +1107,7 @@
 
 <!-- ========== HERO 7 ========== -->
 <section class="hero7">
+  <div class="inner">
   <div class="stop">
     <div class="slabel"><span>OUTCOMES</span></div>
     <h2 class="sheading">Where Design Met Business</h2>
@@ -1125,6 +1135,7 @@
       <p class="res-desc">Julius eliminated rework and streamlined handoff with the external dev team</p>
     </div>
   </div>
+  </div><!-- /.inner -->
 </section>
 
 <!-- ========== FOOTER ========== -->

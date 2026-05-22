@@ -41,6 +41,11 @@ URLS=(
   "https://www.figma.com/api/mcp/asset/15fdb406-c1a5-4742-a904-74a353d68309"
   "https://www.figma.com/api/mcp/asset/6a2c60da-ba1c-4cf7-9708-02781a0d6a5b"
   "https://www.figma.com/api/mcp/asset/307f10b0-f35e-4ef5-95bc-2c51159143c3"
+  # Hero 3 — updated screens (Before PNG + After GIF, desktop & mobile)
+  "https://www.figma.com/api/mcp/asset/2217dba7-ec0d-4c0a-9ac5-61b60eabea7d"
+  "https://www.figma.com/api/mcp/asset/1ebfb794-8ba9-4e29-bac8-cc1779234e57"
+  "https://www.figma.com/api/mcp/asset/139b4a94-ad97-4334-b690-ea90025b623e"
+  "https://www.figma.com/api/mcp/asset/3f8dc928-7a5d-4379-8f9e-c5b2dc3601ad"
   "https://www.figma.com/api/mcp/asset/10a9c75c-9ca5-481f-9f33-811ba8115cab"
   "https://www.figma.com/api/mcp/asset/76d6742a-e248-4de6-91a5-9c4f5965e980"
   "https://www.figma.com/api/mcp/asset/ca138da4-67bb-4b37-94ac-861e6b12e1ed"
