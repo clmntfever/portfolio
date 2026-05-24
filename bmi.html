@@ -190,7 +190,7 @@
     }
     .toggle-opt.on { color: #fff; }
     .toggle-opt.off { color: #13151d; }
-    .screens-clip { overflow: hidden; width: 100%; }
+    .screens-clip { overflow: visible; width: 100%; }
     /* picture elements inside screen-boxes must be layout-transparent */
     .screen-box picture, .screen-box--gif picture { display: contents; }
     .screens-track {
@@ -483,13 +483,13 @@
     .ds-tab[data-t="statistics"]     { width: 97px; }
     .ds-tab.on  { color: #fff; }
     .ds-tab.off { color: #13151d; }
-    .ds-panels { overflow: hidden; }
+    .ds-panels { overflow: visible; }
     .ds-track {
       display: flex; gap: 48px;
       transition: transform .35s cubic-bezier(.4,0,.2,1);
       will-change: transform;
     }
-    .ds-panel { width: 780px; flex-shrink: 0; border-radius: 20px; overflow: hidden; }
+    .ds-panel { width: 780px; flex-shrink: 0; border-radius: 20px; }
     .ds-panel img { width: 780px; height: 557px; object-fit: cover; display: block; border-radius: 20px; }
     .ds-panel-doc {
       width: 780px; flex-shrink: 0;
@@ -776,8 +776,8 @@
         <div class="screens-track" id="h3-track">
           <div class="screen-box">
             <picture>
-              <source media="(max-width: 402px)" srcset="./assets/139b4a94-ad97-4334-b690-ea90025b623e.png" />
-              <img src="./assets/2217dba7-ec0d-4c0a-9ac5-61b60eabea7d.png" alt="Before — old navigation" />
+              <source media="(max-width: 402px)" srcset="./assets/139b4a94-ad97-4334-b690-ea90025b623e.gif" />
+              <img src="./assets/2217dba7-ec0d-4c0a-9ac5-61b60eabea7d.gif" alt="Before — old navigation" />
             </picture>
           </div>
           <div class="screen-box screen-box--gif">
