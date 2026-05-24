@@ -86,6 +86,7 @@ URLS=(
   "https://www.figma.com/api/mcp/asset/8145c8c8-4b13-45e3-bb89-27544e71450c"
   "https://www.figma.com/api/mcp/asset/8cc620ca-9e68-49d4-a1ee-81c06bcdc938"
   "https://www.figma.com/api/mcp/asset/3cdcf16c-f93c-45ad-b43a-3acc202e03d8"
+  "https://www.figma.com/api/mcp/asset/8744ac4e-a8ba-46d9-9654-3d2a4718bc4b"  # remediation Hero 1 — mobile thumbnail
   "https://www.figma.com/api/mcp/asset/97db5d6e-801e-46ed-9263-740395476fa1"
   "https://www.figma.com/api/mcp/asset/98a0eb10-cb6c-4516-81c6-b96f3876ce5a"
   "https://www.figma.com/api/mcp/asset/991759e5-ab09-4242-892f-22576e5343a1"

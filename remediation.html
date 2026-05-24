@@ -1134,21 +1134,20 @@
     /* ── MOBILE ≤402px ──────────────────────────────────────── */
     @media (max-width: 402px) {
       /* Hero 1 — stack */
-      .hero1 { height: 522px; padding: 56px 24px 0; flex-direction: column; gap: 0; }
+      .hero1 { height: auto; overflow: visible; padding: 56px 24px 48px; flex-direction: column; gap: 0; }
       .hero1__inner { flex-direction: column; gap: 32px; max-width: 100%; }
       .hero1__text { max-width: 100%; padding-bottom: 0; }
       .hero1__info { gap: 8px; }
       .hero1__title { font-size: 40px; width: 100%; }
       .hero1__desc { width: 100%; }
-      .hero1__thumb-col { padding-top: 0; }
+      .hero1__thumb-col { padding-top: 0; width: 100%; }
       .hero1__thumb-wrap {
         width: 100%;
-        max-width: 377px;
-        height: 243px;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 323 / 208;
       }
-      .hero1__thumb-img {
-        top: -33%;
-      }
+      /* hero1__thumb-img inherits correct positioning from base: top: -22.51% */
 
       /* Generic sections */
       .rem-section { padding: 48px 24px; }
@@ -1193,8 +1192,10 @@
         </div>
         <div class="hero1__thumb-col">
           <div class="hero1__thumb-wrap">
-            <!-- TO SAVE LOCALLY: open src URL in browser → Save As → assets/hero1-thumbnail.png, then update src -->
-            <img class="hero1__thumb-img" src="./assets/3cdcf16c-f93c-45ad-b43a-3acc202e03d8.png" alt="Remediation Objectives — product screenshot" />
+            <picture>
+              <source media="(max-width: 402px)" srcset="./assets/8744ac4e-a8ba-46d9-9654-3d2a4718bc4b.png" />
+              <img class="hero1__thumb-img" src="./assets/3cdcf16c-f93c-45ad-b43a-3acc202e03d8.png" alt="Remediation Objectives — product screenshot" />
+            </picture>
           </div>
         </div>
       </div>

@@ -502,7 +502,8 @@
     }
     /* Stacked (tablet/mobile) */
     .ds-stacked { display: none; flex-direction: column; gap: 36px; }
-    .ds-stacked img.full { width: 100%; aspect-ratio: 2160/1542; object-fit: cover; }
+    .ds-stacked .full img { width: 100%; aspect-ratio: 2160/1542; object-fit: cover; display: block; }
+    .ds-stacked .full:last-child img { border: 1px solid #dfdfdf; }
     .ds-doc-wrap { display: flex; flex-direction: column; gap: 8px; }
     .ds-doc-wrap img { width: 100%; height: auto; }
     .ds-doc-wrap p {
@@ -597,7 +598,7 @@
       .hero5 { padding: var(--py) var(--pad-t); }
       .ds-tabs { display: none; }
       .ds-stacked { display: flex; }
-      .ds-stacked img.full { border-radius: 20px; }
+      .ds-stacked .full img { border-radius: 20px; }
       .ds-doc-wrap img { border-radius: 20px; }
       /* Hero 6 */
       .hero6 { padding: var(--py) var(--pad-t); }
@@ -641,7 +642,7 @@
       .app-feat-section { padding: 0; }
       /* Hero 5 */
       .hero5 { padding: var(--py) var(--pad-m); }
-      .ds-stacked img.full { border-radius: 12px; }
+      .ds-stacked .full img { border-radius: 12px; }
       .ds-doc-wrap img { border-radius: 12px; }
       /* Hero 6 */
       .hero6 { padding: var(--py) var(--pad-m); }
@@ -945,7 +946,7 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.png" alt="" />
+                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.svg" alt="" />
                 <span>1</span>
               </div>
               <span class="feat-title">Interactive price graphs</span>
@@ -963,7 +964,7 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.png" alt="" />
+                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.svg" alt="" />
                 <span>2</span>
               </div>
               <span class="feat-title">Latest News and Analysis</span>
@@ -981,7 +982,7 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.png" alt="" />
+                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.svg" alt="" />
                 <span>3</span>
               </div>
               <span class="feat-title">Upcoming Events</span>
@@ -999,7 +1000,7 @@
           <div class="feat-card-top">
             <div class="feat-num-row">
               <div class="feat-num">
-                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.png" alt="" />
+                <img src="./assets/6bfdaed7-d118-47e5-b7bf-ac5da9ea4c8d.svg" alt="" />
                 <span>4</span>
               </div>
               <span class="feat-title">Stay up to date</span>
