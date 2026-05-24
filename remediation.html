@@ -920,7 +920,6 @@
       font-weight: 400;
       color: #444444;
       line-height: 1.7;
-      width: 800px;
     }
 
     /* ── HERO 9 — WHAT I LEARNED ────────────────────────────── */
@@ -1033,6 +1032,7 @@
       gap: 16px;
       width: 100%;
       max-width: 1080px;
+      min-width: 1000px;
     }
     .hero10__heading {
       font-size: 32px;
@@ -1054,6 +1054,9 @@
       display: flex;
       flex-wrap: wrap;
       gap: 48px 32px;
+      width: 1176px;
+      align-content: center;
+      align-items: center;
     }
     /* Cards — fully scoped, overrides every style.css responsive rule */
     .hero10 .project-card {
@@ -1063,6 +1066,7 @@
       min-width: 360px;
       max-width: 360px;
       min-height: 482px;
+      max-height: 482px;
       border: 2px solid #e4ddd0;
       border-radius: 16px;
       background: #ffffff;
@@ -1082,6 +1086,9 @@
       overflow: hidden;
       flex-shrink: 0;
       border-radius: 16px 16px 0 0;
+    }
+    .hero10 .project-card:last-child .project-card__thumb {
+      height: 232px;
     }
     .hero10 .project-card__thumb img {
       width: 100%;
@@ -1154,6 +1161,11 @@
       .hero7__top { padding-left: 60px; }
       .site-footer { padding-left: 80px; padding-right: 80px; }
       .hero10 { padding-left: 80px; padding-right: 80px; }
+    }
+
+    /* ── ≤1024px — header narrows to 32px padding ──────────── */
+    @media (max-width: 1024px) {
+      .site-header { padding: 18px 32px; }
     }
 
     /* ── TABLET ≤768px ──────────────────────────────────────── */
@@ -1259,6 +1271,7 @@
 
       /* Hero 10 — horizontal scroll carousel */
       .hero10 { padding: 48px 32px; overflow-x: hidden; }
+      .hero10__content { min-width: unset; }
       .hero10__body { width: 100%; }
       .hero10__cards {
         flex-wrap: nowrap;
@@ -1266,6 +1279,7 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         gap: 32px;
+        width: auto;
         margin-left: -32px;
         margin-right: -32px;
         padding: 0 32px 8px;
@@ -1275,6 +1289,9 @@
 
     /* ── MOBILE ≤402px ──────────────────────────────────────── */
     @media (max-width: 402px) {
+      /* Nav */
+      .site-header { padding: 18px 24px; }
+
       /* Hero 1 — stack */
       .hero1 { height: auto; overflow: visible; padding: 56px 24px 48px; flex-direction: column; gap: 0; }
       .hero1__inner { flex-direction: column; gap: 32px; max-width: 100%; }
@@ -1329,7 +1346,7 @@
       </a>
       <a href="mailto:clement.blindron@gmail.com" class="btn-talk">
         Let's talk&nbsp;
-        <img src="./assets/f90f3eab-f4fd-4ab2-beb9-e33bf1ca03d2.svg" alt="" />
+        <img src="./assets/349dc878-f32c-4fcf-86f8-975a71416065.svg" alt="" aria-hidden="true" />
       </a>
     </div>
   </header>

@@ -82,7 +82,10 @@
       font-size: 13px; font-weight: 600;
       height: 40px; padding: 8px 16px;
       border-radius: 48px; white-space: nowrap;
+      text-decoration: none;
+      transition: opacity 0.2s;
     }
+    .btn-talk:hover { opacity: 0.85; }
     .btn-talk img { width: 16px; height: 16px; }
 
     /* ===== HERO 1 ===== */
@@ -563,6 +566,11 @@
     .footer-copy { font-size: 12px; color: #b4aea6; white-space: nowrap; }
     .footer-li { font-size: 12px; color: #8a8580; text-decoration: underline; white-space: nowrap; }
 
+    /* ===== ≤1024px — header padding narrows ===== */
+    @media (max-width: 1024px) {
+      .site-header { padding: 18px 32px; }
+    }
+
     /* ===== TABLET (≤768px) ===== */
     @media (max-width: 768px) {
       .inner { min-width: unset; }
@@ -657,6 +665,175 @@
       /* Footer */
       .site-footer { padding: 18px var(--pad-m); }
     }
+
+    /* ── HERO 8 — WANT TO SEE MORE ─────────────────────────── */
+    .hero8 {
+      background: #ffffff;
+      padding: 48px 130px 48px 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero8__content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 1080px;
+      min-width: 1000px;
+    }
+    .hero8__heading {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.48px;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    .hero8__body {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #444444;
+      width: 800px;
+      margin: 0;
+    }
+    .hero8__cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px 32px;
+      width: 1176px;
+      align-content: center;
+      align-items: center;
+    }
+    /* Cards — fully scoped to override style.css responsive rules */
+    .hero8 .project-card {
+      display: flex;
+      flex-direction: column;
+      width: 360px;
+      min-width: 360px;
+      max-width: 360px;
+      min-height: 482px;
+      max-height: 482px;
+      border: 2px solid #e4ddd0;
+      border-radius: 16px;
+      background: #ffffff;
+      overflow: hidden;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .hero8 .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(17, 17, 16, 0.08);
+    }
+    .hero8 .project-card__thumb {
+      width: 100%;
+      height: 231px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 16px 16px 0 0;
+    }
+    .hero8 .project-card:last-child .project-card__thumb {
+      height: 232px;
+    }
+    .hero8 .project-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero8 .project-card__thumb--zoom-rem img {
+      position: absolute;
+      width: 109.51%;
+      height: 133.43%;
+      max-width: none;
+      left: -4.76%;
+      top: -22.51%;
+    }
+    .hero8 .project-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 20px 20px;
+    }
+    .hero8 .project-card__tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #b4aea6;
+      margin-top: 16px;
+    }
+    .hero8 .project-card__company {
+      font-size: 12px;
+      font-weight: 400;
+      color: #8a8580;
+    }
+    .hero8 .project-card__title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.38px;
+      line-height: 1.2;
+      color: #111110;
+    }
+    .hero8 .project-card__desc {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #8a8580;
+    }
+    .hero8 .project-card__cta {
+      padding-top: 8px;
+    }
+    .hero8 .btn-see-case {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 8px 16px;
+      background: #111110;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 48px;
+      transition: opacity 0.2s;
+    }
+    .hero8 .btn-see-case:hover { opacity: 0.85; }
+
+    /* Hero 8 — tablet ≤768px */
+    @media (max-width: 768px) {
+      .hero8 { padding: 48px 32px; overflow-x: hidden; }
+      .hero8__content { min-width: unset; }
+      .hero8__body { width: 100%; }
+      .hero8__cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 32px;
+        width: auto;
+        margin-left: -32px;
+        margin-right: -32px;
+        padding: 0 32px 8px;
+      }
+      .hero8__cards::-webkit-scrollbar { display: none; }
+    }
+
+    /* Hero 8 — mobile ≤402px */
+    @media (max-width: 402px) {
+      .hero8 { padding: 48px 24px; overflow-x: visible; }
+      .hero8__body { width: 100%; }
+      .hero8__cards {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-x: visible;
+        gap: 48px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+      }
+      .hero8 .project-card { width: 100%; min-width: 0; max-width: 360px; }
+    }
   </style>
 </head>
 <body>
@@ -670,7 +847,7 @@
     </a>
     <a href="mailto:clement.blindron@gmail.com" class="btn-talk">
       Let's talk&nbsp;
-      <img src="./assets/f40cbb9e-c90f-4116-bdfe-f19a5cd727bd.svg" alt="" />
+      <img src="./assets/349dc878-f32c-4fcf-86f8-975a71416065.svg" alt="" aria-hidden="true" />
     </a>
   </div>
 </header>
@@ -1137,6 +1314,52 @@
     </div>
   </div>
   </div><!-- /.inner -->
+</section>
+
+<!-- ========== HERO 8 — WANT TO SEE MORE ========== -->
+<section class="hero8" aria-labelledby="more-heading-bmi">
+  <div class="hero8__content">
+    <div class="slabel"><span>More</span></div>
+    <h2 id="more-heading-bmi" class="hero8__heading">Want to see more?</h2>
+    <p class="hero8__body">A few more projects worth exploring. Each one is a different challenge, a different product, but the same attention to craft. From design systems to product redesigns, here is another look at how I work and what I bring to a product.</p>
+    <div class="hero8__cards">
+
+      <!-- Card 1: Remediation Objectives -->
+      <a href="remediation.html" class="project-card" aria-label="View Remediation Objectives case study">
+        <div class="project-card__thumb project-card__thumb--zoom-rem">
+          <img src="./assets/ecb0f354-bf47-48ac-97ae-45356b72cb75.png"
+               alt="Panaseer — Remediation Objectives" loading="lazy" />
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__tag">Cybersecurity · SaaS · 2024</p>
+          <p class="project-card__company">Panaseer</p>
+          <h3 class="project-card__title">Remediation Objectives</h3>
+          <p class="project-card__desc">Designing a workflow that turns thousands of security control gaps into a clear, prioritised remediation plan.</p>
+          <div class="project-card__cta">
+            <span class="btn-see-case">See case</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Panaseer Design System -->
+      <a href="#" class="project-card" aria-label="Panaseer Design System — coming soon">
+        <div class="project-card__thumb">
+          <img src="./assets/e00bfd32-7eeb-4ce4-8d43-77586cd1f1fb.png"
+               alt="Panaseer Design System" loading="lazy" />
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__tag">Cybersecurity · SaaS · 2023–25</p>
+          <p class="project-card__company">Panaseer</p>
+          <h3 class="project-card__title">Panaseer Design System</h3>
+          <p class="project-card__desc">Rebuilt and documented the end-to-end design system with WCAG 2.1 AA baked in as the single source of truth.</p>
+          <div class="project-card__cta">
+            <span class="btn-see-case">See case</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
 </section>
 
 <!-- ========== FOOTER ========== -->
